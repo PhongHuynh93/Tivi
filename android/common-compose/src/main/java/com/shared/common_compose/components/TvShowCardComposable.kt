@@ -13,9 +13,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.datasource.CollectionPreviewParameterProvider
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.shared.common_compose.R
+import com.shared.common_compose.theme.PreviewAppTheme
 
 
 @Composable
@@ -54,4 +57,15 @@ fun TvShowCard(
     }
 
     RowSpacer(value = rowSpacer)
+}
+
+@Preview
+@Composable
+fun TvShowCardPreview() {
+    PreviewAppTheme {
+        TvShowCard(
+            posterImageUrl = "",
+            title = "Lorem"
+        )
+    }
 }

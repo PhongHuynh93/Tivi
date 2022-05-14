@@ -41,6 +41,7 @@ squareup-leakcanary = "2.8.1"
 sqldelight = "1.5.3"
 turbine = "0.7.0"
 konnection = "1.1.6"
+settings = "0.8.1"
 
 testing-arch-core = "2.1.0"
 testing-junit = "4.13.2"
@@ -104,6 +105,8 @@ hilt-compiler = { module = "com.google.dagger:hilt-compiler", version.ref = "hil
 hilt-navigation = { module = "androidx.hilt:hilt-navigation-compose", version.ref = "hiltNavigation" }
 
 koin-core = { module = "io.insert-koin:koin-core", version.ref = "koin" }
+koin-android = { module = "io.insert-koin:koin-android", version.ref = "koin"}
+koin-compose = { module = "io.insert-koin:koin-androidx-compose", version.ref = "koin"}
 
 ktor-android = { module = "io.ktor:ktor-client-android", version.ref = "ktor" }
 ktor-core = { module = "io.ktor:ktor-client-core", version.ref = "ktor" }
@@ -120,6 +123,7 @@ material = { module = "com.google.android.material:material", version.ref = "mat
 kenburns = { module = "com.flaviofaria:kenburnsview", version.ref = "kenburns" }
 snapper = { module = "dev.chrisbanes.snapper:snapper", version.ref = "snapper" }
 konnection = { module = "dev.tmapps:konnection", version.ref = "konnection" }
+settings = { module = "com.russhwolf:multiplatform-settings", version.ref = "settings" }
 
 multiplatform-paging-core = { module = "io.github.kuuuurt:multiplatform-paging", version.ref = "multiplatform-paging" }
 multiplatform-paging-ios-x64 = { module = "io.github.kuuuurt:multiplatform-paging-iosX64", version.ref = "multiplatform-paging" }
