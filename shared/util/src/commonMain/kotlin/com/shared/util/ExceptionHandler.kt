@@ -1,8 +1,6 @@
-package com.thomaskioko.tvmaniac.core.util
+package com.shared.util
 
 import co.touchlab.kermit.Logger
-import io.ktor.client.features.ResponseException
-import io.ktor.client.features.ServerResponseException
 import io.ktor.client.plugins.ResponseException
 import io.ktor.client.plugins.ServerResponseException
 

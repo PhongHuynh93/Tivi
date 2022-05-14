@@ -1,4 +1,4 @@
-package com.wind.tv.android.theme
+package com.shared.common_compose.theme
 
 import androidx.compose.material.Colors
 import androidx.compose.material.LocalElevationOverlay

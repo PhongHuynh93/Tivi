@@ -25,8 +25,8 @@ subprojects {
     tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
         with(kotlinOptions) {
             freeCompilerArgs = freeCompilerArgs + listOf(
-                "-Xopt-in=kotlin.RequiresOptIn",
-                "-Xopt-in=kotlin.OptIn"
+                "-opt-in=kotlin.RequiresOptIn",
+                "-opt-in=kotlin.OptIn"
             )
         }
     }

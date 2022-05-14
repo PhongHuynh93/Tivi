@@ -1,4 +1,4 @@
-package com.wind.tv.android.theme
+package com.shared.common_compose.theme
 
 import androidx.compose.material.Typography
 import androidx.compose.ui.text.TextStyle
@@ -7,7 +7,8 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
-import com.wind.tv.android.R
+import com.shared.common_compose.R
+
 
 private val workSansFontFamily = FontFamily(
     fonts = listOf(
@@ -37,7 +38,7 @@ private val workSansFontFamily = FontFamily(
             style = FontStyle.Normal
         ),
 
-    )
+        )
 )
 
 val TvManiacTypography = Typography(

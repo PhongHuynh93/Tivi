@@ -76,3 +76,7 @@ multiplatformSwiftPackage {
     distributionMode { local() }
     outputDirectory(File("$projectDir/../../../", "tvmaniac-swift-packages"))
 }
+
+android {
+    sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
+}

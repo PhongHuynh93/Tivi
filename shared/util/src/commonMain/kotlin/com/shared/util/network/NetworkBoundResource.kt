@@ -1,6 +1,6 @@
 package com.shared.util.network
 
-import com.thomaskioko.tvmaniac.core.util.resolveError
+import com.shared.util.resolveError
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch

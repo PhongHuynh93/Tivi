@@ -17,9 +17,10 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.core.view.WindowCompat
 import com.google.accompanist.insets.ProvideWindowInsets
+import com.shared.common_compose.components.ConnectionStatus
+import com.shared.common_compose.theme.TvManiacTheme
 import com.shared.util.network.ConnectionState
 import com.shared.util.network.ObserveConnectionState
-import com.wind.tv.android.theme.TvManiacTheme
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.distinctUntilChanged

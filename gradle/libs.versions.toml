@@ -1,5 +1,5 @@
 [versions]
-kotlin = "1.6.20"
+kotlin = "1.6.21"
 
 android-compile = "31"
 android-target = "31"
@@ -15,7 +15,7 @@ androidx-activity = "1.4.0"
 androidx-appCompat = "1.4.0"
 androidx-core = "1.7.0"
 androidx-compose = "1.1.0-rc01"
-compose-compiler = "1.1.0-rc02"
+compose-compiler = "1.2.0-beta01"
 androidx-composePaging = "1.0.0-alpha14"
 androidx-constraintlayout = "1.0.0-rc02"
 androidx-datastore = "1.0.0"
