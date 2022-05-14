@@ -20,4 +20,5 @@ dependencies {
     implementation(libs.androidx.compose.activity)
     implementation(libs.accompanist.systemuicontroller)
     implementation(libs.koin.compose)
+    implementation(libs.androidx.compose.material.icons)
 }

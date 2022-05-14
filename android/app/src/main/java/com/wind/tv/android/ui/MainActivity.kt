@@ -42,7 +42,7 @@ class MainActivity : ComponentActivity() {
             ProvideWindowInsets(consumeWindowInsets = false) {
                 TvManiacTheme() {
                     SetupTheme()
-//                    HomeScreen(composeNavigationFactories)
+                    HomeScreen()
                 }
             }
 

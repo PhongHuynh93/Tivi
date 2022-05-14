@@ -1,6 +1,8 @@
 package com.shared.myapplication
 
 import co.touchlab.kermit.Logger
+import com.shared.myapplication.domain.domainModule
+import com.shared.myapplication.viewmodel.viewmodelModule
 import com.shared.util.network.ObserveConnectionState
 import com.shared.util.platformCoroutineDispatcher
 import io.ktor.client.HttpClient
@@ -22,7 +24,8 @@ fun initKoin(appModule: Module): KoinApplication {
             appModule,
             platformModule,
             coreModule,
-//            viewmodelModule
+            viewmodelModule,
+            domainModule
         )
     }
 

@@ -1,6 +1,8 @@
 package com.shared.util
 
 import kotlinx.coroutines.CancellationException
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
@@ -16,7 +18,7 @@ import kotlinx.coroutines.flow.onStart
  * @see <a href="https://github.com/futuredapp/arkitekt-kmm/">
  *
  */
-abstract class FlowInteractor<Arg, ReturnType> {
+abstract class FlowInteractor<Arg, ReturnType>(private val coroutineDispatcher: CoroutineDispatcher) {
 
     var job: Job? = null
 
@@ -25,7 +27,8 @@ abstract class FlowInteractor<Arg, ReturnType> {
     operator fun invoke(params: Arg): Flow<ReturnType> =
         run(params)
 
-    fun CoroutineScopeOwner.execute(
+    fun execute(
+        scope: CoroutineScope,
         args: Arg,
         config: FlowUseCaseConfig.Builder<ReturnType>.() -> Unit
     ) {
@@ -39,7 +42,7 @@ abstract class FlowInteractor<Arg, ReturnType> {
             job?.cancel()
         }
         job = run(args)
-            .flowOn(getWorkerDispatcher())
+            .flowOn(coroutineDispatcher)
             .onStart { flowUseCaseConfig.onStart() }
             .onEach { flowUseCaseConfig.onNext(it) }
             .onCompletion { error ->
@@ -52,7 +55,7 @@ abstract class FlowInteractor<Arg, ReturnType> {
                 }
             }
             .catch { /* handled in onCompletion */ }
-            .launchIn(coroutineScope)
+            .launchIn(scope)
     }
 
     /**
