@@ -20,8 +20,24 @@ kotlin {
         }
     }
 
+    targets.withType<org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget> {
+        binaries.withType<org.jetbrains.kotlin.gradle.plugin.mpp.Framework> {
+            isStatic = false
+            linkerOpts.add("-lsqlite3")
+
+            export(projects.shared.util)
+            embedBitcode(org.jetbrains.kotlin.gradle.plugin.mpp.BitcodeEmbeddingMode.BITCODE)
+
+            transitiveExport = true
+        }
+    }
+
     sourceSets {
-        val commonMain by getting
+        val commonMain by getting {
+            dependencies {
+                api(projects.shared.util)
+            }
+        }
         val commonTest by getting {
             dependencies {
                 implementation(kotlin("test"))

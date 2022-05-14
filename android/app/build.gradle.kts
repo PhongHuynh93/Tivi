@@ -13,6 +13,10 @@ android {
 }
 
 dependencies {
-    implementation(projects.shared)
-    implementation(libs.accompanist.insetsui)
+    implementation(projects.shared.shared)
+    implementation(projects.android.commonCompose)
+
+    implementation(libs.accompanist.insets)
+    implementation(libs.androidx.compose.activity)
+    implementation(libs.accompanist.systemuicontroller)
 }

@@ -10,5 +10,7 @@ pluginManagement {
 }
 
 rootProject.name = "Tivi"
-include(":androidApp")
+include(":android:app")
+include(":android:common-compose")
 include(":shared:shared")
+include(":shared:util")

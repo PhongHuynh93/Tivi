@@ -64,20 +64,4 @@ dependencies {
     implementation(libs.ktor.android)
 
     debugImplementation(libs.squareup.leakcanary)
-
-    implementation(libs.androidx.core)
-    implementation(libs.androidx.palette)
-    implementation(libs.androidx.compose.runtime)
-    implementation(libs.androidx.compose.material)
-    implementation(libs.androidx.compose.material.icons)
-    implementation(libs.androidx.compose.ui.runtime)
-    implementation(libs.androidx.compose.foundation)
-    implementation(libs.androidx.compose.compiler)
-    implementation(libs.androidx.compose.ui.tooling)
-    implementation(libs.kenburns)
-    implementation(libs.coil)
-    implementation(libs.accompanist.insets)
-    implementation(libs.androidx.lifecycle.runtime)
-    implementation(libs.androidx.compose.activity)
-    implementation(libs.accompanist.systemuicontroller)
 }
