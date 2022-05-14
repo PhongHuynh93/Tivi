@@ -7,7 +7,6 @@ plugins {
     id("com.android.application")
     kotlin("android")
     kotlin("kapt")
-    id("dagger.hilt.android.plugin")
 }
 
 android {
@@ -56,21 +55,29 @@ android {
     composeOptions {
         kotlinCompilerExtensionVersion = libs.versions.compose.compiler.get()
     }
+}
 
-    tasks.withType<Test>().configureEach {
-        useJUnitPlatform()
-    }
+dependencies {
 
-    dependencies {
+    implementation(libs.koin.core)
+    implementation(libs.kermit)
+    implementation(libs.ktor.android)
 
-        implementation(libs.inject)
-        implementation(libs.kermit)
-        implementation(libs.hilt.android)
-        implementation(libs.ktor.android)
-        kapt(libs.hilt.compiler)
+    debugImplementation(libs.squareup.leakcanary)
 
-        debugImplementation(libs.squareup.leakcanary)
-
-        coreLibraryDesugaring(libs.desugar)
-    }
+    implementation(libs.androidx.core)
+    implementation(libs.androidx.palette)
+    implementation(libs.androidx.compose.runtime)
+    implementation(libs.androidx.compose.material)
+    implementation(libs.androidx.compose.material.icons)
+    implementation(libs.androidx.compose.ui.runtime)
+    implementation(libs.androidx.compose.foundation)
+    implementation(libs.androidx.compose.compiler)
+    implementation(libs.androidx.compose.ui.tooling)
+    implementation(libs.kenburns)
+    implementation(libs.coil)
+    implementation(libs.accompanist.insets)
+    implementation(libs.androidx.lifecycle.runtime)
+    implementation(libs.androidx.compose.activity)
+    implementation(libs.accompanist.systemuicontroller)
 }

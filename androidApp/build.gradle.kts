@@ -4,4 +4,5 @@ plugins {
 
 dependencies {
     implementation(projects.shared)
+    implementation(libs.accompanist.insetsui)
 }
