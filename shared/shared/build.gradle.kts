@@ -39,9 +39,12 @@ kotlin {
                 implementation(libs.ktor.core)
                 implementation(libs.ktor.logging)
                 implementation(libs.ktor.serialization)
+                implementation(libs.ktor.negotiation)
+                implementation(libs.ktor.json)
                 implementation(libs.koin.core)
                 implementation(libs.kermit)
                 implementation(libs.settings)
+                implementation(libs.kotlin.datetime)
             }
         }
         val commonTest by getting {
@@ -53,9 +56,6 @@ kotlin {
             dependencies {
                 implementation(libs.ktor.android)
                 implementation(libs.squareup.sqldelight.driver.android)
-                // ViewModel
-                implementation(libs.androidx.lifecycle.viewmodelKtx)
-                implementation(libs.koin.android)
             }
         }
         val androidTest by getting

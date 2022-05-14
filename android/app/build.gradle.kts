@@ -19,4 +19,5 @@ dependencies {
     implementation(libs.accompanist.insets)
     implementation(libs.androidx.compose.activity)
     implementation(libs.accompanist.systemuicontroller)
+    implementation(libs.koin.compose)
 }

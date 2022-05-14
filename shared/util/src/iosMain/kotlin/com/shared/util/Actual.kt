@@ -1,6 +1,5 @@
 package com.shared.myapplication
 
-import com.wind.book.model.PlatformType
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 
@@ -11,3 +10,13 @@ actual val platformCoroutineDispatcher: CoroutineDispatcher = Dispatchers.Defaul
 actual fun isDebug() = Platform.isDebugBinary
 
 actual interface Parcelable
+
+actual inline fun <reified T : BaseViewModel> Module.viewModelDefinition(
+    qualifier: Qualifier?,
+    createdAtStart: Boolean,
+    noinline definition: Definition<T>
+): Pair<Module, InstanceFactory<T>> = single(
+    qualifier = qualifier,
+    createdAtStart = createdAtStart,
+    definition = definition
+)

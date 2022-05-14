@@ -4,7 +4,6 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.animation.expandVertically
 import androidx.compose.animation.shrinkVertically
 import androidx.compose.runtime.Composable
@@ -21,9 +20,9 @@ import com.shared.common_compose.components.ConnectionStatus
 import com.shared.common_compose.theme.TvManiacTheme
 import com.shared.util.network.ConnectionState
 import com.shared.util.network.ObserveConnectionState
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.distinctUntilChanged
+import org.koin.androidx.compose.get
 
 class MainActivity : ComponentActivity() {
 
@@ -39,12 +38,11 @@ class MainActivity : ComponentActivity() {
                 }
             }
 
-            ConnectivityStatus(observeNetwork)
+            ConnectivityStatus(get())
         }
     }
 }
 
-@ExperimentalCoroutinesApi
 @Composable
 fun connectivityState(observeNetwork: ObserveConnectionState): State<ConnectionState> {
     return produceState(initialValue = observeNetwork.currentConnectivityState) {

@@ -1,50 +1,31 @@
 package com.shared.myapplication
 
-import co.touchlab.kermit.Kermit
+import co.touchlab.kermit.Logger
 import com.shared.util.network.ObserveConnectionState
+import com.shared.util.platformCoroutineDispatcher
 import io.ktor.client.HttpClient
 import io.ktor.client.plugins.ContentNegotiation
 import io.ktor.client.plugins.HttpTimeout
 import io.ktor.client.plugins.logging.LogLevel
-import io.ktor.client.plugins.logging.Logger
 import io.ktor.client.plugins.logging.Logging
 import io.ktor.serialization.kotlinx.json.json
-import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.datetime.Clock
 import kotlinx.serialization.json.Json
-import org.koin.core.Koin
 import org.koin.core.KoinApplication
 import org.koin.core.context.startKoin
-import org.koin.core.definition.Definition
-import org.koin.core.instance.InstanceFactory
 import org.koin.core.module.Module
-import org.koin.core.parameter.parametersOf
-import org.koin.core.qualifier.Qualifier
-import org.koin.core.scope.Scope
 import org.koin.dsl.module
-import kotlin.reflect.KClass
 
-lateinit var koin: Koin
-lateinit var log: Kermit
-lateinit var httpClient: HttpClient
-lateinit var observeConnectionState: ObserveConnectionState
 fun initKoin(appModule: Module): KoinApplication {
     val koinApplication = startKoin {
         modules(
             appModule,
             platformModule,
             coreModule,
-            viewmodelModule
+//            viewmodelModule
         )
     }
 
-    val koin = koinApplication.koin
-    log = koin.get<Kermit> { parametersOf(null) }
-    // FIXME: Bug in jvm
-//    val appInfo = koin.get<AppInfo>() // AppInfo is a Kotlin interface with separate Android and iOS implementations
-//    log.v { "App Id ${appInfo.appId}" }
-    httpClient = koin.get()
-    observeConnectionState = ObserveConnectionState(koin.get())
     return koinApplication
 }
 
@@ -54,22 +35,22 @@ val json = Json {
 }
 
 private val coreModule = module {
-    single<CoroutineDispatcher> {
+    single {
         platformCoroutineDispatcher
     }
-    single<Clock> {
+    single {
         Clock.System
     }
-    single<HttpClient> {
-        log.v("Init core init http client")
+    single {
+        Logger.v { "Init core init http client" }
         HttpClient {
             install(ContentNegotiation) {
                 json(json)
             }
             install(Logging) {
-                logger = object : Logger {
+                logger = object : io.ktor.client.plugins.logging.Logger {
                     override fun log(message: String) {
-                        log.v("Network message $message")
+                        Logger.v("Network message $message")
                     }
                 }
                 level = LogLevel.ALL
@@ -82,22 +63,9 @@ private val coreModule = module {
             }
         }
     }
-}
-
-// Used in kermit to inject tag
-internal inline fun <reified T> Scope.getWith(vararg params: Any?): T {
-    return get(parameters = { parametersOf(*params) })
+    single {
+        ObserveConnectionState(get())
+    }
 }
 
 expect val platformModule: Module
-
-expect inline fun <reified T : BaseViewModel> Module.viewModelDefinition(
-    qualifier: Qualifier? = null,
-    createdAtStart: Boolean = false,
-    noinline definition: Definition<T>
-): Pair<Module, InstanceFactory<T>>
-
-@Suppress("UNCHECKED_CAST")
-fun <T> Koin.getDependency(clazz: KClass<*>): T {
-    return get(clazz, null) { parametersOf(clazz.simpleName) } as T
-}

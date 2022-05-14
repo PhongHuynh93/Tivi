@@ -2,6 +2,7 @@ import util.libs
 
 plugins {
     `kmm-domain-plugin`
+    id("kotlin-parcelize")
 }
 
 android {
@@ -14,4 +15,7 @@ dependencies {
     commonMainImplementation(libs.ktor.core)
     commonMainImplementation(libs.kotlin.datetime)
     commonMainImplementation(libs.kotlin.coroutines.core)
+
+    androidMainImplementation(libs.androidx.lifecycle.viewmodelKtx)
+    androidMainImplementation(libs.koin.android)
 }
