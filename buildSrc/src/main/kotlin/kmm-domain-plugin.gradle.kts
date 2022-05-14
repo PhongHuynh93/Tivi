@@ -9,12 +9,12 @@ plugins {
 
 kotlin {
     android()
-    ios()
+    iosX64()
+    iosArm64()
+    iosSimulatorArm64()
 
     sourceSets.all {
         languageSettings.apply {
-            optIn("kotlin.RequiresOptIn")
-            optIn("kotlin.time.ExperimentalTime")
             optIn("kotlinx.serialization.ExperimentalSerializationApi")
         }
     }

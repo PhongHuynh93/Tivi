@@ -1,18 +1,22 @@
+import org.jetbrains.kotlin.gradle.plugin.mpp.apple.XCFramework
+
 plugins {
-    kotlin("multiplatform")
-    id("com.android.library")
+    `kmm-domain-plugin`
+    kotlin("plugin.serialization") version ("1.6.20")
+    id("com.chromaticnoise.multiplatform-swiftpackage") version "2.0.3"
 }
 
 kotlin {
-    android()
-    
+
+    val xcf = XCFramework()
     listOf(
         iosX64(),
         iosArm64(),
         iosSimulatorArm64()
     ).forEach {
         it.binaries.framework {
-            baseName = "shared"
+            baseName = "TvManiac"
+            xcf.add(this)
         }
     }
 
@@ -46,11 +50,13 @@ kotlin {
     }
 }
 
-android {
-    compileSdk = 32
-    sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
-    defaultConfig {
-        minSdk = 23
-        targetSdk = 32
+multiplatformSwiftPackage {
+    packageName("TvManiac")
+    swiftToolsVersion("5.3")
+    targetPlatforms {
+        iOS { v("13") }
     }
+
+    distributionMode { local() }
+    outputDirectory(File("$projectDir/../../../", "tvmaniac-swift-packages"))
 }
