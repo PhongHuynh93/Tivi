@@ -37,6 +37,11 @@ fun initKoin(appModule: Module): KoinApplication {
             viewmodelModule,
             domainModule,
             dataModule,
+            module {
+                single {
+                    TvManiacDatabaseFactory(get()).createDatabase()
+                }
+            }
         )
     }
 

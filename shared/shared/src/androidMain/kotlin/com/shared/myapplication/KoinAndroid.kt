@@ -9,4 +9,7 @@ actual val platformModule: Module = module {
     single<Settings> {
         AndroidSettings(get())
     }
+    single<DriverFactory> {
+        DriverFactory(get())
+    }
 }

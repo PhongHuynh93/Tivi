@@ -51,6 +51,7 @@ kotlin {
                 implementation(libs.settings)
                 implementation(libs.kotlin.datetime)
                 implementation(libs.squareup.sqldelight.runtime)
+                implementation(libs.squareup.sqldelight.extensions)
             }
         }
         val commonTest by getting {
