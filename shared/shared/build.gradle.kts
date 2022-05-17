@@ -1,9 +1,14 @@
 import org.jetbrains.kotlin.gradle.plugin.mpp.apple.XCFramework
+import java.io.FileInputStream
+import java.util.Properties
+import com.codingfeline.buildkonfig.compiler.FieldSpec.Type.STRING
 
 plugins {
     `kmm-domain-plugin`
     kotlin("plugin.serialization") version ("1.6.20")
     id("com.chromaticnoise.multiplatform-swiftpackage") version "2.0.3"
+    id("com.squareup.sqldelight")
+    id("com.codingfeline.buildkonfig")
 }
 
 kotlin {
@@ -45,6 +50,7 @@ kotlin {
                 implementation(libs.kermit)
                 implementation(libs.settings)
                 implementation(libs.kotlin.datetime)
+                implementation(libs.squareup.sqldelight.runtime)
             }
         }
         val commonTest by getting {
@@ -69,6 +75,7 @@ kotlin {
             iosSimulatorArm64Main.dependsOn(this)
             dependencies {
                 implementation(libs.ktor.ios)
+                implementation(libs.squareup.sqldelight.driver.native)
             }
         }
         val iosX64Test by getting
@@ -96,4 +103,24 @@ multiplatformSwiftPackage {
 
 android {
     sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
+}
+
+sqldelight {
+    database("TvManiacDatabase") {
+        packageName = "com.thomaskioko.tvmaniac.datasource.cache"
+        sourceFolders = listOf("sqldelight")
+    }
+}
+
+buildkonfig {
+    val properties = Properties()
+    val secretsFile = file("../../local.properties")
+    if (secretsFile.exists()) {
+        properties.load(FileInputStream(secretsFile))
+    }
+
+    packageName = "com.shared.myapplication"
+    defaultConfigs {
+        buildConfigField(STRING, "TMDB_API_KEY", properties["TMDB_API_KEY"] as String)
+    }
 }

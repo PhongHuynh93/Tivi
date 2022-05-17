@@ -1,0 +1,12 @@
+package com.shared.myapplication.data
+
+import com.shared.myapplication.data.discover.DiscoverRepository
+import com.shared.myapplication.data.discover.DiscoverRepositoryImpl
+import com.shared.myapplication.data.discover.remote.TvShowsService
+import com.shared.myapplication.data.discover.remote.TvShowsServiceImpl
+import org.koin.dsl.module
+
+val dataModule = module {
+    single<TvShowsService> { TvShowsServiceImpl(get()) }
+    single<DiscoverRepository> { DiscoverRepositoryImpl(get(), get(), get(), get(), get()) }
+}

@@ -1,9 +1,11 @@
 package com.shared.myapplication.domain.usecase
 
+import com.shared.myapplication.data.discover.DiscoverRepository
 import com.shared.myapplication.model.DiscoverShowResult
 import com.shared.util.FlowInteractor
 import com.shared.util.network.Resource
 import com.shared.util.network.Status
+import com.thomaskioko.tvmaniac.datasource.cache.Show
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.combine

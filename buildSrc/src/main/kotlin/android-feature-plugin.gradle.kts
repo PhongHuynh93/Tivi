@@ -4,7 +4,6 @@ import util.libs
 
 plugins {
     id("com.android.library")
-    id("dagger.hilt.android.plugin")
     kotlin("android")
     kotlin("kapt")
 }
@@ -42,10 +41,6 @@ tasks.withType<Test>().configureEach {
 dependencies {
 //    api(project(":android:common:navigation"))
 //    implementation(project(":android:common:resources"))
-
-    implementation(libs.hilt.android)
-    implementation(libs.hilt.navigation)
-    kapt(libs.hilt.compiler)
 
     testImplementation(libs.testing.turbine)
     testImplementation(libs.testing.coroutines.test)

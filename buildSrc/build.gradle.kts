@@ -17,7 +17,6 @@ dependencies {
     implementation(libs.android.gradle)
     implementation(libs.plugin.squareup.sqldelight)
     implementation(libs.plugin.dependency.check)
-    implementation(libs.plugin.hilt)
     implementation(libs.plugin.buildkonfig)
     implementation(libs.plugin.detekt)
 }
