@@ -1,4 +1,4 @@
-package com.shared.myapplication.data.show
+package com.shared.myapplication.model
 
 enum class ShowCategory(
     val type: Int,

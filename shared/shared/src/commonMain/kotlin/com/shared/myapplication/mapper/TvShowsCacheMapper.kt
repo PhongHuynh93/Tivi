@@ -1,4 +1,4 @@
-package com.shared.myapplication.data.show
+package com.shared.myapplication.mapper
 
 import com.shared.myapplication.data.discover.remote.model.ShowResponse
 import com.shared.util.StringUtil

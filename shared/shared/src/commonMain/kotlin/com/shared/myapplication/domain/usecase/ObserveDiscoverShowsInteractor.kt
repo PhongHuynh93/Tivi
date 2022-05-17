@@ -1,6 +1,8 @@
 package com.shared.myapplication.domain.usecase
 
 import com.shared.myapplication.data.discover.DiscoverRepository
+import com.shared.myapplication.mapper.toTvShowList
+import com.shared.myapplication.model.ShowCategory
 import com.shared.myapplication.model.DiscoverShowResult
 import com.shared.util.FlowInteractor
 import com.shared.util.network.Resource
@@ -19,9 +21,9 @@ class ObserveDiscoverShowsInteractor constructor(
 ) : FlowInteractor<Unit, DiscoverShowResult>(dispatcher) {
 
     override fun run(params: Unit): Flow<DiscoverShowResult> = combine(
-        repository.observeShowsByCategoryID(TRENDING.type).toShowData(TRENDING),
-        repository.observeShowsByCategoryID(TOP_RATED.type).toShowData(TOP_RATED),
-        repository.observeShowsByCategoryID(POPULAR.type).toShowData(POPULAR),
+        repository.observeShowsByCategoryID(ShowCategory.TRENDING.type).toShowData(ShowCategory.TRENDING),
+        repository.observeShowsByCategoryID(ShowCategory.TOP_RATED.type).toShowData(ShowCategory.TOP_RATED),
+        repository.observeShowsByCategoryID(ShowCategory.POPULAR.type).toShowData(ShowCategory.POPULAR),
     ) { trending, topRated, popular ->
 
         DiscoverShowResult(
