@@ -1,4 +1,4 @@
-package com.shared.myapplication.data.discover.local
+package com.shared.myapplication.data.show.local
 
 import com.thomaskioko.tvmaniac.datasource.cache.AirEpisodesByShowId
 import com.thomaskioko.tvmaniac.datasource.cache.Show

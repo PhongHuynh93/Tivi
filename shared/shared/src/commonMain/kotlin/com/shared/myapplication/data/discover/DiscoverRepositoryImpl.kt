@@ -1,9 +1,14 @@
 package com.shared.myapplication.data.discover
 
 import co.touchlab.kermit.Logger
-import com.shared.myapplication.data.discover.local.TvShowCache
+import com.shared.myapplication.data.category.local.CategoryCache
+import com.shared.myapplication.data.discover.local.DiscoverCategoryCache
 import com.shared.myapplication.data.discover.remote.TvShowsService
 import com.shared.myapplication.data.discover.remote.model.TvShowsResponse
+import com.shared.myapplication.data.show.ShowCategory
+import com.shared.myapplication.data.show.local.TvShowCache
+import com.shared.myapplication.data.show.toShow
+import com.shared.myapplication.data.show.toShowList
 import com.shared.util.getErrorMessage
 import com.shared.util.network.Resource
 import com.shared.util.network.networkBoundResource

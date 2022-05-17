@@ -1,4 +1,4 @@
-package com.shared.myapplication.data.discover.local
+package com.shared.myapplication.data.show.local
 
 import com.squareup.sqldelight.runtime.coroutines.asFlow
 import com.squareup.sqldelight.runtime.coroutines.mapToList
