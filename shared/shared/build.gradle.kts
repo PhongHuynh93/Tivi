@@ -2,6 +2,7 @@ import org.jetbrains.kotlin.gradle.plugin.mpp.apple.XCFramework
 import java.io.FileInputStream
 import java.util.Properties
 import com.codingfeline.buildkonfig.compiler.FieldSpec.Type.STRING
+import util.libs
 
 plugins {
     `kmm-domain-plugin`
@@ -61,6 +62,7 @@ kotlin {
         }
         val androidMain by getting {
             dependencies {
+                implementation(libs.androidx.lifecycle.viewmodelKtx)
                 implementation(libs.ktor.android)
                 implementation(libs.squareup.sqldelight.driver.android)
             }

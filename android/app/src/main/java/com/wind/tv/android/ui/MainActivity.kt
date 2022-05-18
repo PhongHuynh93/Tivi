@@ -28,6 +28,7 @@ import com.shared.common_compose.theme.LightColors
 import com.shared.common_compose.theme.TvManiacTheme
 import com.shared.util.network.ConnectionState
 import com.shared.util.network.ObserveConnectionState
+import com.wind.tv.android.ui.home.HomeScreen
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.distinctUntilChanged
 import org.koin.androidx.compose.get

@@ -4,6 +4,13 @@ import androidx.compose.runtime.Composable
 
 @Composable
 fun HomeScreen() {
-    DiscoverScreen()
+    DiscoverScreen(
+        openShowDetails = {
+
+        },
+        moreClicked = {
+
+        }
+    )
 }
 

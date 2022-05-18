@@ -35,16 +35,17 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.util.lerp
 import com.google.accompanist.insets.navigationBarsWithImePadding
 import com.google.accompanist.insets.statusBarsPadding
-import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.HorizontalPagerIndicator
 import com.google.accompanist.pager.PagerState
 import com.google.accompanist.pager.calculateCurrentOffsetForPage
 import com.google.accompanist.pager.rememberPagerState
+import com.shared.common_compose.components.BoxTextItems
 import com.shared.common_compose.components.ColumnSpacer
 import com.shared.common_compose.components.FullScreenLoading
 import com.shared.common_compose.components.NetworkImageComposable
 import com.shared.common_compose.components.SwipeDismissSnackbar
+import com.shared.common_compose.components.TvShowCard
 import com.shared.common_compose.rememberFlowWithLifecycle
 import com.shared.common_compose.theme.contrastAgainst
 import com.shared.common_compose.theme.grey900
@@ -55,28 +56,14 @@ import com.shared.common_compose.util.verticalGradientScrim
 import com.shared.myapplication.model.DiscoverShowEffect
 import com.shared.myapplication.model.DiscoverShowResult
 import com.shared.myapplication.model.DiscoverShowState
-import com.thomaskioko.tvmaniac.compose.components.BoxTextItems
-import com.thomaskioko.tvmaniac.compose.components.ColumnSpacer
-import com.thomaskioko.tvmaniac.compose.components.FullScreenLoading
-import com.thomaskioko.tvmaniac.compose.components.NetworkImageComposable
-import com.thomaskioko.tvmaniac.compose.components.SwipeDismissSnackbar
-import com.thomaskioko.tvmaniac.compose.components.TvShowCard
-import com.thomaskioko.tvmaniac.compose.rememberFlowWithLifecycle
-import com.thomaskioko.tvmaniac.compose.theme.contrastAgainst
-import com.thomaskioko.tvmaniac.compose.theme.grey900
-import com.thomaskioko.tvmaniac.compose.util.DominantColorState
-import com.thomaskioko.tvmaniac.compose.util.DynamicThemePrimaryColorsFromImage
-import com.thomaskioko.tvmaniac.compose.util.rememberDominantColorState
-import com.thomaskioko.tvmaniac.compose.util.verticalGradientScrim
-import com.thomaskioko.tvmaniac.discover.api.DiscoverShowEffect
-import com.thomaskioko.tvmaniac.discover.api.DiscoverShowResult
-import com.thomaskioko.tvmaniac.discover.api.DiscoverShowState
-import com.thomaskioko.tvmaniac.resources.R
-import com.thomaskioko.tvmaniac.showcommon.api.model.ShowCategory
-import com.thomaskioko.tvmaniac.showcommon.api.model.TvShow
-import dev.chrisbanes.snapper.ExperimentalSnapperApi
+import com.shared.myapplication.model.ShowCategory
+import com.shared.myapplication.model.TvShow
+import com.shared.myapplication.viewmodel.home.DiscoverViewModel
+import com.wind.tv.android.R
 import dev.chrisbanes.snapper.rememberSnapperFlingBehavior
 import kotlin.math.absoluteValue
+import kotlinx.coroutines.flow.collectLatest
+import org.koin.androidx.compose.getViewModel
 
 /**
  * This is the minimum amount of calculated contrast for a color to be used on top of the
@@ -84,11 +71,13 @@ import kotlin.math.absoluteValue
  * 3:1 which is the minimum for user-interface components.
  */
 private const val MinContrastOfPrimaryVsSurface = 3f
+
 @Composable
 fun DiscoverScreen(
     openShowDetails: (showId: Long) -> Unit,
     moreClicked: (showType: Int) -> Unit,
 ) {
+    val viewModel = getViewModel<DiscoverViewModel>()
 
     val scaffoldState = rememberScaffoldState()
 
@@ -96,7 +85,7 @@ fun DiscoverScreen(
         .collectAsState(initial = DiscoverShowState.Empty)
 
     LaunchedEffect(Unit) {
-        viewModel.observeSideEffect().collect {
+        viewModel.observeSideEffect().collectLatest {
             when (it) {
                 is DiscoverShowEffect.Error -> scaffoldState.snackbarHostState.showSnackbar(it.message)
             }
@@ -183,7 +172,6 @@ private fun DiscoverShows(
     }
 }
 
-@OptIn(ExperimentalPagerApi::class)
 @Composable
 fun FeaturedItems(
     showData: DiscoverShowResult.DiscoverShowsData,
@@ -231,7 +219,6 @@ fun FeaturedItems(
     ColumnSpacer(value = 16)
 }
 
-@OptIn(ExperimentalPagerApi::class)
 @Composable
 fun FeaturedHorizontalPager(
     list: List<TvShow>,
@@ -316,7 +303,6 @@ fun FeaturedHorizontalPager(
     }
 }
 
-@OptIn(ExperimentalSnapperApi::class)
 @Composable
 private fun DisplayShowData(
     category: ShowCategory,

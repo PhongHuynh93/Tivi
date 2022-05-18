@@ -7,9 +7,9 @@ import com.shared.myapplication.viewmodel.viewmodelModule
 import com.shared.util.network.ObserveConnectionState
 import com.shared.util.platformCoroutineDispatcher
 import io.ktor.client.HttpClient
-import io.ktor.client.plugins.ContentNegotiation
-import io.ktor.client.plugins.DefaultRequest
 import io.ktor.client.plugins.HttpTimeout
+import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
+import io.ktor.client.plugins.defaultRequest
 import io.ktor.client.plugins.logging.LogLevel
 import io.ktor.client.plugins.logging.Logging
 import io.ktor.client.plugins.observer.ResponseObserver
@@ -17,7 +17,6 @@ import io.ktor.client.request.header
 import io.ktor.http.ContentType
 import io.ktor.http.HttpHeaders
 import io.ktor.http.URLBuilder
-import io.ktor.http.parametersOf
 import io.ktor.serialization.kotlinx.json.json
 import kotlinx.datetime.Clock
 import kotlinx.serialization.json.Json
@@ -85,14 +84,14 @@ private val coreModule = module {
                     Logger.d { "HTTP status: ${response.status.value}" }
                 }
             }
-            install(DefaultRequest) {
+            defaultRequest {
                 val endpointUrlBuilder = URLBuilder(TMDB_API_KEY)
                 url {
                     host = endpointUrlBuilder.host
                     protocol = endpointUrlBuilder.protocol
                 }
                 header(HttpHeaders.ContentType, ContentType.Application.Json)
-                parametersOf("api_key", BuildKonfig.TMDB_API_KEY)
+                url.parameters.append("api_key", BuildKonfig.TMDB_API_KEY)
             }
         }
     }

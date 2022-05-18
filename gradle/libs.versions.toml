@@ -32,7 +32,7 @@ inject = "1"
 kenburns = "1.0.7"
 kermit = "1.1.1"
 koin = "3.1.5"
-ktor = "2.0.0-beta-1"
+ktor = "2.0.1"
 material = "1.6.0-alpha01"
 multiplatform-paging = "0.4.6"
 squareup-leakcanary = "2.8.1"
@@ -61,6 +61,7 @@ kotlin-gradle = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.
 kotlin-datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version.ref = "date-time" }
 
 kotlin-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutines" }
+kotlinx-coroutines-jvm = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm", version.ref = "coroutines" }
 
 accompanist-pager-core = { module = "com.google.accompanist:accompanist-pager", version.ref = "accompanist" }
 accompanist-pager-indicator = { module = "com.google.accompanist:accompanist-pager-indicators", version.ref = "accompanist" }
