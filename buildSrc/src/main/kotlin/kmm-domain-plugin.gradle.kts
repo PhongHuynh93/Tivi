@@ -16,6 +16,7 @@ kotlin {
     sourceSets.all {
         languageSettings.apply {
             optIn("kotlinx.serialization.ExperimentalSerializationApi")
+            optIn("kotlin.RequiresOptIn")
         }
     }
 }
