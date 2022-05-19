@@ -7,21 +7,20 @@ import util.libs
 plugins {
     `kmm-domain-plugin`
     kotlin("plugin.serialization") version ("1.6.20")
-    id("com.chromaticnoise.multiplatform-swiftpackage") version "2.0.3"
     id("com.squareup.sqldelight")
     id("com.codingfeline.buildkonfig")
 }
 
 kotlin {
 
-    val xcf = XCFramework()
+    val xcf = XCFramework("Tivi")
     listOf(
         iosX64(),
         iosArm64(),
         iosSimulatorArm64()
     ).forEach {
         it.binaries.framework {
-            baseName = "TvManiac"
+            baseName = "Tivi"
             xcf.add(this)
         }
     }
@@ -91,17 +90,6 @@ kotlin {
             iosSimulatorArm64Test.dependsOn(this)
         }
     }
-}
-
-multiplatformSwiftPackage {
-    packageName("TvManiac")
-    swiftToolsVersion("5.3")
-    targetPlatforms {
-        iOS { v("13") }
-    }
-
-    distributionMode { local() }
-    outputDirectory(File("$projectDir/../../../", "tvmaniac-swift-packages"))
 }
 
 android {
