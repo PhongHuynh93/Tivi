@@ -4,71 +4,63 @@ import com.shared.myapplication.domain.usecase.ObserveDiscoverShowsInteractor
 import com.shared.myapplication.model.DiscoverShowAction
 import com.shared.myapplication.model.DiscoverShowAction.Error
 import com.shared.myapplication.model.DiscoverShowEffect
-import com.shared.myapplication.model.DiscoverShowResult
 import com.shared.myapplication.model.DiscoverShowState
-import com.shared.util.CoroutineScopeOwner
 import com.shared.util.viewmodel.BaseViewModel
 import com.shared.util.viewmodel.Store
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asSharedFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.inject
 
 class DiscoverViewModel(
-    private val observeDiscoverShow: ObserveDiscoverShowsInteractor,
-) : Store<DiscoverShowState, DiscoverShowAction, DiscoverShowEffect>,
-    CoroutineScopeOwner,
-    BaseViewModel() {
+) : BaseViewModel(), Store<DiscoverShowState, DiscoverShowAction, DiscoverShowEffect>,
+    KoinComponent {
 
-    override val coroutineScope: CoroutineScope
-        get() = clientScope
+    private val observeDiscoverShow: ObserveDiscoverShowsInteractor by inject()
 
-    private val state = MutableStateFlow(DiscoverShowState(false, DiscoverShowResult.EMPTY))
+    private val _state = MutableStateFlow<DiscoverShowState>(DiscoverShowState.InProgress)
 
-    private val sideEffect = MutableSharedFlow<DiscoverShowEffect>()
+    override val state: StateFlow<DiscoverShowState> = _state.asStateFlow()
+
+    private val _effect = MutableSharedFlow<DiscoverShowEffect>()
+
+    override val effect: SharedFlow<DiscoverShowEffect> = _effect.asSharedFlow()
 
     init {
+        attach()
+    }
+
+    override fun attach() {
         dispatch(DiscoverShowAction.LoadTvShows)
     }
 
-    override fun observeState(): StateFlow<DiscoverShowState> = state
-
-    override fun observeSideEffect(): Flow<DiscoverShowEffect> = sideEffect
-
     override fun dispatch(action: DiscoverShowAction) {
-        val oldState = state.value
 
         when (action) {
             is DiscoverShowAction.LoadTvShows -> {
-                with(state) {
-                    observeDiscoverShow.execute(coroutineScope, Unit) {
-                        onStart {
-                            coroutineScope.launch { emit(oldState.copy(isLoading = false)) }
-                        }
+                observeDiscoverShow.execute(clientScope, Unit) {
 
-                        onNext {
-                            coroutineScope.launch {
-                                emit(
-                                    oldState.copy(
-                                        isLoading = false,
-                                        showData = it
-                                    )
-                                )
-                            }
+                    onNext {
+                        clientScope.launch {
+                            _state.value = DiscoverShowState.Success(
+                                data = it
+                            )
                         }
+                    }
 
-                        onError {
-                            coroutineScope.launch { emit(oldState.copy(isLoading = false)) }
-                            dispatch(Error(it.message ?: "Something went wrong"))
-                        }
+                    onError {
+                        dispatch(Error(it.message ?: "Something went wrong"))
                     }
                 }
             }
             is Error -> {
-                coroutineScope.launch {
-                    sideEffect.emit(DiscoverShowEffect.Error(action.message))
+                clientScope.launch {
+                    _effect.emit(DiscoverShowEffect.Error(action.message))
                 }
             }
         }

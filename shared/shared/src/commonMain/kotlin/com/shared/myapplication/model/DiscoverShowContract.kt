@@ -4,16 +4,9 @@ import com.shared.util.viewmodel.Action
 import com.shared.util.viewmodel.Effect
 import com.shared.util.viewmodel.State
 
-data class DiscoverShowState(
-    val isLoading: Boolean,
-    val showData: DiscoverShowResult,
-) : State {
-    companion object {
-        val Empty = DiscoverShowState(
-            isLoading = true,
-            showData = DiscoverShowResult.EMPTY,
-        )
-    }
+sealed class DiscoverShowState : State() {
+    object InProgress : DiscoverShowState()
+    class Success(val data: DiscoverShowResult) : DiscoverShowState()
 }
 
 sealed class DiscoverShowAction : Action {
