@@ -24,7 +24,6 @@ import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -33,6 +32,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.util.lerp
+import co.touchlab.kermit.Logger
 import com.google.accompanist.insets.navigationBarsWithImePadding
 import com.google.accompanist.insets.statusBarsPadding
 import com.google.accompanist.pager.HorizontalPager
@@ -46,7 +46,6 @@ import com.shared.common_compose.components.FullScreenLoading
 import com.shared.common_compose.components.NetworkImageComposable
 import com.shared.common_compose.components.SwipeDismissSnackbar
 import com.shared.common_compose.components.TvShowCard
-import com.shared.common_compose.rememberFlowWithLifecycle
 import com.shared.common_compose.theme.contrastAgainst
 import com.shared.common_compose.theme.grey900
 import com.shared.common_compose.util.DominantColorState
@@ -81,11 +80,10 @@ fun DiscoverScreen(
 
     val scaffoldState = rememberScaffoldState()
 
-    val discoverViewState by rememberFlowWithLifecycle(viewModel.observeState())
-        .collectAsState(initial = DiscoverShowState.Empty)
+    val discoverViewState = viewModel.state.collectAsState()
 
     LaunchedEffect(Unit) {
-        viewModel.observeSideEffect().collectLatest {
+        viewModel.effect.collectLatest {
             when (it) {
                 is DiscoverShowEffect.Error -> scaffoldState.snackbarHostState.showSnackbar(it.message)
             }
@@ -94,7 +92,7 @@ fun DiscoverScreen(
 
     DiscoverShows(
         scaffoldState = scaffoldState,
-        discoverViewState = discoverViewState,
+        discoverViewState = discoverViewState.value,
         openShowDetails = openShowDetails,
         moreClicked = moreClicked
     )
@@ -127,48 +125,53 @@ private fun DiscoverShows(
             )
         },
     ) {
-        if (discoverViewState.isLoading) FullScreenLoading()
+        when (discoverViewState) {
+            DiscoverShowState.InProgress -> FullScreenLoading()
+            is DiscoverShowState.Success -> {
+                LazyColumn(
+                    modifier = Modifier
+                        .navigationBarsWithImePadding()
+                        .animateContentSize(),
+                ) {
 
-        LazyColumn(
-            modifier = Modifier
-                .navigationBarsWithImePadding()
-                .animateContentSize(),
-        ) {
+                    item {
+                        FeaturedItems(
+                            showData = discoverViewState.data.featuredShows,
+                            onItemClicked = { openShowDetails(it) }
+                        )
+                    }
 
-            item {
-                FeaturedItems(
-                    showData = discoverViewState.showData.featuredShows,
-                    onItemClicked = { openShowDetails(it) }
-                )
-            }
+                    item {
+                        DisplayShowData(
+                            category = discoverViewState.data.trendingShows.category,
+                            tvShows = discoverViewState.data.trendingShows.tvShows,
+                            onItemClicked = { openShowDetails(it) },
+                            moreClicked = { moreClicked(it) }
+                        )
+                    }
 
-            item {
-                DisplayShowData(
-                    category = discoverViewState.showData.trendingShows.category,
-                    tvShows = discoverViewState.showData.trendingShows.tvShows,
-                    onItemClicked = { openShowDetails(it) },
-                    moreClicked = { moreClicked(it) }
-                )
-            }
+                    item {
+                        DisplayShowData(
+                            category = discoverViewState.data.popularShows.category,
+                            tvShows = discoverViewState.data.popularShows.tvShows,
+                            onItemClicked = { openShowDetails(it) },
+                            moreClicked = { moreClicked(it) }
+                        )
+                    }
 
-            item {
-                DisplayShowData(
-                    category = discoverViewState.showData.popularShows.category,
-                    tvShows = discoverViewState.showData.popularShows.tvShows,
-                    onItemClicked = { openShowDetails(it) },
-                    moreClicked = { moreClicked(it) }
-                )
-            }
-
-            item {
-                DisplayShowData(
-                    category = discoverViewState.showData.topRatedShows.category,
-                    tvShows = discoverViewState.showData.topRatedShows.tvShows,
-                    onItemClicked = { openShowDetails(it) },
-                    moreClicked = { moreClicked(it) }
-                )
+                    item {
+                        DisplayShowData(
+                            category = discoverViewState.data.topRatedShows.category,
+                            tvShows = discoverViewState.data.topRatedShows.tvShows,
+                            onItemClicked = { openShowDetails(it) },
+                            moreClicked = { moreClicked(it) }
+                        )
+                    }
+                }
             }
         }
+
+
     }
 }
 

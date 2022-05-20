@@ -5,5 +5,5 @@ import com.shared.util.viewModelDefinition
 import org.koin.dsl.module
 
 val viewmodelModule = module {
-    viewModelDefinition { DiscoverViewModel(get()) }
+    viewModelDefinition { DiscoverViewModel() }
 }
