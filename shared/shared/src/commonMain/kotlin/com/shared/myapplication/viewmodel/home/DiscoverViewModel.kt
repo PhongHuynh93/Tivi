@@ -1,10 +1,7 @@
 package com.shared.myapplication.viewmodel.home
 
 import com.shared.myapplication.domain.usecase.ObserveDiscoverShowsInteractor
-import com.shared.myapplication.model.DiscoverShowAction
-import com.shared.myapplication.model.DiscoverShowAction.Error
-import com.shared.myapplication.model.DiscoverShowEffect
-import com.shared.myapplication.model.DiscoverShowState
+import com.shared.myapplication.viewmodel.home.DiscoverShowAction.Error
 import com.shared.util.viewmodel.BaseViewModel
 import com.shared.util.viewmodel.Store
 import kotlinx.coroutines.flow.MutableSharedFlow

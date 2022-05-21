@@ -52,6 +52,7 @@ kotlin {
                 implementation(libs.kotlin.datetime)
                 implementation(libs.squareup.sqldelight.runtime)
                 implementation(libs.squareup.sqldelight.extensions)
+                implementation(libs.multiplatform.paging.core)
             }
         }
         val commonTest by getting {

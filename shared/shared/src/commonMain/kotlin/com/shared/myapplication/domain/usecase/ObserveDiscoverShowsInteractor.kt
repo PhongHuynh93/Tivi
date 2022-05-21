@@ -3,7 +3,7 @@ package com.shared.myapplication.domain.usecase
 import com.shared.myapplication.data.discover.DiscoverRepository
 import com.shared.myapplication.mapper.toTvShowList
 import com.shared.myapplication.model.ShowCategory
-import com.shared.myapplication.model.DiscoverShowResult
+import com.shared.myapplication.viewmodel.home.DiscoverShowResult
 import com.shared.util.FlowInteractor
 import com.shared.util.network.Resource
 import com.shared.util.network.Status

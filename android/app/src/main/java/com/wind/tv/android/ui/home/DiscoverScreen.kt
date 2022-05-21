@@ -32,7 +32,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.util.lerp
-import co.touchlab.kermit.Logger
 import com.google.accompanist.insets.navigationBarsWithImePadding
 import com.google.accompanist.insets.statusBarsPadding
 import com.google.accompanist.pager.HorizontalPager
@@ -52,9 +51,9 @@ import com.shared.common_compose.util.DominantColorState
 import com.shared.common_compose.util.DynamicThemePrimaryColorsFromImage
 import com.shared.common_compose.util.rememberDominantColorState
 import com.shared.common_compose.util.verticalGradientScrim
-import com.shared.myapplication.model.DiscoverShowEffect
-import com.shared.myapplication.model.DiscoverShowResult
-import com.shared.myapplication.model.DiscoverShowState
+import com.shared.myapplication.viewmodel.home.DiscoverShowEffect
+import com.shared.myapplication.viewmodel.home.DiscoverShowResult
+import com.shared.myapplication.viewmodel.home.DiscoverShowState
 import com.shared.myapplication.model.ShowCategory
 import com.shared.myapplication.model.TvShow
 import com.shared.myapplication.viewmodel.home.DiscoverViewModel

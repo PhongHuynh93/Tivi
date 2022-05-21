@@ -8,8 +8,14 @@ import com.shared.myapplication.data.discover.local.DiscoverCategoryCache
 import com.shared.myapplication.data.discover.local.DiscoverCategoryCacheImpl
 import com.shared.myapplication.data.discover.remote.TvShowsService
 import com.shared.myapplication.data.discover.remote.TvShowsServiceImpl
+import com.shared.myapplication.data.lastairepisodes.LastEpisodeAirCache
+import com.shared.myapplication.data.lastairepisodes.LastEpisodeAirCacheImpl
+import com.shared.myapplication.data.show.TvShowsRepository
+import com.shared.myapplication.data.show.TvShowsRepositoryImpl
 import com.shared.myapplication.data.show.local.TvShowCache
 import com.shared.myapplication.data.show.local.TvShowCacheImpl
+import com.shared.myapplication.data.showDetail.ShowCategoryCache
+import com.shared.myapplication.data.showDetail.ShowCategoryCacheImpl
 import org.koin.dsl.module
 
 val dataModule = module {
@@ -18,4 +24,7 @@ val dataModule = module {
     single<DiscoverCategoryCache> { DiscoverCategoryCacheImpl(get()) }
     single<CategoryCache> { CategoryCacheImpl(get()) }
     single<DiscoverRepository> { DiscoverRepositoryImpl(get(), get(), get(), get(), get()) }
+    single<TvShowsRepository> { TvShowsRepositoryImpl(get(), get(), get(), get(), get()) }
+    single<LastEpisodeAirCache> { LastEpisodeAirCacheImpl(get()) }
+    single<ShowCategoryCache> { ShowCategoryCacheImpl(get()) }
 }
