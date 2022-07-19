@@ -1,7 +1,6 @@
 package com.shared.myapplication.viewmodel.following
 
 import com.shared.myapplication.domain.usecase.ObserveFollowingInteractor
-import com.shared.myapplication.viewmodel.home.DiscoverShowEffect
 import com.shared.util.viewmodel.BaseViewModel
 import com.shared.util.viewmodel.Store
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -43,9 +42,7 @@ class FollowingViewModel(
                 interactor.execute(clientScope, Unit) {
 
                     onNext {
-                        clientScope.launch {
-                            _state.value = WatchlistState.Success(it)
-                        }
+                        _state.value = WatchlistState.Success(it)
                     }
 
                     onError {

@@ -44,6 +44,7 @@ dependencies {
     api(libs.androidx.compose.compiler)
     api(libs.kotlin.coroutines.core)
     api(libs.androidx.compose.ui.tooling)
+    api(libs.androidx.compose.constraintlayout)
     implementation(libs.kenburns)
     implementation(libs.coil)
     implementation(libs.accompanist.insets)

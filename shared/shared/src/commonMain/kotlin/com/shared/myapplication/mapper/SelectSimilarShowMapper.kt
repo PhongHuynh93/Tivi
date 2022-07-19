@@ -2,13 +2,12 @@ package com.shared.myapplication.mapper
 
 import com.shared.myapplication.model.TvShow
 import com.thomaskioko.tvmaniac.datasource.cache.SelectSimilarShows
-import com.thomaskioko.tvmaniac.datasource.cache.Show
 
-fun List<Show>.toTvShowList(): List<TvShow> {
+fun List<SelectSimilarShows>.toTvShowList(): List<TvShow> {
     return map { it.toTvShow() }
 }
 
-fun Show.toTvShow(): TvShow {
+fun SelectSimilarShows.toTvShow(): TvShow {
     return TvShow(
         id = id,
         title = title,

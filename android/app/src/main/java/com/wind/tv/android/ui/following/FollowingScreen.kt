@@ -15,6 +15,7 @@ import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -37,7 +38,7 @@ fun FollowingScreen(
 ) {
     val viewModel = getViewModel<FollowingViewModel>()
 
-    val watchlistViewState = viewModel.state.collectAsState()
+    val watchlistViewState by viewModel.state.collectAsState()
 
     val scaffoldState = rememberScaffoldState()
 
@@ -71,7 +72,7 @@ fun FollowingScreen(
         },
         content = {
             WatchlistContent(
-                viewState = watchlistViewState.value,
+                viewState = watchlistViewState,
                 onItemClicked = { tvShowId ->
                     openShowDetails(tvShowId)
                 }
