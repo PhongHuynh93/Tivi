@@ -38,11 +38,12 @@ import com.shared.myapplication.model.LastAirEpisode
 import com.wind.tv.android.util.detailUiState
 import dev.chrisbanes.snapper.ExperimentalSnapperApi
 import dev.chrisbanes.snapper.rememberSnapperFlingBehavior
+import kotlinx.collections.immutable.ImmutableList
 
 @OptIn(ExperimentalSnapperApi::class)
 @Composable
 fun EpisodesReleaseContent(
-    episodeList: List<LastAirEpisode>,
+    episodeList: ImmutableList<LastAirEpisode>,
     onEpisodeClicked: (Long, Long) -> Unit = { _, _ -> },
     onBookmarkEpClicked: (Long) -> Unit = { }
 ) {

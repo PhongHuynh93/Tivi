@@ -1,5 +1,6 @@
 package com.shared.myapplication.viewmodel.detail
 
+import com.shared.util.Immutable
 import com.shared.myapplication.domain.usecase.detail.UpdateShowParams
 import com.shared.myapplication.model.GenreUIModel
 import com.shared.myapplication.model.LastAirEpisode
@@ -8,6 +9,8 @@ import com.shared.myapplication.model.TvShow
 import com.shared.util.viewmodel.Action
 import com.shared.util.viewmodel.Effect
 import com.shared.util.viewmodel.State
+import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.persistentListOf
 
 sealed class ShowDetailAction : Action {
     object LoadGenres : ShowDetailAction()
@@ -47,14 +50,15 @@ sealed class ShowDetailEffect : Effect {
     ) : ShowDetailEffect()
 }
 
+@Immutable
 sealed class ShowDetailViewState() : State() {
     object InProgress : ShowDetailViewState()
     data class Success(
         val tvShow: TvShow = TvShow.EMPTY_SHOW,
-        val similarShowList: List<TvShow> = emptyList(),
-        val tvSeasonUiModels: List<SeasonUiModel> = emptyList(),
-        val genreUIList: List<GenreUIModel> = emptyList(),
-        val lastAirEpList: List<LastAirEpisode> = emptyList()
+        val similarShowList: ImmutableList<TvShow> = persistentListOf(),
+        val tvSeasonUiModels: ImmutableList<SeasonUiModel> = persistentListOf(),
+        val genreUIList: ImmutableList<GenreUIModel> = persistentListOf(),
+        val lastAirEpList: ImmutableList<LastAirEpisode> = persistentListOf()
     ): ShowDetailViewState()
 
     class Error(val errorMessage: String) : ShowDetailViewState()

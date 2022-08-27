@@ -5,6 +5,7 @@ import com.shared.myapplication.model.LastAirEpisode
 import com.shared.myapplication.model.SeasonUiModel
 import com.shared.myapplication.model.TvShow
 import com.shared.myapplication.viewmodel.detail.ShowDetailViewState
+import kotlinx.collections.immutable.persistentListOf
 
 val detailUiState = ShowDetailViewState.Success(
     tvShow = TvShow(
@@ -21,7 +22,7 @@ val detailUiState = ShowDetailViewState.Success(
         language = "en",
         votes = 4958,
         averageVotes = 8.1,
-        genreIds = listOf(18, 10765),
+        genreIds = persistentListOf(18, 10765),
         status = "Returning Series",
         year = "2024"
     ),
@@ -30,7 +31,7 @@ val detailUiState = ShowDetailViewState.Success(
     lastAirEpList = getEpisodeList(),
 )
 
-private fun getTvSeasons() = listOf(
+private fun getTvSeasons() = persistentListOf(
     SeasonUiModel(
         seasonId = 114355,
         tvShowId = 84958,
@@ -46,7 +47,7 @@ private fun getTvSeasons() = listOf(
     )
 )
 
-fun getGenres() = listOf(
+fun getGenres() = persistentListOf(
     GenreUIModel(
         id = 18,
         name = "Sci-Fi"
@@ -57,7 +58,7 @@ fun getGenres() = listOf(
     )
 )
 
-fun getEpisodeList() = listOf(
+fun getEpisodeList() = persistentListOf(
     LastAirEpisode(
         id = 2534997,
         name = "Glorious Purpose",
@@ -86,7 +87,7 @@ fun getEpisodeList() = listOf(
     )
 )
 
-val showList = listOf(
+val showList = persistentListOf(
     TvShow(
         id = 84958,
         title = "Loki",
@@ -101,7 +102,7 @@ val showList = listOf(
         language = "en",
         votes = 4958,
         averageVotes = 8.1,
-        genreIds = listOf(18, 10765),
+        genreIds = persistentListOf(18, 10765),
         status = "Returning Series",
         year = "2024"
     ),
@@ -119,7 +120,7 @@ val showList = listOf(
         language = "en",
         votes = 4958,
         averageVotes = 8.1,
-        genreIds = listOf(18, 10765),
+        genreIds = persistentListOf(18, 10765),
         status = "Returning Series",
         year = "2024"
     )

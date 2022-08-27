@@ -7,6 +7,14 @@ plugins {
 
 android {
     sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
+
+    buildFeatures {
+        compose = true
+    }
+
+    composeOptions {
+        kotlinCompilerExtensionVersion = libs.versions.compose.compiler.get()
+    }
 }
 
 kotlin {
@@ -17,6 +25,11 @@ kotlin {
 
     sourceSets {
         val commonMain by getting {}
+        val androidMain by getting {
+            dependencies {
+                implementation(libs.androidx.compose.runtime)
+            }
+        }
         val iosX64Main by getting
         val iosArm64Main by getting
         val iosSimulatorArm64Main by getting
@@ -30,12 +43,13 @@ kotlin {
 }
 
 dependencies {
-    commonMainImplementation(libs.kermit)
-    commonMainImplementation(libs.koin.core)
-    commonMainImplementation(libs.ktor.core)
-    commonMainImplementation(libs.kotlin.datetime)
-    commonMainImplementation(libs.kotlin.coroutines.core)
+    commonMainApi(libs.kermit)
+    commonMainApi(libs.koin.core)
+    commonMainApi(libs.ktor.core)
+    commonMainApi(libs.kotlin.datetime)
+    commonMainApi(libs.kotlin.coroutines.core)
+    commonMainApi(libs.kotlin.collections.immutable)
 
-    androidMainImplementation(libs.androidx.lifecycle.viewmodelKtx)
-    androidMainImplementation(libs.koin.android)
+    androidMainApi(libs.androidx.lifecycle.viewmodelKtx)
+    androidMainApi(libs.koin.android)
 }

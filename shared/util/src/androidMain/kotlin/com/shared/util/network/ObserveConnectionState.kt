@@ -5,11 +5,13 @@ import android.net.ConnectivityManager
 import android.net.Network
 import android.net.NetworkCapabilities
 import android.net.NetworkRequest
+import androidx.compose.runtime.Immutable
 import com.shared.util.AppContext
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
 
+@Immutable
 actual class ObserveConnectionState actual constructor(private val context: AppContext) {
 
     actual fun observeConnectivityAsFlow(): Flow<ConnectionState> = callbackFlow {

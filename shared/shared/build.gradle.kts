@@ -6,7 +6,7 @@ import util.libs
 
 plugins {
     `kmm-domain-plugin`
-    kotlin("plugin.serialization") version ("1.6.20")
+    kotlin("plugin.serialization") version (libs.versions.kotlin.get())
     id("com.squareup.sqldelight")
     id("com.codingfeline.buildkonfig")
 }
@@ -47,9 +47,7 @@ kotlin {
                 implementation(libs.ktor.negotiation)
                 implementation(libs.ktor.json)
                 implementation(libs.koin.core)
-                implementation(libs.kermit)
                 implementation(libs.settings)
-                implementation(libs.kotlin.datetime)
                 implementation(libs.squareup.sqldelight.runtime)
                 implementation(libs.squareup.sqldelight.extensions)
                 implementation(libs.multiplatform.paging.core)
@@ -63,6 +61,7 @@ kotlin {
         val androidMain by getting {
             dependencies {
                 implementation(libs.androidx.lifecycle.viewmodelKtx)
+                implementation(libs.androidx.compose.runtime)
                 implementation(libs.ktor.android)
                 implementation(libs.squareup.sqldelight.driver.android)
             }
@@ -95,6 +94,14 @@ kotlin {
 
 android {
     sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
+
+    buildFeatures {
+        compose = true
+    }
+
+    composeOptions {
+        kotlinCompilerExtensionVersion = libs.versions.compose.compiler.get()
+    }
 }
 
 sqldelight {

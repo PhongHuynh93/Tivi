@@ -8,6 +8,7 @@ import com.shared.myapplication.domain.usecase.detail.ObserveSimilarShowsInterac
 import com.shared.myapplication.domain.usecase.detail.UpdateFollowingInteractor
 import com.shared.util.viewmodel.BaseViewModel
 import com.shared.util.viewmodel.Store
+import kotlinx.collections.immutable.toImmutableList
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharedFlow
@@ -92,7 +93,7 @@ class ShowDetailsViewModel constructor(
         genresInteractor.execute(clientScope, Unit) {
             onNext {
                 _state.value = emptyState.copy(
-                    genreUIList = it
+                    genreUIList = it.toImmutableList()
                 )
             }
             onError {
@@ -121,7 +122,7 @@ class ShowDetailsViewModel constructor(
         observeSeasonsInteractor.execute(clientScope, showId) {
             onNext {
                 _state.value = emptyState.copy(
-                    tvSeasonUiModels = it
+                    tvSeasonUiModels = it.toImmutableList()
                 )
             }
             onError {
@@ -136,7 +137,7 @@ class ShowDetailsViewModel constructor(
         observeAirEpisodesInteractor.execute(clientScope, showId) {
             onNext {
                 _state.value = emptyState.copy(
-                    lastAirEpList = it
+                    lastAirEpList = it.toImmutableList()
                 )
             }
             onError {
@@ -151,7 +152,7 @@ class ShowDetailsViewModel constructor(
         observeSimilarShows.execute(clientScope, showId) {
             onNext {
                 _state.value = emptyState.copy(
-                    similarShowList = it
+                    similarShowList = it.toImmutableList()
                 )
             }
             onError {

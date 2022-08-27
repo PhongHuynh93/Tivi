@@ -1,5 +1,8 @@
 package com.shared.myapplication.model
 
+import com.shared.util.Immutable
+
+@Immutable
 data class LastAirEpisode(
     val id: Long,
     val name: String?,

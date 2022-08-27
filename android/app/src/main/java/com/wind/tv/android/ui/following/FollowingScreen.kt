@@ -1,5 +1,6 @@
 package com.wind.tv.android.ui.following
 
+import android.annotation.SuppressLint
 import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
@@ -32,6 +33,7 @@ import com.shared.myapplication.viewmodel.following.WatchlistState
 import com.wind.tv.android.R
 import org.koin.androidx.compose.getViewModel
 
+@SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
 fun FollowingScreen(
     openShowDetails: (showId: Long) -> Unit

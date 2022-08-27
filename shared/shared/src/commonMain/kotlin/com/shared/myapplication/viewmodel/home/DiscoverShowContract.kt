@@ -1,11 +1,14 @@
 package com.shared.myapplication.viewmodel.home
 
+import com.shared.util.Immutable
 import com.shared.myapplication.model.ShowCategory
 import com.shared.myapplication.model.TvShow
 import com.shared.util.viewmodel.Action
 import com.shared.util.viewmodel.Effect
 import com.shared.util.viewmodel.State
+import kotlinx.collections.immutable.ImmutableList
 
+@Immutable
 sealed class DiscoverShowState : State() {
     object InProgress : DiscoverShowState()
     class Success(val data: DiscoverShowResult) : DiscoverShowState()
@@ -20,35 +23,18 @@ sealed class DiscoverShowEffect : Effect {
     data class Error(val message: String = "") : DiscoverShowEffect()
 }
 
+@Immutable
 data class DiscoverShowResult(
     val featuredShows: DiscoverShowsData,
     val trendingShows: DiscoverShowsData,
     val topRatedShows: DiscoverShowsData,
     val popularShows: DiscoverShowsData,
 ) {
-    companion object {
-        val EMPTY = DiscoverShowResult(
-            featuredShows = DiscoverShowsData.EMPTY,
-            trendingShows = DiscoverShowsData.EMPTY,
-            topRatedShows = DiscoverShowsData.EMPTY,
-            popularShows = DiscoverShowsData.EMPTY
-        )
-    }
 
+    @Immutable
     data class DiscoverShowsData(
-        val isLoading: Boolean,
         val category: ShowCategory,
-        val tvShows: List<TvShow>,
-        val errorMessage: String? = null
-    ) {
+        val tvShows: ImmutableList<TvShow>
+    )
 
-        companion object {
-            val EMPTY = DiscoverShowsData(
-                isLoading = true,
-                category = ShowCategory.TOP_RATED,
-                tvShows = emptyList(),
-                errorMessage = null
-            )
-        }
-    }
 }

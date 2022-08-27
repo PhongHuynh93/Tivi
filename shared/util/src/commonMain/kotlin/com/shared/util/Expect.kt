@@ -26,3 +26,5 @@ expect inline fun <reified T : BaseViewModel> Module.viewModelDefinition(
     createdAtStart: Boolean = false,
     noinline definition: Definition<T>
 ): Pair<Module, InstanceFactory<T>>
+
+expect annotation class Immutable()

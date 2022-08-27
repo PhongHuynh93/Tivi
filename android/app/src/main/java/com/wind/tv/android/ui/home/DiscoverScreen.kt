@@ -1,5 +1,6 @@
 package com.wind.tv.android.ui.home
 
+import android.annotation.SuppressLint
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.clickable
@@ -60,6 +61,7 @@ import com.shared.myapplication.viewmodel.home.DiscoverViewModel
 import com.wind.tv.android.R
 import dev.chrisbanes.snapper.rememberSnapperFlingBehavior
 import kotlin.math.absoluteValue
+import kotlinx.collections.immutable.ImmutableList
 import kotlinx.coroutines.flow.collectLatest
 import org.koin.androidx.compose.getViewModel
 
@@ -97,6 +99,7 @@ fun DiscoverScreen(
     )
 }
 
+@SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
 private fun DiscoverShows(
     scaffoldState: ScaffoldState,
@@ -223,7 +226,7 @@ fun FeaturedItems(
 
 @Composable
 fun FeaturedHorizontalPager(
-    list: List<TvShow>,
+    list: ImmutableList<TvShow>,
     pagerState: PagerState,
     dominantColorState: DominantColorState,
     onClick: (Long) -> Unit
@@ -308,7 +311,7 @@ fun FeaturedHorizontalPager(
 @Composable
 private fun DisplayShowData(
     category: ShowCategory,
-    tvShows: List<TvShow>,
+    tvShows: ImmutableList<TvShow>,
     onItemClicked: (Long) -> Unit,
     moreClicked: (Int) -> Unit,
 ) {
@@ -327,7 +330,7 @@ private fun DisplayShowData(
                 state = lazyListState,
                 flingBehavior = rememberSnapperFlingBehavior(lazyListState),
             ) {
-                itemsIndexed(tvShows) { index, tvShow ->
+                itemsIndexed(items = tvShows, key = { _, tvShow -> tvShow.id }) { index, tvShow ->
                     TvShowCard(
                         posterImageUrl = tvShow.posterImageUrl,
                         title = tvShow.title,

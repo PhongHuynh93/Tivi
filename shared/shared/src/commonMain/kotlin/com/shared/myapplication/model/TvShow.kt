@@ -1,5 +1,10 @@
 package com.shared.myapplication.model
 
+import com.shared.util.Immutable
+import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.persistentListOf
+
+@Immutable
 data class TvShow(
     val id: Long = 0,
     val title: String = "",
@@ -14,7 +19,7 @@ data class TvShow(
     val numberOfEpisodes: Int? = null,
     val averageVotes: Double = 0.0,
     val following: Boolean = false,
-    val genreIds: List<Int> = listOf(),
+    val genreIds: ImmutableList<Int> = persistentListOf(),
 ) {
     companion object {
         val EMPTY_SHOW = TvShow()

@@ -80,6 +80,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.ui.tooling.preview.Preview
 import com.shared.common_compose.theme.TvManiacTheme
 import com.wind.tv.android.util.detailUiState
+import kotlinx.collections.immutable.ImmutableList
 
 @Composable
 fun DetailScreen(
@@ -269,7 +270,7 @@ private fun HeaderImage(backdropImageUrl: String) {
 @Composable
 private fun Body(
     tvShow: TvShow,
-    genreUIS: List<GenreUIModel>,
+    genreUIS: ImmutableList<GenreUIModel>,
     onUpdateFavoriteClicked: (UpdateShowParams) -> Unit
 ) {
     val surfaceGradient = backgroundGradient().reversed()
@@ -322,7 +323,7 @@ private fun Body(
 @Composable
 fun TvShowMetadata(
     tvShow: TvShow,
-    genreUIList: List<GenreUIModel>,
+    genreUIList: ImmutableList<GenreUIModel>,
     onUpdateFavoriteClicked: (UpdateShowParams) -> Unit,
     onWatchTrailerClicked: () -> Unit = {},
 ) {
@@ -391,8 +392,8 @@ fun TvShowMetadata(
 
 @Composable
 private fun GenreText(
-    genreUIList: List<GenreUIModel>,
-    genreIds: List<Int>,
+    genreUIList: ImmutableList<GenreUIModel>,
+    genreIds: ImmutableList<Int>,
 ) {
 
     val result = genreUIList.filter { genre ->
@@ -512,7 +513,7 @@ private fun MoreBodyContent(
 
 @Composable
 private fun ShowSeasonsTabs(
-    seasonUiModelList: List<SeasonUiModel>,
+    seasonUiModelList: ImmutableList<SeasonUiModel>,
     modifier: Modifier,
     onSeasonClicked: (Long, String) -> Unit = { _, _ -> }
 ) {

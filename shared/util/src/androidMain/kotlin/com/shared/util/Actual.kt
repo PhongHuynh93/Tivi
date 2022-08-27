@@ -29,3 +29,5 @@ actual inline fun <reified T : BaseViewModel> Module.viewModelDefinition(
     qualifier = qualifier,
     definition = definition
 )
+
+actual typealias Immutable = androidx.compose.runtime.Immutable

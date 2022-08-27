@@ -1,5 +1,8 @@
 package com.shared.myapplication.model
 
+import com.shared.util.Immutable
+
+@Immutable
 enum class ShowCategory(
     val type: Int,
     val title: String,

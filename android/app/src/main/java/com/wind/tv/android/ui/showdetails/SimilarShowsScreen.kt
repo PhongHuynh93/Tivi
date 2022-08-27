@@ -23,11 +23,12 @@ import com.wind.tv.android.R
 import com.wind.tv.android.util.showList
 import dev.chrisbanes.snapper.ExperimentalSnapperApi
 import dev.chrisbanes.snapper.rememberSnapperFlingBehavior
+import kotlinx.collections.immutable.ImmutableList
 
 @OptIn(ExperimentalSnapperApi::class)
 @Composable
 fun SimilarShowsShowsContent(
-    similarShows: List<TvShow>,
+    similarShows: ImmutableList<TvShow>,
     onShowClicked: (Long) -> Unit = {}
 ) {
     val lazyListState = rememberLazyListState()

@@ -25,3 +25,5 @@ actual inline fun <reified T : BaseViewModel> Module.viewModelDefinition(
     createdAtStart = createdAtStart,
     definition = definition
 )
+
+actual annotation class Immutable

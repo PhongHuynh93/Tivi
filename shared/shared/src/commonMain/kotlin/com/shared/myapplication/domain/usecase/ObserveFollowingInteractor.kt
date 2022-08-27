@@ -4,6 +4,7 @@ import com.shared.myapplication.data.show.TvShowsRepository
 import com.shared.myapplication.model.TvShow
 import com.shared.util.FlowInteractor
 import com.thomaskioko.tvmaniac.datasource.cache.Show
+import kotlinx.collections.immutable.toImmutableList
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
@@ -28,7 +29,7 @@ fun List<Show>.toTvShowList(): List<TvShow> {
             backdropImageUrl = it.backdrop_image_url,
             votes = it.votes.toInt(),
             averageVotes = it.vote_average,
-            genreIds = it.genre_ids,
+            genreIds = it.genre_ids.toImmutableList(),
             year = it.year,
             status = it.status,
             following = it.following

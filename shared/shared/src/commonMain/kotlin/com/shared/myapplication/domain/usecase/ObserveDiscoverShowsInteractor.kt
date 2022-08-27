@@ -8,6 +8,7 @@ import com.shared.util.FlowInteractor
 import com.shared.util.network.Resource
 import com.shared.util.network.Status
 import com.thomaskioko.tvmaniac.datasource.cache.Show
+import kotlinx.collections.immutable.toImmutableList
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.combine
@@ -31,6 +32,7 @@ class ObserveDiscoverShowsInteractor constructor(
                 tvShows = trending.tvShows
                     .sortedBy { it.votes }
                     .take(FEATURED_LIST_SIZE)
+                    .toImmutableList()
             ),
             trendingShows = trending,
             popularShows = popular,
@@ -40,10 +42,8 @@ class ObserveDiscoverShowsInteractor constructor(
 
     private fun Flow<Resource<List<Show>>>.toShowData(category: ShowCategory) = map {
         DiscoverShowResult.DiscoverShowsData(
-            isLoading = it.status == Status.LOADING,
             category = category,
-            tvShows = it.data?.toTvShowList() ?: emptyList(),
-            errorMessage = it.throwable?.message
+            tvShows = it.data?.toTvShowList().orEmpty().toImmutableList()
         )
     }
 }
