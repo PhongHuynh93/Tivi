@@ -20,6 +20,9 @@ tasks.register("clean", Delete::class) {
 subprojects {
     tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
         with(kotlinOptions) {
+            
+            jvmTarget = "11"
+
             freeCompilerArgs = freeCompilerArgs + listOf(
                 "-opt-in=kotlin.RequiresOptIn",
                 "-opt-in=kotlin.OptIn"

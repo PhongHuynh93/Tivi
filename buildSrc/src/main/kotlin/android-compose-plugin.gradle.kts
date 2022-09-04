@@ -24,10 +24,6 @@ android {
         compose = true
     }
 
-    kotlinOptions {
-        jvmTarget = "11"
-    }
-
     composeOptions {
         kotlinCompilerExtensionVersion = libs.versions.compose.compiler.get()
     }
