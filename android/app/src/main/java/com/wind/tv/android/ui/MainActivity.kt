@@ -14,7 +14,6 @@ import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.State
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.produceState
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.graphics.Color
@@ -23,14 +22,12 @@ import androidx.core.view.WindowCompat
 import com.google.accompanist.insets.ProvideWindowInsets
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import com.shared.common_compose.components.ConnectionStatus
-import com.shared.common_compose.theme.DarkColors
-import com.shared.common_compose.theme.LightColors
 import com.shared.common_compose.theme.TvManiacTheme
 import com.shared.util.network.ConnectionState
 import com.shared.util.network.ObserveConnectionState
 import com.wind.tv.android.ui.home.HomeScreen
+import com.wind.tv.android.util.toState
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.distinctUntilChanged
 import org.koin.androidx.compose.get
 
 class MainActivity : ComponentActivity() {
@@ -45,9 +42,8 @@ class MainActivity : ComponentActivity() {
                     SetupTheme()
                     HomeScreen()
                 }
+                ConnectivityStatus(get())
             }
-
-            ConnectivityStatus(get())
         }
     }
 }
@@ -64,37 +60,34 @@ private fun SetupTheme() {
     SideEffect {
         systemUiController.setSystemBarsColor(
             color = Color.Transparent,
-            darkIcons = isLightTheme
+            darkIcons = true
         )
 
-        systemUiController.setStatusBarColor(
-            color = Color.Transparent,
-            darkIcons = isLightTheme,
-            transformColorForLightContent = transparentColor
-        )
-
-        systemUiController.setNavigationBarColor(
-            color = if (isLightTheme) LightColors.surface else DarkColors.primary,
-            darkIcons = isLightTheme,
-            navigationBarContrastEnforced = false,
-            transformColorForLightContent = transparentColor
-        )
+//        systemUiController.setStatusBarColor(
+//            color = Color.Transparent,
+//            darkIcons = isLightTheme,
+//            transformColorForLightContent = transparentColor
+//        )
+//
+//        systemUiController.setNavigationBarColor(
+//            color = if (isLightTheme) LightColors.surface else DarkColors.primary,
+//            darkIcons = isLightTheme,
+//            navigationBarContrastEnforced = false,
+//            transformColorForLightContent = transparentColor
+//        )
     }
 }
 
 @Composable
 fun connectivityState(observeNetwork: ObserveConnectionState): State<ConnectionState> {
-    return produceState(initialValue = observeNetwork.currentConnectivityState) {
-        observeNetwork.observeConnectivityAsFlow()
-            .distinctUntilChanged()
-            .collect { value = it }
-    }
+    return observeNetwork.observeConnectivityAsFlow()
+        .toState(initialValue = observeNetwork.currentConnectivityState)
 }
 
 @Composable
 fun ConnectivityStatus(observeNetwork: ObserveConnectionState) {
     val connection by connectivityState(observeNetwork)
-    val isConnected = connection === ConnectionState.ConnectionAvailable
+    val isConnected = connection == ConnectionState.ConnectionAvailable
 
     var visibility by remember { mutableStateOf(false) }
 

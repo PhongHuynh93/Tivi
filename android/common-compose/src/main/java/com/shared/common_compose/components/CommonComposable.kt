@@ -43,10 +43,11 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.google.accompanist.insets.statusBarsPadding
 import com.shared.common_compose.R
 import com.shared.common_compose.theme.colorError
 import com.shared.common_compose.theme.green
- 
+
 
 @Composable
 fun ErrorView(
@@ -203,18 +204,27 @@ fun SnackBarErrorRetry(
 @Composable
 fun ConnectionStatus(isConnected: Boolean) {
     val backgroundColor by animateColorAsState(if (isConnected) green else colorError)
-    val message = if (isConnected) stringResource(id = R.string.status_connected)
-    else stringResource(id = R.string.status_no_connection)
-    val icon = if (isConnected) Icons.Outlined.SignalWifi4Bar else Icons.Outlined.SignalWifiOff
+    val message = if (isConnected) {
+        stringResource(id = R.string.status_connected)
+    } else {
+        stringResource(id = R.string.status_no_connection)
+    }
+    val icon = if (isConnected) {
+        Icons.Outlined.SignalWifi4Bar
+    } else {
+        Icons.Outlined.SignalWifiOff
+    }
 
     Box(
         modifier = Modifier
             .background(backgroundColor)
+            .statusBarsPadding()
             .fillMaxWidth()
             .padding(10.dp),
         contentAlignment = Alignment.TopCenter
     ) {
         Row(verticalAlignment = Alignment.CenterVertically) {
+            // TODO: how to make text primary on dark background
             Icon(
                 imageVector = icon,
                 contentDescription = "Connectivity Icon",

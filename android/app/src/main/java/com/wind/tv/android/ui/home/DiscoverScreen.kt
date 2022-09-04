@@ -1,15 +1,18 @@
 package com.wind.tv.android.ui.home
 
-import android.annotation.SuppressLint
+import android.widget.Space
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
@@ -33,6 +36,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.util.lerp
+import co.touchlab.kermit.Logger
 import com.google.accompanist.insets.navigationBarsWithImePadding
 import com.google.accompanist.insets.statusBarsPadding
 import com.google.accompanist.pager.HorizontalPager
@@ -52,11 +56,11 @@ import com.shared.common_compose.util.DominantColorState
 import com.shared.common_compose.util.DynamicThemePrimaryColorsFromImage
 import com.shared.common_compose.util.rememberDominantColorState
 import com.shared.common_compose.util.verticalGradientScrim
+import com.shared.myapplication.model.ShowCategory
+import com.shared.myapplication.model.TvShow
 import com.shared.myapplication.viewmodel.home.DiscoverShowEffect
 import com.shared.myapplication.viewmodel.home.DiscoverShowResult
 import com.shared.myapplication.viewmodel.home.DiscoverShowState
-import com.shared.myapplication.model.ShowCategory
-import com.shared.myapplication.model.TvShow
 import com.shared.myapplication.viewmodel.home.DiscoverViewModel
 import com.wind.tv.android.R
 import dev.chrisbanes.snapper.rememberSnapperFlingBehavior
@@ -99,7 +103,6 @@ fun DiscoverScreen(
     )
 }
 
-@SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
 private fun DiscoverShows(
     scaffoldState: ScaffoldState,
@@ -109,8 +112,6 @@ private fun DiscoverShows(
 ) {
     Scaffold(
         scaffoldState = scaffoldState,
-        modifier = Modifier
-            .statusBarsPadding(),
         snackbarHost = { snackBarHostState ->
             SnackbarHost(
                 hostState = snackBarHostState,
@@ -126,16 +127,12 @@ private fun DiscoverShows(
                     .fillMaxWidth()
             )
         },
-    ) {
+    ) { paddingValues ->
+        Logger.d("calculate pad top ${paddingValues.calculateTopPadding()} bot ${paddingValues.calculateBottomPadding()}")
         when (discoverViewState) {
             DiscoverShowState.InProgress -> FullScreenLoading()
             is DiscoverShowState.Success -> {
-                LazyColumn(
-                    modifier = Modifier
-                        .navigationBarsWithImePadding()
-                        .animateContentSize(),
-                ) {
-
+                LazyColumn() {
                     item {
                         FeaturedItems(
                             showData = discoverViewState.data.featuredShows,
@@ -169,6 +166,10 @@ private fun DiscoverShows(
                             moreClicked = { moreClicked(it) }
                         )
                     }
+
+                    item(key = "offset nav bar") {
+                        Spacer(modifier = Modifier.navigationBarsPadding())
+                    }
                 }
             }
         }
@@ -200,6 +201,7 @@ fun FeaturedItems(
                     startYPercentage = 1f,
                     endYPercentage = 0f
                 )
+                .statusBarsPadding()
         ) {
 
             ColumnSpacer(value = 24)
