@@ -1,8 +1,6 @@
 package com.wind.tv.android.ui.home
 
-import android.widget.Space
 import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -11,7 +9,6 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
@@ -37,7 +34,6 @@ import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.util.lerp
 import co.touchlab.kermit.Logger
-import com.google.accompanist.insets.navigationBarsWithImePadding
 import com.google.accompanist.insets.statusBarsPadding
 import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.HorizontalPagerIndicator
@@ -331,17 +327,25 @@ private fun DisplayShowData(
             LazyRow(
                 state = lazyListState,
                 flingBehavior = rememberSnapperFlingBehavior(lazyListState),
+                contentPadding = PaddingValues(
+                    start = 12.dp,
+                    end = 12.dp,
+                    top = 8.dp,
+                    bottom = 8.dp
+                )
             ) {
                 itemsIndexed(items = tvShows, key = { _, tvShow -> tvShow.id }) { index, tvShow ->
                     TvShowCard(
                         posterImageUrl = tvShow.posterImageUrl,
                         title = tvShow.title,
-                        isFirstCard = index == 0
+                        modifier = Modifier.padding(start = 4.dp, end = 4.dp)
                     ) {
                         onItemClicked(tvShow.id)
                     }
                 }
             }
+
+            ColumnSpacer(value = 8)
         }
     }
 }

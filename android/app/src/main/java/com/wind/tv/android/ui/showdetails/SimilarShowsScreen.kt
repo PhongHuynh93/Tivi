@@ -2,6 +2,7 @@ package com.wind.tv.android.ui.showdetails
 
 import android.content.res.Configuration
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyRow
@@ -52,18 +53,25 @@ fun SimilarShowsShowsContent(
             LazyRow(
                 state = lazyListState,
                 flingBehavior = rememberSnapperFlingBehavior(lazyListState),
+                contentPadding = PaddingValues(
+                    start = 12.dp,
+                    end = 12.dp,
+                    top = 8.dp,
+                    bottom = 8.dp
+                )
             ) {
                 itemsIndexed(similarShows) { index, tvShow ->
                     TvShowCard(
                         posterImageUrl = tvShow.posterImageUrl,
                         title = tvShow.title,
-                        isFirstCard = index == 0,
                         onClick = { onShowClicked(tvShow.id) },
                         imageWidth = 84.dp,
-                        rowSpacer = 0
+                        modifier = Modifier.padding(start = 4.dp, end = 4.dp)
                     )
                 }
             }
+
+            ColumnSpacer(value = 8)
         }
     }
 }
