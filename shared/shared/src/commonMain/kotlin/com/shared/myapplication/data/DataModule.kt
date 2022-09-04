@@ -23,7 +23,7 @@ val dataModule = module {
     single<TvShowCache> { TvShowCacheImpl(get()) }
     single<DiscoverCategoryCache> { DiscoverCategoryCacheImpl(get()) }
     single<CategoryCache> { CategoryCacheImpl(get()) }
-    single<DiscoverRepository> { DiscoverRepositoryImpl(get(), get(), get(), get(), get()) }
+    single<DiscoverRepository> { DiscoverRepositoryImpl(get(), get(), get(), get()) }
     single<TvShowsRepository> { TvShowsRepositoryImpl(get(), get(), get(), get(), get()) }
     single<LastEpisodeAirCache> { LastEpisodeAirCacheImpl(get()) }
     single<ShowCategoryCache> { ShowCategoryCacheImpl(get()) }

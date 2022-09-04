@@ -16,7 +16,7 @@ fun SelectSimilarShows.toTvShow(): TvShow {
         language = language,
         posterImageUrl = poster_image_url,
         backdropImageUrl = backdrop_image_url,
-        votes = votes.toInt(),
+        votes = votes,
         averageVotes = vote_average,
         genreIds = genre_ids.toImmutableList(),
         year = year,

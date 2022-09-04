@@ -14,7 +14,7 @@ data class TvShow(
     val backdropImageUrl: String = "",
     val year: String = "",
     val status: String? = null,
-    val votes: Int = 0,
+    val votes: Long = 0,
     val numberOfSeasons: Int? = null,
     val numberOfEpisodes: Int? = null,
     val averageVotes: Double = 0.0,
@@ -25,3 +25,5 @@ data class TvShow(
         val EMPTY_SHOW = TvShow()
     }
 }
+
+

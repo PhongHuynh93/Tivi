@@ -1,7 +1,6 @@
 package com.shared.myapplication.mapper
 
 import com.shared.myapplication.model.TvShow
-import com.thomaskioko.tvmaniac.datasource.cache.SelectSimilarShows
 import com.thomaskioko.tvmaniac.datasource.cache.Show
 import kotlinx.collections.immutable.toImmutableList
 
@@ -17,7 +16,7 @@ fun Show.toTvShow(): TvShow {
         language = language,
         posterImageUrl = poster_image_url,
         backdropImageUrl = backdrop_image_url,
-        votes = votes.toInt(),
+        votes = votes,
         averageVotes = vote_average,
         genreIds = genre_ids.toImmutableList(),
         year = year,

@@ -32,6 +32,7 @@ class TvShowCacheImpl(
         }
     }
 
+    // TODO: can we insert all shows
     override fun insert(list: List<Show>) {
         list.forEach { insert(it) }
     }
