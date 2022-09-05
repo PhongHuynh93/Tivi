@@ -2,13 +2,11 @@ import SwiftUI
 import Tivi
 
 struct ShowRow: View {
-
   var categoryName: String
   var shows: [TvShow]
 
   var body: some View {
     VStack(alignment: .leading) {
-
       HStack {
         Text(categoryName)
           .titleSemiBoldFont(size: 23)
@@ -41,13 +39,11 @@ struct ShowRow: View {
                 posterSize: .medium,
                 imageUrl: show.posterImageUrl
               )
-
-
             }
           }
         }
-          .padding(.trailing, 16)
-          .padding(.leading, 16)
+        .padding(.trailing, 16)
+        .padding(.leading, 16)
       }
     }
   }
@@ -103,6 +99,7 @@ struct ShowRow_Previews: PreviewProvider {
         averageVotes: 233.0,
         following: false,
         genreIds: [12, 15]
-      )])
+      ),
+    ])
   }
 }

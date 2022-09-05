@@ -2,7 +2,6 @@ import SwiftUI
 import Tivi
 
 struct BodyContentView: View {
-
   // Environment Values
   @Namespace var animation
   @Environment(\.colorScheme) var scheme
@@ -11,20 +10,17 @@ struct BodyContentView: View {
 
   let showResult: DiscoverShowResult
 
-
   var body: some View {
     ZStack {
       BackgroundView()
 
       ScrollView(showsIndicators: false) {
-
         VStack {
-
           /**
-                     * This is a temporary implementation for navigation to the detail view. The problem is NavigationView
-                     * does not support MatchedGeometry effect. The other alternative would be to use an overlay
-                     * for the detailView.
-                     */
+           * This is a temporary implementation for navigation to the detail view. The problem is NavigationView
+           * does not support MatchedGeometry effect. The other alternative would be to use an overlay
+           * for the detailView.
+           */
           NavigationLink(
             destination: Text("TODO")
 //            destination: ShowDetailView(showId: showResult.featuredShows.tvShows[currentIndex].id)
@@ -43,35 +39,34 @@ struct BodyContentView: View {
                   posterSize: .big,
                   imageUrl: show.posterImageUrl
                 )
-                  .frame(width: size.width, height: size.height)
-                  .matchedGeometryEffect(id: show.id, in: animation)
+                .frame(width: size.width, height: size.height)
+                .matchedGeometryEffect(id: show.id, in: animation)
               }
             }
           }
-            .frame(height: 450)
-            .padding(.top, 120)
+          .frame(height: 450)
+          .padding(.top, 120)
 
           CustomIndicator()
 
-          //Trending
+          // Trending
           ShowRow(
             categoryName: showResult.trendingShows.category.title,
             shows: showResult.trendingShows.tvShows
           )
 
-          //Top Rated
+          // Top Rated
           ShowRow(
             categoryName: showResult.topRatedShows.category.title,
             shows: showResult.topRatedShows.tvShows
           )
-          //Popular
+          // Popular
           ShowRow(
             categoryName: showResult.popularShows.category.title,
             shows: showResult.popularShows.tvShows
           )
-
         }
-          .padding(.bottom, 90)
+        .padding(.bottom, 90)
       }
     }
   }
@@ -87,25 +82,25 @@ struct BodyContentView: View {
             posterSize: .big,
             imageUrl: showResult.featuredShows.tvShows[index].posterImageUrl
           )
-            .frame(width: size.width, height: size.height)
-            .clipped()
-            .tag(index)
+          .frame(width: size.width, height: size.height)
+          .clipped()
+          .tag(index)
         }
       }
-        .tabViewStyle(.page(indexDisplayMode: .never))
-        .animation(.easeInOut, value: currentIndex)
+      .tabViewStyle(.page(indexDisplayMode: .never))
+      .animation(.easeInOut, value: currentIndex)
 
       let color: Color = (scheme == .dark ? .black : .white)
       // Custom Gradient
       LinearGradient(colors: [
-          .black,
-          .clear,
+        .black,
+        .clear,
         color.opacity(0.15),
         color.opacity(0.5),
         color.opacity(0.8),
         color,
         color
-        ], startPoint: .top, endPoint: .bottom)
+      ], startPoint: .top, endPoint: .bottom)
 
       // Blurred Overlay
       if #available(iOS 15.0, *) {
@@ -116,7 +111,7 @@ struct BodyContentView: View {
         Rectangle()
       }
     }
-      .ignoresSafeArea()
+    .ignoresSafeArea()
   }
 
   @ViewBuilder
@@ -124,11 +119,10 @@ struct BodyContentView: View {
     HStack(spacing: 5) {
       ForEach(showResult.featuredShows.tvShows.indices, id: \.self) { index in
         Circle()
-          .fill(currentIndex == index ? Color.accent_color: .gray.opacity(0.5))
+          .fill(currentIndex == index ? Color.accent_color : .gray.opacity(0.5))
           .frame(width: currentIndex == index ? 10 : 6, height: currentIndex == index ? 10 : 6)
       }
     }
-      .animation(.easeInOut, value: currentIndex)
+    .animation(.easeInOut, value: currentIndex)
   }
-
 }

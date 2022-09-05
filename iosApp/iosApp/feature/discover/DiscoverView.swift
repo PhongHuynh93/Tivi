@@ -10,40 +10,31 @@ import SwiftUI
 import Tivi
 
 struct DiscoverView: View {
-
   @ObservedObject var observable = ObservableViewModel<DiscoverViewModel, DiscoverShowState, DiscoverShowEffect>(
     viewModel: DiscoverViewModel()
   )
 
   var body: some View {
     NavigationView {
-
       VStack {
         if observable.state is DiscoverShowState.InProgress {
           LoadingIndicatorView()
-        } else if observable.state is DiscoverShowState.Success {
-
-          let result = observable.state as? DiscoverShowState.Success
-
-          BodyContentView(showResult: result!.data)
-
+        } else if let success = observable.state as? DiscoverShowState.Success {
+          BodyContentView(showResult: success.data)
         }
-      }
-        .ignoresSafeArea()
+      }.ignoresSafeArea()
         .navigationBarHidden(true)
-    }
-      .accentColor(Color.background)
+    }.accentColor(Color.background)
       .navigationViewStyle(StackNavigationViewStyle())
   }
-
 }
 
 // Screen Bounds...
-//extension View {
+// extension View {
 //  func getRect() -> CGRect {
 //    UIScreen.main.bounds
 //  }
-//}
+// }
 
 struct DiscoverView_Previews: PreviewProvider {
   static var previews: some View {

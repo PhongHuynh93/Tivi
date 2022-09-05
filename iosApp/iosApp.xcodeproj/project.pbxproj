@@ -12,7 +12,6 @@
 		2152FB042600AC8F00CF470E /* iOSApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2152FB032600AC8F00CF470E /* iOSApp.swift */; };
 		715B4A182836896F00F61EA9 /* DiscoverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 715B4A172836896F00F61EA9 /* DiscoverView.swift */; };
 		715B4A1A28368A2D00F61EA9 /* ObservableViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 715B4A1928368A2D00F61EA9 /* ObservableViewModel.swift */; };
-		715B4A1E2837421400F61EA9 /* Tivi.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 715B4A1D2837421400F61EA9 /* Tivi.xcframework */; };
 		715B4A2228374AFF00F61EA9 /* LoadingIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 715B4A2128374AFF00F61EA9 /* LoadingIndicatorView.swift */; };
 		715B4A2428374B2300F61EA9 /* BodyContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 715B4A2328374B2300F61EA9 /* BodyContentView.swift */; };
 		715B4A2628374B6800F61EA9 /* SnapCarousel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 715B4A2528374B6800F61EA9 /* SnapCarousel.swift */; };
@@ -23,6 +22,8 @@
 		71A96F572837EBB500F4DC23 /* PosterStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71A96F562837EBB500F4DC23 /* PosterStyle.swift */; };
 		71A96F5A2837EC3800F4DC23 /* ColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71A96F592837EC3800F4DC23 /* ColorExtension.swift */; };
 		71A96F5C2837ECF600F4DC23 /* Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71A96F5B2837ECF600F4DC23 /* Font.swift */; };
+		71ACE8C228C5BC4A004A8065 /* Tivi.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 715B4A1D2837421400F61EA9 /* Tivi.xcframework */; };
+		71ACE8C328C5BC4A004A8065 /* Tivi.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 715B4A1D2837421400F61EA9 /* Tivi.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		7555FF83242A565900829871 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7555FF82242A565900829871 /* ContentView.swift */; };
 /* End PBXBuildFile section */
 
@@ -33,6 +34,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				71ACE8C328C5BC4A004A8065 /* Tivi.xcframework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -66,7 +68,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				71A96F552837EB8600F4DC23 /* Kingfisher in Frameworks */,
-				715B4A1E2837421400F61EA9 /* Tivi.xcframework in Frameworks */,
+				71ACE8C228C5BC4A004A8065 /* Tivi.xcframework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
