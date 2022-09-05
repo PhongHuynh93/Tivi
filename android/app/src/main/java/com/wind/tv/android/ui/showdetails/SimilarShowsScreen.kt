@@ -60,7 +60,7 @@ fun SimilarShowsShowsContent(
                     bottom = 8.dp
                 )
             ) {
-                itemsIndexed(similarShows) { index, tvShow ->
+                itemsIndexed(similarShows) { _, tvShow ->
                     TvShowCard(
                         posterImageUrl = tvShow.posterImageUrl,
                         title = tvShow.title,

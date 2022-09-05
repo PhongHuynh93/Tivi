@@ -23,9 +23,11 @@ subprojects {
             
             jvmTarget = "11"
 
+            // Treat all Kotlin warnings as errors
+            allWarningsAsErrors = true
+
             freeCompilerArgs = freeCompilerArgs + listOf(
                 "-opt-in=kotlin.RequiresOptIn",
-                "-opt-in=kotlin.OptIn"
             )
             if (project.findProperty("composeCompilerReports") == "true") {
                 freeCompilerArgs = freeCompilerArgs + listOf(

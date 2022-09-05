@@ -334,7 +334,7 @@ private fun DisplayShowData(
                     bottom = 8.dp
                 )
             ) {
-                itemsIndexed(items = tvShows, key = { _, tvShow -> tvShow.id }) { index, tvShow ->
+                itemsIndexed(items = tvShows, key = { _, tvShow -> tvShow.id }) { _, tvShow ->
                     TvShowCard(
                         posterImageUrl = tvShow.posterImageUrl,
                         title = tvShow.title,

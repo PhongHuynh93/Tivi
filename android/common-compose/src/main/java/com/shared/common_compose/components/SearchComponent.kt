@@ -1,5 +1,6 @@
 package com.shared.common_compose.components
 
+import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
@@ -69,7 +70,8 @@ private fun SearchInputText(
     onTextFieldFocused: (Boolean) -> Unit,
     focusState: Boolean
 ) {
-    var keyboardController by remember { mutableStateOf<SoftwareKeyboardController?>(null) }
+    Log.d("TAG", "SearchInputText: $onTextFieldFocused")
+    val keyboardController by remember { mutableStateOf<SoftwareKeyboardController?>(null) }
 
     LaunchedEffect(keyboardController, keyboardShown) {
         keyboardController?.let {
@@ -90,7 +92,7 @@ private fun SearchInputText(
                 .weight(1f)
                 .align(Alignment.Bottom)
         ) {
-            var lastFocusState by remember { mutableStateOf(Recomposer.State.Inactive) }
+//            val lastFocusState by remember { mutableStateOf(Recomposer.State.Inactive) }
 
             BasicTextField(
                 value = textFieldValue,
@@ -101,6 +103,7 @@ private fun SearchInputText(
                     .align(Alignment.CenterStart)
                     .onFocusEvent { state ->
                         // TODO:: Handle focus state
+                        Log.d("TAG", "SearchInputText: $state")
                     },
                 keyboardOptions = KeyboardOptions.Default.copy(
                     imeAction = ImeAction.Search,
