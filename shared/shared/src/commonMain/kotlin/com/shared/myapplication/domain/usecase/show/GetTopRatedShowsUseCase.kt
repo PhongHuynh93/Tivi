@@ -1,6 +1,6 @@
 package com.shared.myapplication.domain.usecase.show
 
-import com.shared.myapplication.data.discover.DiscoverRepository
+import com.shared.myapplication.data.feature.discover.DiscoverRepository
 import com.shared.myapplication.model.ShowCategory
 import com.shared.myapplication.model.TvShow
 import com.shared.util.UseCase

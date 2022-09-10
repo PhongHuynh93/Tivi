@@ -1,6 +1,6 @@
 CREATE TABLE season (
-id INTEGER NOT NULL PRIMARY KEY,
-tv_show_id INTEGER NOT NULL,
+id TEXT NOT NULL PRIMARY KEY,
+tv_show_id TEXT NOT NULL,
 season_number INTEGER NOT NULL,
 epiosode_count INTEGER NOT NULL,
 name TEXT NOT NULL,

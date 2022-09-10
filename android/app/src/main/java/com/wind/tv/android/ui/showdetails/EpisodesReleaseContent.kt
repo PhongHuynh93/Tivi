@@ -45,42 +45,45 @@ import kotlinx.collections.immutable.ImmutableList
 fun EpisodesReleaseContent(
     episodeList: ImmutableList<LastAirEpisode>,
     onEpisodeClicked: (Long, Long) -> Unit = { _, _ -> },
-    onBookmarkEpClicked: (Long) -> Unit = { }
+    onBookmarkEpClicked: (String) -> Unit = { }
 ) {
 
-    ColumnSpacer(8)
+    if (episodeList.isNotEmpty()) {
 
-    Column(
-        modifier = Modifier
-            .fillMaxWidth()
-    ) {
-
-        Text(
-            text = "Episodes",
-            style = MaterialTheme.typography.h6,
+        Column(
             modifier = Modifier
                 .fillMaxWidth()
-        )
-
-        ColumnSpacer(8)
-
-        val lazyListState = rememberLazyListState()
-
-        LazyRow(
-            state = lazyListState,
-            flingBehavior = rememberSnapperFlingBehavior(lazyListState),
         ) {
-            items(episodeList) { episode ->
 
-                if (!episode.name.isNullOrEmpty()) {
-                    EpisodeItem(
-                        episode = episode,
-                        onEpisodeClicked = onEpisodeClicked,
-                        onBookmarkEpClicked = onBookmarkEpClicked
-                    )
+            ColumnSpacer(8)
+
+            Text(
+                text = "Episodes",
+                style = MaterialTheme.typography.h6,
+                modifier = Modifier
+                    .fillMaxWidth()
+            )
+
+            ColumnSpacer(8)
+
+            val lazyListState = rememberLazyListState()
+
+            LazyRow(
+                state = lazyListState,
+                flingBehavior = rememberSnapperFlingBehavior(lazyListState),
+            ) {
+                items(episodeList) { episode ->
+
+                    if (!episode.name.isNullOrEmpty()) {
+                        EpisodeItem(
+                            episode = episode,
+                            onEpisodeClicked = onEpisodeClicked,
+                            onBookmarkEpClicked = onBookmarkEpClicked
+                        )
+                    }
+
+                    RowSpacer(8)
                 }
-
-                RowSpacer(8)
             }
         }
     }
@@ -90,7 +93,7 @@ fun EpisodesReleaseContent(
 fun EpisodeItem(
     episode: LastAirEpisode,
     onEpisodeClicked: (Long, Long) -> Unit = { _, _ -> },
-    onBookmarkEpClicked: (Long) -> Unit = { }
+    onBookmarkEpClicked: (String) -> Unit = { }
 ) {
 
     Card(

@@ -45,10 +45,6 @@ class DiscoverViewModel(
     override val effect: SharedFlow<DiscoverShowEffect> = _effect.asSharedFlow()
 
     init {
-        attach()
-    }
-
-    override fun attach() {
         dispatch(DiscoverShowAction.LoadTvShows)
     }
 

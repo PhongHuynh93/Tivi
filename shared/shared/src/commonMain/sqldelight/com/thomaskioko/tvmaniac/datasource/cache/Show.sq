@@ -2,7 +2,7 @@ import kotlin.collections.List;
 
 
 CREATE TABLE show(
-id INTEGER NOT NULL PRIMARY KEY,
+id TEXT NOT NULL PRIMARY KEY,
 title TEXT NOT NULL,
 description TEXT NOT NULL,
 language TEXT NOT NULL,
@@ -15,7 +15,7 @@ number_of_seasons INTEGER DEFAULT NULL,
 number_of_episodes INTEGER DEFAULT NULL,
 status TEXT DEFAULT NULL,
 popularity REAL NOT NULL,
-genre_ids TEXT AS List<Int> NOT NULL,
+genre_ids TEXT AS List<String> NOT NULL,
 following INTEGER AS Boolean NOT NULL DEFAULT 0
 );
 

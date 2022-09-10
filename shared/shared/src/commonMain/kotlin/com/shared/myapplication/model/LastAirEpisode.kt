@@ -4,7 +4,7 @@ import com.shared.util.Immutable
 
 @Immutable
 data class LastAirEpisode(
-    val id: Long,
+    val id: String,
     val name: String?,
     val overview: String,
     val airDate: String,

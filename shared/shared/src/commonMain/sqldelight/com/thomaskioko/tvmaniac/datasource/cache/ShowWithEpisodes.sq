@@ -1,6 +1,6 @@
 CREATE TABLE season_with_episodes (
-show_id integer DEFAULT NULL PRIMARY KEY,
-season_id integer DEFAULT NULL,
+show_id TEXT DEFAULT NULL PRIMARY KEY,
+season_id TEXT DEFAULT NULL,
 season_number integer DEFAULT NULL,
 FOREIGN KEY (season_id) REFERENCES season(id),
 FOREIGN KEY (show_id) REFERENCES show(id)

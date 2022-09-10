@@ -1,15 +1,15 @@
 package com.wind.tv.android.util
 
-import com.shared.myapplication.model.GenreUIModel
+import com.shared.myapplication.model.TvGenre
 import com.shared.myapplication.model.LastAirEpisode
-import com.shared.myapplication.model.SeasonUiModel
+import com.shared.myapplication.model.TvSeason
 import com.shared.myapplication.model.TvShow
 import com.shared.myapplication.viewmodel.detail.ShowDetailViewState
 import kotlinx.collections.immutable.persistentListOf
 
 val detailUiState = ShowDetailViewState.Success(
     tvShow = TvShow(
-        id = 84958,
+        id = "84958",
         title = "Loki",
         overview = "After stealing the Tesseract during the events of “Avengers: Endgame,” " +
             "an alternate version of Loki is brought to the mysterious Time Variance " +
@@ -22,19 +22,23 @@ val detailUiState = ShowDetailViewState.Success(
         language = "en",
         votes = 4958,
         averageVotes = 8.1,
-        genreIds = persistentListOf(18, 10765),
+        genreIds = persistentListOf("18", "10765"),
         status = "Returning Series",
-        year = "2024"
+        year = "2024",
+        numberOfEpisodes = 1,
+        numberOfSeasons = 1,
+        following = true
     ),
     tvSeasonUiModels = getTvSeasons(),
     genreUIList = getGenres(),
     lastAirEpList = getEpisodeList(),
+    similarShowList = persistentListOf()
 )
 
 private fun getTvSeasons() = persistentListOf(
-    SeasonUiModel(
-        seasonId = 114355,
-        tvShowId = 84958,
+    TvSeason(
+        id = "114355",
+        tvShowId = "84958",
         name = "Season 1",
         overview = "After stealing the Tesseract during the events of “Avengers: Endgame,” " +
             "an alternate version of Loki is brought to the mysterious Time Variance " +
@@ -48,11 +52,11 @@ private fun getTvSeasons() = persistentListOf(
 )
 
 fun getGenres() = persistentListOf(
-    GenreUIModel(
+    TvGenre(
         id = 18,
         name = "Sci-Fi"
     ),
-    GenreUIModel(
+    TvGenre(
         id = 10765,
         name = "Action"
     )
@@ -60,7 +64,7 @@ fun getGenres() = persistentListOf(
 
 fun getEpisodeList() = persistentListOf(
     LastAirEpisode(
-        id = 2534997,
+        id = "2534997",
         name = "Glorious Purpose",
         overview = "After stealing the Tesseract in Avengers: Endgame, Loki lands before the Time" +
             " Variance Authority.",
@@ -73,7 +77,7 @@ fun getEpisodeList() = persistentListOf(
         title = "Latest"
     ),
     LastAirEpisode(
-        id = 2927202,
+        id = "2927202",
         name = "The Variant",
         overview = "Mobius puts Loki to work, but not everyone at TVA is thrilled about the God of " +
             "Mischief's presence.",
@@ -89,7 +93,7 @@ fun getEpisodeList() = persistentListOf(
 
 val showList = persistentListOf(
     TvShow(
-        id = 84958,
+        id = "84958",
         title = "Loki",
         overview = "After stealing the Tesseract during the events of “Avengers: Endgame,” " +
             "an alternate version of Loki is brought to the mysterious Time Variance " +
@@ -102,12 +106,15 @@ val showList = persistentListOf(
         language = "en",
         votes = 4958,
         averageVotes = 8.1,
-        genreIds = persistentListOf(18, 10765),
+        genreIds = persistentListOf("18", "10765"),
         status = "Returning Series",
-        year = "2024"
+        year = "2024",
+        numberOfSeasons = 1,
+        numberOfEpisodes = 1,
+        following = true
     ),
     TvShow(
-        id = 84958,
+        id = "84958",
         title = "Loki",
         overview = "After stealing the Tesseract during the events of “Avengers: Endgame,” " +
             "an alternate version of Loki is brought to the mysterious Time Variance " +
@@ -120,8 +127,11 @@ val showList = persistentListOf(
         language = "en",
         votes = 4958,
         averageVotes = 8.1,
-        genreIds = persistentListOf(18, 10765),
+        genreIds = persistentListOf("18", "10765"),
         status = "Returning Series",
-        year = "2024"
+        year = "2024",
+        numberOfEpisodes = 1,
+        numberOfSeasons = 1,
+        following = true
     )
 )

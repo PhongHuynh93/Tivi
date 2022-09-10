@@ -12,7 +12,7 @@ class TvManiacDatabaseFactory(
         return TvManiacDatabase(
             driver = driverFactory.createDriver(),
             showAdapter = Show.Adapter(
-                genre_idsAdapter = intAdapter,
+                genre_idsAdapter = stringAdapter,
             )
         )
     }

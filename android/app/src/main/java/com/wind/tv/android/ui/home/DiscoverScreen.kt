@@ -74,7 +74,7 @@ private const val MinContrastOfPrimaryVsSurface = 3f
 
 @Composable
 fun DiscoverScreen(
-    openShowDetails: (showId: Long) -> Unit,
+    openShowDetails: (show: TvShow) -> Unit,
     moreClicked: (showType: Int) -> Unit,
 ) {
     val viewModel = getViewModel<DiscoverViewModel>()
@@ -103,7 +103,7 @@ fun DiscoverScreen(
 private fun DiscoverShows(
     scaffoldState: ScaffoldState,
     discoverViewState: DiscoverShowState,
-    openShowDetails: (showId: Long) -> Unit,
+    openShowDetails: (show: TvShow) -> Unit,
     moreClicked: (showType: Int) -> Unit
 ) {
     Scaffold(
@@ -177,7 +177,7 @@ private fun DiscoverShows(
 @Composable
 fun FeaturedItems(
     showData: DiscoverShowResult.DiscoverShowsData,
-    onItemClicked: (Long) -> Unit,
+    onItemClicked: (TvShow) -> Unit,
 ) {
 
     val surfaceColor = grey900
@@ -227,7 +227,7 @@ fun FeaturedHorizontalPager(
     list: ImmutableList<TvShow>,
     pagerState: PagerState,
     dominantColorState: DominantColorState,
-    onClick: (Long) -> Unit
+    onClick: (TvShow) -> Unit
 ) {
 
     val selectedImageUrl = list.getOrNull(pagerState.currentPage)
@@ -257,7 +257,7 @@ fun FeaturedHorizontalPager(
 
         Card(
             Modifier
-                .clickable { onClick(list[pageNumber].id) }
+                .clickable { onClick(list[pageNumber]) }
                 .graphicsLayer {
                     val pageOffset = calculateCurrentOffsetForPage(pageNumber).absoluteValue
 
@@ -310,7 +310,7 @@ fun FeaturedHorizontalPager(
 private fun DisplayShowData(
     category: ShowCategory,
     tvShows: ImmutableList<TvShow>,
-    onItemClicked: (Long) -> Unit,
+    onItemClicked: (TvShow) -> Unit,
     moreClicked: (Int) -> Unit,
 ) {
 
@@ -340,7 +340,7 @@ private fun DisplayShowData(
                         title = tvShow.title,
                         modifier = Modifier.padding(start = 4.dp, end = 4.dp)
                     ) {
-                        onItemClicked(tvShow.id)
+                        onItemClicked(tvShow)
                     }
                 }
             }

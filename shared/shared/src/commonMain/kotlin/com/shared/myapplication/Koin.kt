@@ -1,7 +1,9 @@
 package com.shared.myapplication
 
 import co.touchlab.kermit.Logger
-import com.shared.myapplication.data.dataModule
+import com.shared.myapplication.data.feature.repositoryModule
+import com.shared.myapplication.data.feature.cacheModule
+import com.shared.myapplication.data.feature.serviceModule
 import com.shared.myapplication.domain.domainModule
 import com.shared.myapplication.viewmodel.viewmodelModule
 import com.shared.util.network.ObserveConnectionState
@@ -35,7 +37,9 @@ fun initKoin(appModule: Module): KoinApplication {
             coreModule,
             viewmodelModule,
             domainModule,
-            dataModule,
+            repositoryModule,
+            cacheModule,
+            serviceModule,
             module {
                 single {
                     TvManiacDatabaseFactory(get()).createDatabase()

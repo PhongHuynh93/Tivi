@@ -8,7 +8,7 @@ import co.touchlab.kermit.Logger
 import com.google.accompanist.insets.ProvideWindowInsets
 import com.shared.common_compose.theme.TvManiacTheme
 
-class DetailActivity: ComponentActivity() {
+class DetailActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -18,9 +18,11 @@ class DetailActivity: ComponentActivity() {
             ProvideWindowInsets(consumeWindowInsets = false) {
                 TvManiacTheme() {
                     DetailScreen(
-                        navigateUp = {  },
+                        navigateUp = {
+                            finish()
+                        },
                         onShowClicked = { showId ->
-                            Logger.d("$showId")
+                            Logger.d(showId)
                         },
                         onSeasonClicked = { showId, seasonName ->
                             Logger.d("$showId $seasonName")

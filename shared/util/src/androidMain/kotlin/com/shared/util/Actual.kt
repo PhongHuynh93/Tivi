@@ -2,7 +2,7 @@ package com.shared.util
 
 import android.os.Parcelable
 import com.shared.util.viewmodel.BaseViewModel
-import kotlinx.android.parcel.Parcelize
+import kotlinx.parcelize.Parcelize
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import org.koin.androidx.viewmodel.dsl.viewModel

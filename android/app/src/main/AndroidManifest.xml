@@ -9,7 +9,7 @@
         android:name=".App"
         android:allowBackup="false"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/Theme.Tivi.Home">
         <activity
             android:name=".ui.MainActivity"
             android:exported="true">

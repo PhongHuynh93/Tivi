@@ -1,6 +1,6 @@
 package com.shared.myapplication.viewmodel.following
 
-import com.shared.myapplication.domain.usecase.ObserveFollowingInteractor
+import com.shared.myapplication.domain.usecase.ObserveFollowingUseCase
 import com.shared.util.viewmodel.BaseViewModel
 import com.shared.util.viewmodel.Store
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -21,13 +21,9 @@ class FollowingViewModel(
     private val _effect = MutableSharedFlow<WatchlistEffect>()
     override val effect: SharedFlow<WatchlistEffect> = _effect.asSharedFlow()
 
-    private val interactor: ObserveFollowingInteractor by inject()
+//    private val interactor: ObserveFollowingUseCase by inject()
 
     init {
-        attach()
-    }
-
-    override fun attach() {
         dispatch(WatchlistAction.LoadWatchlist)
     }
 
@@ -39,16 +35,16 @@ class FollowingViewModel(
                 }
             }
             WatchlistAction.LoadWatchlist -> {
-                interactor.execute(clientScope, Unit) {
-
-                    onNext {
-                        _state.value = WatchlistState.Success(it)
-                    }
-
-                    onError {
-                        dispatch(WatchlistAction.Error(it.message ?: "Something went wrong"))
-                    }
-                }
+//                interactor.execute(clientScope, Unit) {
+//
+//                    onNext {
+//                        _state.value = WatchlistState.Success(it)
+//                    }
+//
+//                    onError {
+//                        dispatch(WatchlistAction.Error(it.message ?: "Something went wrong"))
+//                    }
+//                }
             }
         }
     }

@@ -59,5 +59,5 @@ dependencies {
     implementation(libs.kermit)
     implementation(libs.ktor.android)
 
-    debugImplementation(libs.squareup.leakcanary)
+//    debugImplementation(libs.squareup.leakcanary)
 }

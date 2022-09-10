@@ -1,5 +1,5 @@
 CREATE TABLE show_category (
-show_id integer DEFAULT NULL PRIMARY KEY,
+show_id TEXT DEFAULT NULL PRIMARY KEY,
 category_id integer DEFAULT NULL,
 FOREIGN KEY (category_id) REFERENCES category(id),
 FOREIGN KEY (show_id) REFERENCES show(id)

@@ -2,7 +2,6 @@ package com.wind.tv.android.ui.showdetails
 
 import android.content.res.Configuration
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyRow
@@ -30,35 +29,29 @@ import kotlinx.collections.immutable.ImmutableList
 @Composable
 fun SimilarShowsShowsContent(
     similarShows: ImmutableList<TvShow>,
-    onShowClicked: (Long) -> Unit = {}
+    onShowClicked: (String) -> Unit = {}
 ) {
     val lazyListState = rememberLazyListState()
 
     if (similarShows.isNotEmpty()) {
-        ColumnSpacer(8)
 
         Column(
             modifier = Modifier
                 .fillMaxWidth()
         ) {
+
+            ColumnSpacer(8)
+
             Text(
                 text = stringResource(id = R.string.title_similar),
                 style = MaterialTheme.typography.h6,
-                modifier = Modifier
-                    .padding(horizontal = 16.dp)
             )
 
-            ColumnSpacer(4)
+            ColumnSpacer(12)
 
             LazyRow(
                 state = lazyListState,
                 flingBehavior = rememberSnapperFlingBehavior(lazyListState),
-                contentPadding = PaddingValues(
-                    start = 12.dp,
-                    end = 12.dp,
-                    top = 8.dp,
-                    bottom = 8.dp
-                )
             ) {
                 itemsIndexed(similarShows) { _, tvShow ->
                     TvShowCard(
@@ -66,12 +59,12 @@ fun SimilarShowsShowsContent(
                         title = tvShow.title,
                         onClick = { onShowClicked(tvShow.id) },
                         imageWidth = 84.dp,
-                        modifier = Modifier.padding(start = 4.dp, end = 4.dp)
+                        modifier = Modifier.padding(end = 8.dp)
                     )
                 }
             }
 
-            ColumnSpacer(value = 8)
+            ColumnSpacer(value = 16)
         }
     }
 }

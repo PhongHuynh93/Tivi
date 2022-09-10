@@ -9,6 +9,7 @@ plugins {
     kotlin("plugin.serialization") version (libs.versions.kotlin.get())
     id("com.squareup.sqldelight")
     id("com.codingfeline.buildkonfig")
+    id("kotlin-parcelize")
 }
 
 kotlin {

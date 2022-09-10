@@ -37,8 +37,6 @@ actual abstract class BaseViewModel actual constructor() {
         }
     }
 
-    actual abstract fun attach()
-
     protected actual fun detach() {
         viewModelJob.cancelChildren()
     }

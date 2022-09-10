@@ -10,8 +10,6 @@ actual abstract class BaseViewModel actual constructor() : ViewModel() {
 
     protected actual val clientScope: CoroutineScope = viewModelScope
 
-    actual abstract fun attach()
-
     protected actual fun detach() {
     }
 

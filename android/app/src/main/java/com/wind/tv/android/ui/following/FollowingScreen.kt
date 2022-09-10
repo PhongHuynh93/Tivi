@@ -36,7 +36,7 @@ import org.koin.androidx.compose.getViewModel
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
 fun FollowingScreen(
-    openShowDetails: (showId: Long) -> Unit
+    openShowDetails: (showId: String) -> Unit
 ) {
     val viewModel = getViewModel<FollowingViewModel>()
 
@@ -87,7 +87,7 @@ fun FollowingScreen(
 @Composable
 private fun WatchlistContent(
     viewState: WatchlistState,
-    onItemClicked: (Long) -> Unit,
+    onItemClicked: (String) -> Unit,
 ) {
 
     when (viewState) {
