@@ -4,6 +4,7 @@ import com.squareup.sqldelight.runtime.coroutines.asFlow
 import com.squareup.sqldelight.runtime.coroutines.mapToList
 import com.squareup.sqldelight.runtime.coroutines.mapToOne
 import com.thomaskioko.tvmaniac.datasource.cache.AirEpisodesByShowId
+import com.thomaskioko.tvmaniac.datasource.cache.FollowedShow
 import com.thomaskioko.tvmaniac.datasource.cache.Show
 import com.thomaskioko.tvmaniac.datasource.cache.TvManiacDatabase
 import kotlinx.coroutines.flow.Flow
@@ -13,28 +14,26 @@ class TvShowCacheImpl(
 ) : TvShowCache {
 
     override fun insert(show: Show) {
-        database.showQueries.transaction {
-            database.showQueries.insertOrReplace(
-                id = show.id,
-                title = show.title,
-                description = show.description,
-                language = show.language,
-                poster_image_url = show.poster_image_url,
-                backdrop_image_url = show.backdrop_image_url,
-                votes = show.votes,
-                vote_average = show.vote_average,
-                genre_ids = show.genre_ids,
-                year = show.year,
-                status = show.status,
-                popularity = show.popularity,
-                following = show.following
-            )
-        }
+        database.showQueries.insertOrReplace(
+            id = show.id,
+            title = show.title,
+            description = show.description,
+            language = show.language,
+            poster_image_url = show.poster_image_url,
+            backdrop_image_url = show.backdrop_image_url,
+            votes = show.votes,
+            vote_average = show.vote_average,
+            genre_ids = show.genre_ids,
+            year = show.year,
+            status = show.status,
+            popularity = show.popularity
+        )
     }
 
-    // TODO: can we insert all shows
     override fun insert(list: List<Show>) {
-        list.forEach { insert(it) }
+        database.showQueries.transaction {
+            list.forEach { insert(it) }
+        }
     }
 
     override fun observeTvShow(showId: String): Flow<Show> {
@@ -51,24 +50,24 @@ class TvShowCacheImpl(
             .mapToList()
     }
 
-    override fun observeFollowing(): Flow<List<Show>> {
-        return database.showQueries.selectFollowinglist()
+    override fun observeFollowing(): Flow<List<FollowedShow>> {
+        return database.followedShowQueries.selectFollowinglist()
             .asFlow()
             .mapToList()
     }
 
-    override fun getShowAirEpisodes(showId: String): Flow<List<AirEpisodesByShowId>> {
+    override fun upsertFollowing(showId: String, addToWatchList: Boolean) {
+        database.followedShowQueries.upsert(
+            showId,
+            addToWatchList
+        )
+    }
+
+    override fun observeShowAirEpisodes(showId: String): Flow<List<AirEpisodesByShowId>> {
         return database.lastAirEpisodeQueries.airEpisodesByShowId(
             show_id = showId
         ).asFlow()
             .mapToList()
-    }
-
-    override fun updateFollowingShow(showId: String, following: Boolean) {
-        database.showQueries.updateFollowinglist(
-            following = following,
-            id = showId
-        )
     }
 
     override fun deleteTvShows() {

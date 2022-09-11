@@ -1,0 +1,15 @@
+CREATE TABLE followedShow (
+id TEXT NOT NULL PRIMARY KEY,
+following INTEGER AS Boolean NOT NULL DEFAULT 0
+);
+
+upsert:
+INSERT OR REPLACE INTO followedShow(
+id,
+following
+)
+VALUES (?, ?);
+
+selectFollowinglist:
+SELECT * FROM followedShow
+WHERE following = 1;

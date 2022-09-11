@@ -1,6 +1,8 @@
 package com.shared.myapplication.data.mapper
 
+import com.shared.myapplication.model.TvFollowedShow
 import com.shared.myapplication.model.TvShow
+import com.thomaskioko.tvmaniac.datasource.cache.FollowedShow
 import com.thomaskioko.tvmaniac.datasource.cache.Show
 import kotlinx.collections.immutable.toImmutableList
 
@@ -21,8 +23,14 @@ fun Show.toTvShow(): TvShow {
         genreIds = genre_ids.toImmutableList(),
         year = year,
         status = status,
-        following = following,
         numberOfSeasons = number_of_seasons,
         numberOfEpisodes = number_of_episodes
+    )
+}
+
+fun FollowedShow.toTvFollowedShow(): TvFollowedShow {
+    return TvFollowedShow(
+        showId = id,
+        following = following
     )
 }

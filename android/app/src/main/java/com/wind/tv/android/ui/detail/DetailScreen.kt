@@ -76,6 +76,7 @@ import com.shared.myapplication.viewmodel.detail.ShowDetailAction
 import com.shared.myapplication.viewmodel.detail.ShowDetailEffect
 import com.shared.myapplication.viewmodel.detail.ShowDetailViewState
 import com.shared.myapplication.viewmodel.detail.ShowDetailsViewModel
+import com.shared.myapplication.viewmodel.home.TvShowUI
 import com.wind.tv.android.R
 import com.wind.tv.android.ui.showdetails.EpisodesReleaseContent
 import com.wind.tv.android.ui.showdetails.SimilarShowsShowsContent
@@ -133,7 +134,7 @@ fun DetailScreen(
         topBar = {
             ShowTopBar(
                 listState = listState,
-                title = (viewState as? ShowDetailViewState.Success)?.tvShow?.title.orEmpty(),
+                title = (viewState as? ShowDetailViewState.Success)?.tvShow?.show?.title.orEmpty(),
                 onNavUpClick = navigateUp
             )
         },
@@ -270,11 +271,11 @@ private fun HeaderViewContent(
             }
     ) {
         HeaderImage(
-            backdropImageUrl = detailUiState.tvShow.backdropImageUrl
+            backdropImageUrl = detailUiState.tvShow.show.backdropImageUrl
         )
 
         Body(
-            tvShow = detailUiState.tvShow,
+            tvShowUI = detailUiState.tvShow,
             genreUIS = detailUiState.genreUIList,
             onUpdateFavoriteClicked = onUpdateFavoriteClicked
         )
@@ -293,11 +294,12 @@ private fun HeaderImage(backdropImageUrl: String) {
 
 @Composable
 private fun Body(
-    tvShow: TvShow,
+    tvShowUI: TvShowUI,
     genreUIS: ImmutableList<TvGenre>,
     onUpdateFavoriteClicked: (Boolean) -> Unit
 ) {
     val surfaceGradient = backgroundGradient().reversed()
+    val tvShow = tvShowUI.show
 
     Box(
         modifier = Modifier
@@ -331,7 +333,7 @@ private fun Body(
             ColumnSpacer(8)
 
             TvShowMetadata(
-                tvShow = tvShow,
+                tvShowUI = tvShowUI,
                 genreUIList = genreUIS,
                 onUpdateFavoriteClicked = onUpdateFavoriteClicked,
             )
@@ -343,12 +345,13 @@ private fun Body(
 
 @Composable
 fun TvShowMetadata(
-    tvShow: TvShow,
+    tvShowUI: TvShowUI,
     genreUIList: ImmutableList<TvGenre>,
     onUpdateFavoriteClicked: (Boolean) -> Unit,
     onWatchTrailerClicked: () -> Unit = {},
 ) {
     val resources = LocalContext.current.resources
+    val tvShow = tvShowUI.show
 
     val divider = buildAnnotatedString {
         val tagStyle = MaterialTheme.typography.overline.toSpanStyle().copy(
@@ -403,7 +406,7 @@ fun TvShowMetadata(
     ColumnSpacer(8)
 
     ShowDetailButtons(
-        tvShow = tvShow,
+        isFollowing = tvShowUI.following,
         onUpdateFavoriteClicked = onUpdateFavoriteClicked,
         onWatchTrailerClicked = onWatchTrailerClicked
     )
@@ -442,7 +445,7 @@ private fun GenreText(
 
 @Composable
 fun ShowDetailButtons(
-    tvShow: TvShow,
+    isFollowing: Boolean,
     onUpdateFavoriteClicked: (Boolean) -> Unit,
     onWatchTrailerClicked: () -> Unit = {},
 ) {
@@ -457,11 +460,11 @@ fun ShowDetailButtons(
 
         RowSpacer(value = 8)
 
-        val buttonText = if (tvShow.following)
+        val buttonText = if (isFollowing)
             stringResource(id = R.string.unfollow)
         else stringResource(id = R.string.following)
 
-        val imageVector = if (tvShow.following)
+        val imageVector = if (isFollowing)
             painterResource(id = R.drawable.ic_baseline_check_box_24)
         else painterResource(id = R.drawable.ic_baseline_add_box_24)
 
@@ -469,7 +472,7 @@ fun ShowDetailButtons(
             painter = imageVector,
             text = buttonText,
             onClick = {
-                onUpdateFavoriteClicked(tvShow.following)
+                onUpdateFavoriteClicked(isFollowing)
             }
         )
     }
@@ -550,7 +553,7 @@ private fun ShowSeasonsTabs(
                     text = season.name,
                     selected = true,
                     modifier = Modifier
-                        .padding(horizontal = 4.dp, vertical = 8.dp)
+                        .padding(vertical = 8.dp)
                 )
             }
         }

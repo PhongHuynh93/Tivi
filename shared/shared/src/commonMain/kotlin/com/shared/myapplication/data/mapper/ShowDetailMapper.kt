@@ -50,7 +50,6 @@ fun List<SelectSimilarShows>.toSimilarShowList(): List<TvShow> = map {
         genreIds = it.genre_ids.toImmutableList(),
         year = it.year,
         status = it.status,
-        following = it.following,
         numberOfSeasons = it.number_of_seasons,
         numberOfEpisodes = it.number_of_episodes
     )

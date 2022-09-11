@@ -4,6 +4,7 @@ import com.shared.myapplication.model.LastAirEpisode
 import com.shared.myapplication.model.TvGenre
 import com.shared.myapplication.model.TvSeason
 import com.shared.myapplication.model.TvShow
+import com.shared.myapplication.viewmodel.home.TvShowUI
 import com.shared.util.Immutable
 import com.shared.util.viewmodel.Action
 import com.shared.util.viewmodel.Effect
@@ -38,7 +39,7 @@ sealed class ShowDetailEffect : Effect {
 sealed class ShowDetailViewState() : State() {
     object InProgress : ShowDetailViewState()
     data class Success(
-        val tvShow: TvShow,
+        val tvShow: TvShowUI,
         val similarShowList: ImmutableList<TvShow>,
         val tvSeasonUiModels: ImmutableList<TvSeason>,
         val genreUIList: ImmutableList<TvGenre>,

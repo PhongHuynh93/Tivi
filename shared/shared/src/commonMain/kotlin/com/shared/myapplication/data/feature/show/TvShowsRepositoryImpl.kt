@@ -10,10 +10,12 @@ import com.shared.myapplication.data.feature.showDetail.ShowCategoryCache
 import com.shared.myapplication.data.mapper.toAirEp
 import com.shared.myapplication.data.mapper.toShow
 import com.shared.myapplication.data.mapper.toShowList
+import com.shared.myapplication.data.mapper.toTvFollowedShow
 import com.shared.myapplication.data.mapper.toTvShow
 import com.shared.myapplication.data.service.model.ShowDetailResponse
 import com.shared.myapplication.data.service.tvShows.TvShowsService
 import com.shared.myapplication.model.ShowCategory
+import com.shared.myapplication.model.TvFollowedShow
 import com.shared.myapplication.model.TvShow
 import com.shared.util.CommonFlow
 import com.shared.util.asCommonFlow
@@ -25,6 +27,7 @@ import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.map
 
 private const val DEFAULT_API_PAGE = 1
@@ -45,15 +48,24 @@ class TvShowsRepositoryImpl(
         }.toShow().toTvShow()
     }
 
-    override suspend fun updateFollowing(showId: String, addToWatchList: Boolean) {
-        tvShowCache.updateFollowingShow(showId, addToWatchList)
+    override fun observeShow(showId: String): Flow<TvShow> {
+        return tvShowCache.observeTvShow(showId)
+            .distinctUntilChanged()
+            .map {
+                it.toTvShow()
+            }
     }
 
-    override fun observeFollowing(): Flow<List<TvShow>> = tvShowCache.observeFollowing().map {
-        it.map {
-            it.toTvShow()
-        }
+    override suspend fun updateFollowing(showId: String, addToWatchList: Boolean) {
+        tvShowCache.upsertFollowing(showId, addToWatchList)
     }
+
+    override fun observeFollowing(): Flow<List<TvFollowedShow>> =
+        tvShowCache.observeFollowing().distinctUntilChanged().map {
+            it.map {
+                it.toTvFollowedShow()
+            }
+        }
 
     @OptIn(FlowPreview::class, ExperimentalCoroutinesApi::class)
     override fun observePagedShowsByCategoryID(

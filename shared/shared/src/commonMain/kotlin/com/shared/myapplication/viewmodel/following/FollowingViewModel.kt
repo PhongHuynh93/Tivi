@@ -1,6 +1,5 @@
 package com.shared.myapplication.viewmodel.following
 
-import com.shared.myapplication.domain.usecase.ObserveFollowingUseCase
 import com.shared.util.viewmodel.BaseViewModel
 import com.shared.util.viewmodel.Store
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -11,7 +10,6 @@ import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import org.koin.core.component.KoinComponent
-import org.koin.core.component.inject
 
 class FollowingViewModel(
 ) : BaseViewModel(), Store<WatchlistState, WatchlistAction, WatchlistEffect>, KoinComponent {

@@ -38,6 +38,12 @@ kotlin {
         }
     }
 
+    sourceSets.all {
+        languageSettings.apply {
+            optIn("kotlinx.coroutines.ExperimentalCoroutinesApi")
+        }
+    }
+
     sourceSets {
         val commonMain by getting {
             dependencies {

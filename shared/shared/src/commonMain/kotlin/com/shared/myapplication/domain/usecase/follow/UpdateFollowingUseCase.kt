@@ -1,11 +1,8 @@
-package com.shared.myapplication.domain.usecase.detail
+package com.shared.myapplication.domain.usecase.follow
 
 import com.shared.myapplication.data.feature.show.TvShowsRepository
-import com.shared.util.FlowInteractor
 import com.shared.util.UseCase
 import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
 
 class UpdateFollowingParam(
     val showId: String,

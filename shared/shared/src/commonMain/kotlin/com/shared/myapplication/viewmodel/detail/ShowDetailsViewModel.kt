@@ -1,8 +1,5 @@
 package com.shared.myapplication.viewmodel.detail
 
-import co.touchlab.kermit.Logger
-import com.shared.myapplication.domain.usecase.ObserveFollowingParam
-import com.shared.myapplication.domain.usecase.ObserveFollowingUseCase
 import com.shared.myapplication.domain.usecase.detail.GetAirEpisodesParam
 import com.shared.myapplication.domain.usecase.detail.GetAirEpisodesUseCase
 import com.shared.myapplication.domain.usecase.detail.GetGenresParam
@@ -13,9 +10,11 @@ import com.shared.myapplication.domain.usecase.detail.GetShowDetailParam
 import com.shared.myapplication.domain.usecase.detail.GetShowDetailUseCase
 import com.shared.myapplication.domain.usecase.detail.GetSimilarShowsParam
 import com.shared.myapplication.domain.usecase.detail.GetSimilarShowsUseCase
-import com.shared.myapplication.domain.usecase.detail.UpdateFollowingParam
-import com.shared.myapplication.domain.usecase.detail.UpdateFollowingUseCase
-import com.shared.myapplication.model.TvShow
+import com.shared.myapplication.domain.usecase.follow.ObserveFollowingParam
+import com.shared.myapplication.domain.usecase.follow.ObserveFollowingUseCase
+import com.shared.myapplication.domain.usecase.follow.UpdateFollowingParam
+import com.shared.myapplication.domain.usecase.follow.UpdateFollowingUseCase
+import com.shared.myapplication.viewmodel.home.TvShowUI
 import com.shared.util.getErrorMessage
 import com.shared.util.viewmodel.BaseViewModel
 import com.shared.util.viewmodel.Store
@@ -29,6 +28,8 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.supervisorScope
 import org.koin.core.component.KoinComponent
@@ -51,13 +52,41 @@ class ShowDetailsViewModel : Store<ShowDetailViewState, ShowDetailAction, ShowDe
     private val _effect = MutableSharedFlow<ShowDetailEffect>()
     override val effect: SharedFlow<ShowDetailEffect> = _effect.asSharedFlow()
 
-    private lateinit var tvShow: TvShow
+    private val showId = MutableStateFlow<String>("")
+    private lateinit var successState: ShowDetailViewState.Success
+
+    init {
+        clientScope.launch {
+            // observe follow here and update the state
+            observeFollowingUseCase(ObserveFollowingParam()).map {
+                it.getOrDefault(emptyList())
+            }.combine(_state) { following, state ->
+                when (state) {
+                    ShowDetailViewState.InProgress -> state
+                    is ShowDetailViewState.Success -> state.copy(
+                        tvShow = state.tvShow.copy(
+                            following = following.firstOrNull { followedShow ->
+                                followedShow.showId == state.tvShow.show.id
+                            }?.following ?: false
+                        )
+                    )
+                }
+            }.collectLatest {
+                _state.value = it
+            }
+        }
+    }
 
     override fun dispatch(action: ShowDetailAction) {
         when (action) {
             is ShowDetailAction.UpdateFavorite -> {
                 clientScope.launch {
-                    updateFollowingUseCase(UpdateFollowingParam(tvShow.id, !action.addToWatchList))
+                    updateFollowingUseCase(
+                        UpdateFollowingParam(
+                            showId.value,
+                            !action.addToWatchList
+                        )
+                    )
                 }
             }
             is ShowDetailAction.Error -> {
@@ -71,59 +100,42 @@ class ShowDetailsViewModel : Store<ShowDetailViewState, ShowDetailAction, ShowDe
             is ShowDetailAction.SetTvShow -> {
                 clientScope.launch {
                     // first show the show
-                    tvShow = action.tvShow
-                    val showId = tvShow.id
-                    var successState = ShowDetailViewState.Success(
-                        tvShow = tvShow,
+                    val tvShow = action.tvShow
+                    showId.value = tvShow.id
+                    successState = ShowDetailViewState.Success(
+                        tvShow = TvShowUI(
+                            show = tvShow,
+                            following = false // update following state in other method
+                        ),
                         similarShowList = persistentListOf(),
                         tvSeasonUiModels = persistentListOf(),
                         genreUIList = persistentListOf(),
                         lastAirEpList = persistentListOf(),
                     )
                     _state.value = successState
-                    launch {
-                        // observe follow here and update the state
-                        observeFollowingUseCase(ObserveFollowingParam()).collectLatest {
-                            it.onSuccess {
-                                it.firstOrNull {
-                                    it.id == showId
-                                }?.let {
-                                    tvShow = it
-                                    successState = successState.copy(
-                                        tvShow = it
-                                    )
-                                    _state.value = successState
-                                }
-                            }
-                        }
-                    }
 
                     // then show the rest
                     supervisorScope {
                         try {
-                            val showDetailDeferred = async {
-                                getShowUseCase(GetShowDetailParam(showId)).getOrThrow()
-                            }
                             val seasonsDeferred = async {
-                                getSeasonsUseCase(GetSeasonsParam(showId)).getOrThrow()
+                                getSeasonsUseCase(GetSeasonsParam(tvShow.id)).getOrThrow()
                             }
                             val genresDeferred = async {
                                 getGenresUseCase(GetGenresParam(tvShow)).getOrThrow()
                             }
                             val episodesDeferred = async {
-                                getAirEpisodesUseCase(GetAirEpisodesParam(showId)).getOrThrow()
+                                // need to get show detail, the episode is in the show detail
+                                getShowUseCase(GetShowDetailParam(tvShow.id)).getOrThrow()
+                                getAirEpisodesUseCase(GetAirEpisodesParam(tvShow.id)).getOrThrow()
                             }
                             val similarShowsDeferred = async {
-                                getSimilarShows(GetSimilarShowsParam(showId)).getOrThrow()
+                                getSimilarShows(GetSimilarShowsParam(tvShow.id)).getOrThrow()
                             }
                             val seasons = seasonsDeferred.await()
                             val genres = genresDeferred.await()
                             val episodes = episodesDeferred.await()
                             val similarShows = similarShowsDeferred.await()
-                            val showDetail = showDetailDeferred.await()
-                            Logger.e("episode $episodes")
-                            _state.value = ShowDetailViewState.Success(
-                                tvShow = showDetail,
+                            _state.value = successState.copy(
                                 similarShowList = similarShows.toImmutableList(),
                                 tvSeasonUiModels = seasons.toImmutableList(),
                                 genreUIList = genres.toImmutableList(),

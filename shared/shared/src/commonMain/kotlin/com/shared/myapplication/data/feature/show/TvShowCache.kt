@@ -1,6 +1,7 @@
 package com.shared.myapplication.data.feature.show
 
 import com.thomaskioko.tvmaniac.datasource.cache.AirEpisodesByShowId
+import com.thomaskioko.tvmaniac.datasource.cache.FollowedShow
 import com.thomaskioko.tvmaniac.datasource.cache.Show
 import kotlinx.coroutines.flow.Flow
 
@@ -14,11 +15,11 @@ interface TvShowCache {
 
     fun observeTvShows(): Flow<List<Show>>
 
-    fun observeFollowing(): Flow<List<Show>>
+    fun observeFollowing(): Flow<List<FollowedShow>>
 
-    fun getShowAirEpisodes(showId: String): Flow<List<AirEpisodesByShowId>>
-
-    fun updateFollowingShow(showId: String, following: Boolean)
+    fun observeShowAirEpisodes(showId: String): Flow<List<AirEpisodesByShowId>>
 
     fun deleteTvShows()
+
+    fun upsertFollowing(showId: String, addToWatchList: Boolean)
 }

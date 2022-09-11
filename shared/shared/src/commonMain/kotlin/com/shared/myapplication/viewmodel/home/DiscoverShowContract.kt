@@ -11,7 +11,7 @@ import kotlinx.collections.immutable.ImmutableList
 @Immutable
 sealed class DiscoverShowState : State() {
     object InProgress : DiscoverShowState()
-    class Success(val data: DiscoverShowResult) : DiscoverShowState()
+    data class Success(val data: DiscoverShowResult) : DiscoverShowState()
 }
 
 sealed class DiscoverShowAction : Action {
@@ -38,3 +38,9 @@ data class DiscoverShowResult(
     )
 
 }
+
+@Immutable
+data class TvShowUI(
+    val show: TvShow,
+    val following: Boolean
+)

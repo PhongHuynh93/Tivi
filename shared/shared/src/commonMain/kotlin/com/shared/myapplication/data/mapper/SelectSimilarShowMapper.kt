@@ -21,7 +21,6 @@ fun SelectSimilarShows.toTvShow(): TvShow {
         genreIds = genre_ids.toImmutableList(),
         year = year,
         status = status,
-        following = following,
         numberOfEpisodes = number_of_episodes,
         numberOfSeasons = number_of_seasons
     )

@@ -1,33 +1,35 @@
 package com.wind.tv.android.util
 
-import com.shared.myapplication.model.TvGenre
 import com.shared.myapplication.model.LastAirEpisode
+import com.shared.myapplication.model.TvGenre
 import com.shared.myapplication.model.TvSeason
 import com.shared.myapplication.model.TvShow
 import com.shared.myapplication.viewmodel.detail.ShowDetailViewState
+import com.shared.myapplication.viewmodel.home.TvShowUI
 import kotlinx.collections.immutable.persistentListOf
 
 val detailUiState = ShowDetailViewState.Success(
-    tvShow = TvShow(
-        id = "84958",
-        title = "Loki",
-        overview = "After stealing the Tesseract during the events of “Avengers: Endgame,” " +
-            "an alternate version of Loki is brought to the mysterious Time Variance " +
-            "Authority, a bureaucratic organization that exists outside of time and " +
-            "space and monitors the timeline. They give Loki a choice: face being " +
-            "erased from existence due to being a “time variant”or help fix " +
-            "the timeline and stop a greater threat.",
-        posterImageUrl = "/kEl2t3OhXc3Zb9FBh1AuYzRTgZp.jpg",
-        backdropImageUrl = "/kEl2t3OhXc3Zb9FBh1AuYzRTgZp.jpg",
-        language = "en",
-        votes = 4958,
-        averageVotes = 8.1,
-        genreIds = persistentListOf("18", "10765"),
-        status = "Returning Series",
-        year = "2024",
-        numberOfEpisodes = 1,
-        numberOfSeasons = 1,
-        following = true
+    tvShow = TvShowUI(
+        show = TvShow(
+            id = "84958",
+            title = "Loki",
+            overview = "After stealing the Tesseract during the events of “Avengers: Endgame,” " +
+                "an alternate version of Loki is brought to the mysterious Time Variance " +
+                "Authority, a bureaucratic organization that exists outside of time and " +
+                "space and monitors the timeline. They give Loki a choice: face being " +
+                "erased from existence due to being a “time variant”or help fix " +
+                "the timeline and stop a greater threat.",
+            posterImageUrl = "/kEl2t3OhXc3Zb9FBh1AuYzRTgZp.jpg",
+            backdropImageUrl = "/kEl2t3OhXc3Zb9FBh1AuYzRTgZp.jpg",
+            language = "en",
+            votes = 4958,
+            averageVotes = 8.1,
+            genreIds = persistentListOf("18", "10765"),
+            status = "Returning Series",
+            year = "2024",
+            numberOfEpisodes = 1,
+            numberOfSeasons = 1,
+        ), following = true
     ),
     tvSeasonUiModels = getTvSeasons(),
     genreUIList = getGenres(),
@@ -111,7 +113,6 @@ val showList = persistentListOf(
         year = "2024",
         numberOfSeasons = 1,
         numberOfEpisodes = 1,
-        following = true
     ),
     TvShow(
         id = "84958",
@@ -132,6 +133,5 @@ val showList = persistentListOf(
         year = "2024",
         numberOfEpisodes = 1,
         numberOfSeasons = 1,
-        following = true
     )
 )

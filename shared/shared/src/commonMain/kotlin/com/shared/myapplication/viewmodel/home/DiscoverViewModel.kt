@@ -1,5 +1,8 @@
 package com.shared.myapplication.viewmodel.home
 
+import co.touchlab.kermit.Logger
+import com.shared.myapplication.domain.usecase.follow.ObserveFollowingParam
+import com.shared.myapplication.domain.usecase.follow.ObserveFollowingUseCase
 import com.shared.myapplication.domain.usecase.show.GetPopularShowsParam
 import com.shared.myapplication.domain.usecase.show.GetPopularShowsUseCase
 import com.shared.myapplication.domain.usecase.show.GetTopRatedShowsParam
@@ -14,13 +17,15 @@ import com.shared.util.viewmodel.BaseViewModel
 import com.shared.util.viewmodel.Store
 import kotlinx.collections.immutable.toImmutableList
 import kotlinx.coroutines.async
-import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.supervisorScope
 import org.koin.core.component.KoinComponent
@@ -95,7 +100,7 @@ class DiscoverViewModel(
     private fun List<TvShow>.toShowData(category: ShowCategory) = let {
         DiscoverShowResult.DiscoverShowsData(
             category = category,
-            tvShows = it.toImmutableList()
+            tvShows = toImmutableList()
         )
     }
 }
