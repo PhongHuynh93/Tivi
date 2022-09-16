@@ -2,7 +2,9 @@ package com.shared.myapplication.data.feature.category
 
 import com.thomaskioko.tvmaniac.datasource.cache.Category
 import com.thomaskioko.tvmaniac.datasource.cache.TvManiacDatabase
+import org.koin.core.annotation.Single
 
+@Single
 class CategoryCacheImpl(
     private val database: TvManiacDatabase
 ) : CategoryCache {

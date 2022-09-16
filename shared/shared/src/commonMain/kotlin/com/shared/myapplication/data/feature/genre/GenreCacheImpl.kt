@@ -5,7 +5,9 @@ import com.squareup.sqldelight.runtime.coroutines.mapToList
 import com.thomaskioko.tvmaniac.datasource.cache.Genre
 import com.thomaskioko.tvmaniac.datasource.cache.TvManiacDatabase
 import kotlinx.coroutines.flow.Flow
+import org.koin.core.annotation.Single
 
+@Single
 class GenreCacheImpl(
     private val database: TvManiacDatabase
 ) : GenreCache {

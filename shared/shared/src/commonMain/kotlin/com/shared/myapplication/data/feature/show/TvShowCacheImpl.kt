@@ -8,7 +8,9 @@ import com.thomaskioko.tvmaniac.datasource.cache.FollowedShow
 import com.thomaskioko.tvmaniac.datasource.cache.Show
 import com.thomaskioko.tvmaniac.datasource.cache.TvManiacDatabase
 import kotlinx.coroutines.flow.Flow
+import org.koin.core.annotation.Single
 
+@Single
 class TvShowCacheImpl(
     private val database: TvManiacDatabase
 ) : TvShowCache {

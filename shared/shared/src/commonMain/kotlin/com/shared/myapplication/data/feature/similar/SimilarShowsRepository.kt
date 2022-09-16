@@ -5,12 +5,14 @@ import com.shared.myapplication.data.mapper.toShow
 import com.shared.myapplication.data.mapper.toTvShowList
 import com.shared.myapplication.data.service.tmdb.TmdbService
 import com.shared.myapplication.model.TvShow
+import org.koin.core.annotation.Single
 
 interface SimilarShowsRepository {
 
     suspend fun getSimilarShows(showId: String): List<TvShow>
 }
 
+@Single
 class SimilarShowsRepositoryImpl(
     private val apiService: TmdbService,
     private val similarShowCache: SimilarShowCache,

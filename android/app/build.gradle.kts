@@ -2,6 +2,7 @@ import util.libs
 
 plugins {
     `android-app-plugin`
+    id("com.google.devtools.ksp") version (libs.versions.ksp)
 }
 
 android {
@@ -14,6 +15,16 @@ android {
             "-opt-in=dev.chrisbanes.snapper.ExperimentalSnapperApi"
         )
     }
+
+    applicationVariants.all {
+        val variantName = name
+        sourceSets {
+            getByName("main") {
+                java.srcDir(File("build/generated/ksp/$variantName/kotlin"))
+            }
+        }
+    }
+
 }
 
 dependencies {
@@ -30,6 +41,8 @@ dependencies {
     implementation(libs.accompanist.pager.indicator)
 
     implementation(libs.koin.compose)
+    implementation(libs.koin.annotations)
+    ksp(libs.koin.kspCompiler)
 
     implementation(libs.snapper)
 }

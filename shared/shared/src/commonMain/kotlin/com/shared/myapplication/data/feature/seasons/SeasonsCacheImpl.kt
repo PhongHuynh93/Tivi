@@ -6,7 +6,9 @@ import com.thomaskioko.tvmaniac.datasource.cache.Season
 import com.thomaskioko.tvmaniac.datasource.cache.SelectSeasonsByShowId
 import com.thomaskioko.tvmaniac.datasource.cache.TvManiacDatabase
 import kotlinx.coroutines.flow.Flow
+import org.koin.core.annotation.Single
 
+@Single
 class SeasonsCacheImpl(
     private val database: TvManiacDatabase
 ) : SeasonsCache {

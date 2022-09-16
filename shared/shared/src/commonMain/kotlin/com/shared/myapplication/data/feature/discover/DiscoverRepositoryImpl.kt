@@ -16,9 +16,11 @@ import com.thomaskioko.tvmaniac.datasource.cache.Show_category
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.map
+import org.koin.core.annotation.Single
 
 private const val DEFAULT_API_PAGE = 1
 
+@Single
 class DiscoverRepositoryImpl(
     private val apiService: TvShowsService,
     private val tvShowCache: TvShowCache,

@@ -10,6 +10,7 @@ plugins {
     id("com.squareup.sqldelight")
     id("com.codingfeline.buildkonfig")
     id("kotlin-parcelize")
+    id("com.google.devtools.ksp") version (libs.versions.ksp)
 }
 
 kotlin {
@@ -54,6 +55,7 @@ kotlin {
                 implementation(libs.ktor.negotiation)
                 implementation(libs.ktor.json)
                 implementation(libs.koin.core)
+                implementation(libs.koin.annotations)
                 implementation(libs.settings)
                 implementation(libs.squareup.sqldelight.runtime)
                 implementation(libs.squareup.sqldelight.extensions)
@@ -129,4 +131,12 @@ buildkonfig {
     defaultConfigs {
         buildConfigField(STRING, "TMDB_API_KEY", properties["TMDB_API_KEY"] as String)
     }
+}
+
+dependencies {
+    add("kspCommonMainMetadata", libs.koin.kspCompiler)
+    add("kspAndroid", libs.koin.kspCompiler)
+    add("kspIosX64", libs.koin.kspCompiler)
+    add("kspIosSimulatorArm64", libs.koin.kspCompiler)
+    add("kspIosArm64", libs.koin.kspCompiler)
 }

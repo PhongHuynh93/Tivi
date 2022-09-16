@@ -18,9 +18,22 @@ tasks.register("clean", Delete::class) {
 }
 
 subprojects {
+    afterEvaluate {
+        extensions.findByType<org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension>()
+            ?.apply {
+                sourceSets.removeAll {
+                    setOf(
+                        "androidAndroidTestRelease",
+                        "androidTestFixtures",
+                        "androidTestFixturesDebug",
+                        "androidTestFixturesRelease",
+                    ).contains(it.name)
+                }
+            }
+    }
     tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
         with(kotlinOptions) {
-            
+
             jvmTarget = "11"
 
             // Treat all Kotlin warnings as errors

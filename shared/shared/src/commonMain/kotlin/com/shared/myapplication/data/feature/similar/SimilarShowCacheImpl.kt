@@ -5,7 +5,9 @@ import com.squareup.sqldelight.runtime.coroutines.mapToList
 import com.thomaskioko.tvmaniac.datasource.cache.SelectSimilarShows
 import com.thomaskioko.tvmaniac.datasource.cache.TvManiacDatabase
 import kotlinx.coroutines.flow.Flow
+import org.koin.core.annotation.Single
 
+@Single
 class SimilarShowCacheImpl(
     private val database: TvManiacDatabase
 ) : SimilarShowCache {

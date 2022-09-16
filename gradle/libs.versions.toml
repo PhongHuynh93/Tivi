@@ -1,11 +1,13 @@
 [versions]
 kotlin = "1.7.10"
+ksp = "1.7.10-1.0.6"
 
 android-compile = "33"
 android-target = "33"
 android-min = "23"
 
 android-gradle = "7.2.2"
+#android-gradle = "7.3.0"
 date-time = "0.4.0"
 collections-immutable = "0.3.5"
 
@@ -32,7 +34,9 @@ desugar = "1.1.5"
 inject = "1"
 kenburns = "1.0.7"
 kermit = "1.1.1"
-koin = "3.1.5"
+koin = "3.2.1"
+koinCompose = "3.2.0"
+koinAnnotations = "1.0.2"
 ktor = "2.1.0"
 material = "1.6.0-alpha01"
 multiplatform-paging = "0.4.6"
@@ -50,7 +54,7 @@ testing-kotest = "5.0.3"
 testing-mockk = "1.12.2"
 testing-mockito-kotlin = "2.2.0"
 
-plugin-buildkonfig = "0.7.0"
+plugin-buildkonfig = "0.13.3"
 plugin-gradle-versions = "0.39.0"
 plugin-detekt = "1.19.0"
 
@@ -102,8 +106,10 @@ androidx-viewmodel-compose = { module = "androidx.lifecycle:lifecycle-viewmodel-
 androidx-paging-runtime = { module = "androidx.paging:paging-runtime", version.ref = "androidx-paging" }
 
 koin-core = { module = "io.insert-koin:koin-core", version.ref = "koin" }
+koin-annotations = { module = "io.insert-koin:koin-annotations", version.ref = "koinAnnotations" }
+koin-kspCompiler = { module = "io.insert-koin:koin-ksp-compiler", version.ref = "koinAnnotations" }
 koin-android = { module = "io.insert-koin:koin-android", version.ref = "koin" }
-koin-compose = { module = "io.insert-koin:koin-androidx-compose", version.ref = "koin" }
+koin-compose = { module = "io.insert-koin:koin-androidx-compose", version.ref = "koinCompose" }
 
 ktor-android = { module = "io.ktor:ktor-client-android", version.ref = "ktor" }
 ktor-core = { module = "io.ktor:ktor-client-core", version.ref = "ktor" }

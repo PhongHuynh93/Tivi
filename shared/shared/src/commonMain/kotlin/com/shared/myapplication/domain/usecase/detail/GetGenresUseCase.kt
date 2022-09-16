@@ -9,11 +9,15 @@ import com.shared.util.UseCase
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
+import org.koin.core.annotation.Factory
+import org.koin.core.annotation.InjectedParam
 
 class GetGenresParam(val tvShow: TvShow)
+
+@Factory
 class GetGenresUseCase constructor(
-    dispatcher: CoroutineDispatcher,
-    private val repository: GenreRepository,
+      dispatcher: CoroutineDispatcher,
+      private val repository: GenreRepository,
 ) : UseCase<GetGenresParam, List<TvGenre>>(dispatcher) {
 
     override suspend fun execute(parameters: GetGenresParam): List<TvGenre> {

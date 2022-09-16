@@ -1,10 +1,6 @@
 package com.shared.myapplication
 
 import co.touchlab.kermit.Logger
-import com.shared.myapplication.data.feature.repositoryModule
-import com.shared.myapplication.data.feature.cacheModule
-import com.shared.myapplication.data.feature.serviceModule
-import com.shared.myapplication.domain.domainModule
 import com.shared.myapplication.viewmodel.viewmodelModule
 import com.shared.util.network.ObserveConnectionState
 import com.shared.util.platformCoroutineDispatcher
@@ -20,11 +16,13 @@ import io.ktor.http.ContentType
 import io.ktor.http.HttpHeaders
 import io.ktor.http.URLBuilder
 import io.ktor.serialization.kotlinx.json.json
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.datetime.Clock
 import kotlinx.serialization.json.Json
 import org.koin.core.KoinApplication
 import org.koin.core.context.startKoin
 import org.koin.core.module.Module
+import org.koin.dsl.bind
 import org.koin.dsl.module
 
 private const val TMDB_API_KEY = "https://api.themoviedb.org"
@@ -36,15 +34,12 @@ fun initKoin(appModule: Module): KoinApplication {
             platformModule,
             coreModule,
             viewmodelModule,
-            domainModule,
-            repositoryModule,
-            cacheModule,
-            serviceModule,
             module {
                 single {
                     TvManiacDatabaseFactory(get()).createDatabase()
                 }
-            }
+            },
+            sharedModule()
         )
     }
 
@@ -57,9 +52,7 @@ val json = Json {
 }
 
 private val coreModule = module {
-    single {
-        platformCoroutineDispatcher
-    }
+    single { platformCoroutineDispatcher } bind(CoroutineDispatcher::class)
     single {
         Clock.System
     }

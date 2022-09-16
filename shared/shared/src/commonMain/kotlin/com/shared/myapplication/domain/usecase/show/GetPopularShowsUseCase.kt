@@ -5,8 +5,12 @@ import com.shared.myapplication.model.ShowCategory
 import com.shared.myapplication.model.TvShow
 import com.shared.util.UseCase
 import kotlinx.coroutines.CoroutineDispatcher
+import org.koin.core.annotation.Factory
+import org.koin.core.annotation.InjectedParam
 
 class GetPopularShowsParam()
+
+@Factory
 class GetPopularShowsUseCase constructor(
     dispatcher: CoroutineDispatcher,
     private val repository: DiscoverRepository

@@ -4,6 +4,7 @@ import com.shared.myapplication.data.mapper.toTvGenreList
 import com.shared.myapplication.data.service.tmdb.TmdbService
 import com.shared.myapplication.model.TvGenre
 import com.thomaskioko.tvmaniac.datasource.cache.Genre
+import org.koin.core.annotation.Single
 
 interface GenreRepository {
 
@@ -11,6 +12,7 @@ interface GenreRepository {
 
 }
 
+@Single
 class GenreRepositoryImpl(
     private val apiService: TmdbService,
     private val genreCache: GenreCache,

@@ -7,7 +7,9 @@ import com.thomaskioko.tvmaniac.datasource.cache.Show
 import com.thomaskioko.tvmaniac.datasource.cache.Show_category
 import com.thomaskioko.tvmaniac.datasource.cache.TvManiacDatabase
 import kotlinx.coroutines.flow.Flow
+import org.koin.core.annotation.Single
 
+@Single
 class DiscoverCategoryCacheImpl(
     private val database: TvManiacDatabase
 ) : DiscoverCategoryCache {

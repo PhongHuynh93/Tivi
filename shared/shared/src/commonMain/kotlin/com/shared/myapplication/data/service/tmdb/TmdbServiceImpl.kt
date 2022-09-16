@@ -9,7 +9,9 @@ import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.request.get
 import io.ktor.client.request.parameter
+import org.koin.core.annotation.Single
 
+@Single
 class TmdbServiceImpl(
     private val httpClient: HttpClient,
 ) : TmdbService {

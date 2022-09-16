@@ -3,6 +3,7 @@ import util.libs
 plugins {
     `kmm-domain-plugin`
     id("kotlin-parcelize")
+    id("com.google.devtools.ksp") version (libs.versions.ksp)
 }
 
 android {
@@ -28,6 +29,7 @@ kotlin {
         val androidMain by getting {
             dependencies {
                 implementation(libs.androidx.compose.runtime)
+                implementation(libs.koin.annotations)
             }
         }
         val iosX64Main by getting
@@ -52,4 +54,10 @@ dependencies {
 
     androidMainApi(libs.androidx.lifecycle.viewmodelKtx)
     androidMainApi(libs.koin.android)
+
+    add("kspCommonMainMetadata", libs.koin.kspCompiler)
+    add("kspAndroid", libs.koin.kspCompiler)
+    add("kspIosX64", libs.koin.kspCompiler)
+    add("kspIosSimulatorArm64", libs.koin.kspCompiler)
+    add("kspIosArm64", libs.koin.kspCompiler)
 }

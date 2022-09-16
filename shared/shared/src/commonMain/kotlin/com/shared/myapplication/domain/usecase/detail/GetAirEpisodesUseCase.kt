@@ -9,11 +9,15 @@ import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.map
+import org.koin.core.annotation.Factory
+import org.koin.core.annotation.InjectedParam
 
 class GetAirEpisodesParam(val tvShowId: String)
+
+@Factory
 class GetAirEpisodesUseCase constructor(
-    private val dispatcher: CoroutineDispatcher,
-    private val repository: LastAirEpisodeRepository,
+      dispatcher: CoroutineDispatcher,
+      private val repository: LastAirEpisodeRepository,
 ) : UseCase<GetAirEpisodesParam, List<LastAirEpisode>>(dispatcher) {
 
     override suspend fun execute(parameters: GetAirEpisodesParam): List<LastAirEpisode> {
