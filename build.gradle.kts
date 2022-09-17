@@ -1,3 +1,10 @@
+import util.libs
+
+plugins {
+    id("org.jlleitschuh.gradle.ktlint") version (libs.versions.ktlint)
+    id("org.jetbrains.kotlinx.kover") version (libs.versions.kover)
+}
+
 buildscript {
     repositories {
         gradlePluginPortal()

@@ -59,6 +59,8 @@ plugin-gradle-versions = "0.39.0"
 plugin-detekt = "1.19.0"
 
 shared-module-version = "0.4.0"
+ktlint = "11.0.0"
+kover = "0.6.0"
 
 [libraries]
 android-gradle = { module = "com.android.tools.build:gradle", version.ref = "android-gradle" }
