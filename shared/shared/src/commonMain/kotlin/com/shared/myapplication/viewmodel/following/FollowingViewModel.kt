@@ -1,6 +1,6 @@
 package com.shared.myapplication.viewmodel.following
 
-import com.shared.myapplication.KMPViewModel
+import com.shared.ksp_annotation.KMPViewModel
 import com.shared.util.viewmodel.BaseViewModel
 import com.shared.util.viewmodel.Store
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -13,7 +13,8 @@ import kotlinx.coroutines.launch
 import org.koin.core.component.KoinComponent
 
 @KMPViewModel
-class FollowingViewModel() : BaseViewModel(), Store<WatchlistState, WatchlistAction, WatchlistEffect>, KoinComponent {
+class FollowingViewModel() : BaseViewModel(),
+    Store<WatchlistState, WatchlistAction, WatchlistEffect>, KoinComponent {
     private val _state = MutableStateFlow<WatchlistState>(WatchlistState.InProgress)
     override val state: StateFlow<WatchlistState> = _state.asStateFlow()
 

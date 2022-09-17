@@ -1,6 +1,5 @@
 package com.shared.ksp_compiler_shared
 
-import com.google.devtools.ksp.closestClassDeclaration
 import com.google.devtools.ksp.processing.CodeGenerator
 import com.google.devtools.ksp.processing.Dependencies
 import com.google.devtools.ksp.processing.KSPLogger
@@ -10,80 +9,56 @@ import com.google.devtools.ksp.symbol.KSAnnotated
 import com.google.devtools.ksp.symbol.KSClassDeclaration
 import com.google.devtools.ksp.symbol.KSNode
 import com.google.devtools.ksp.validate
+import com.shared.ksp_annotation.KMPViewModel
+import com.shared.ksp_annotation.ViewModelModule
 import com.squareup.kotlinpoet.ClassName
 import com.squareup.kotlinpoet.FileSpec
 import com.squareup.kotlinpoet.FunSpec
-import com.squareup.kotlinpoet.TypeSpec
+import com.squareup.kotlinpoet.MemberName
 import com.squareup.kotlinpoet.ksp.toClassName
 import com.squareup.kotlinpoet.ksp.writeTo
 import kotlin.reflect.KClass
 
-class BuilderProcessor(
+class InjectViewModelBuilderProcessor(
     private val codeGenerator: CodeGenerator,
     private val logger: KSPLogger
 ) : SymbolProcessor {
 
     override fun process(resolver: Resolver): List<KSAnnotated> {
-        val factories = getFactories(resolver)
-        val data = getElements(resolver, factories)
-        data.forEach {
-            genFile(it.key, it.value).writeTo(codeGenerator, Dependencies(true))
+        val viewModelModules = resolver.getSymbols(ViewModelModule::class)
+            .map { it.toClassName() }
+            .toList()
+        if (viewModelModules.isNotEmpty()) {
+            val viewModels =  resolver.getSymbols(KMPViewModel::class)
+                .map { it.toClassName() }
+                .toList()
+            // gen one file
+            genFile(viewModelModules.first(), viewModels).writeTo(codeGenerator, Dependencies(true))
         }
         return emptyList()
     }
 
-    private fun getFactories(resolver: Resolver): Set<ClassName> {
-        return resolver.getSymbols(AutoFactory::class)
-            .map { it.toClassName() }
-            .toSet()
-    }
+    private fun genFile(module: ClassName, vms: List<ClassName>): FileSpec {
+        val packageName = module.packageName
+        val className = module.simpleName
+        val funcName = className.replaceFirstChar { it.lowercase() }
 
-    private fun genFile(key: ClassName, list: List<ClassName>): FileSpec {
-        val packageName = key.packageName
-        val funcName = key.simpleName + "Factory"
-        val enumName = key.simpleName + "Type"
-
-        return FileSpec.builder(packageName, funcName)
-            .addType(
-                TypeSpec.enumBuilder(enumName)
-                    .apply {
-                        list.forEach {
-                            addEnumConstant(it.simpleName.uppercase())
-                        }
-                    }
-                    .build())
+        return FileSpec.builder(packageName, className)
             .addFunction(
                 FunSpec.builder(funcName)
-                    .addParameter("key", ClassName(packageName, enumName))
-                    .returns(key)
-                    .beginControlFlow("return when (key)")
+                    .returns(org.koin.core.module.Module::class)
+                    .beginControlFlow("return %M", MemberName("org.koin.dsl", "module"))
                     .apply {
-                        list.forEach {
-                            addStatement("${enumName}.${it.simpleName.uppercase()} -> %T()", it)
+                        vms.forEach {
+                            addStatement("%M { %T() }", MemberName("com.shared.util", "viewModelDefinition"), it)
                         }
                     }
                     .endControlFlow()
-                    .build())
+                    .build()
+            )
             .build()
     }
 
-    private fun getElements(
-        resolver: Resolver,
-        factories: Set<ClassName>
-    ): Map<ClassName, List<ClassName>> {
-        val result = mutableMapOf<ClassName, MutableList<ClassName>>()
-        factories.forEach { result[it] = mutableListOf() }
-        resolver.getSymbols(AutoElement::class)
-            .forEach { d ->
-                d.superTypes
-                    .map { it.resolve().declaration.closestClassDeclaration()?.toClassName() }
-                    .filter { result.containsKey(it) }
-                    .forEach { name ->
-                        result[name]?.add(d.toClassName())
-                    }
-            }
-        return result
-    }
 }
 
 fun Resolver.getSymbols(cls: KClass<*>) =

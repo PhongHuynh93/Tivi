@@ -1,6 +1,6 @@
 package com.shared.myapplication.viewmodel.detail
 
-import com.shared.myapplication.KMPViewModel
+import com.shared.ksp_annotation.KMPViewModel
 import com.shared.myapplication.domain.usecase.detail.GetAirEpisodesParam
 import com.shared.myapplication.domain.usecase.detail.GetAirEpisodesUseCase
 import com.shared.myapplication.domain.usecase.detail.GetGenresParam

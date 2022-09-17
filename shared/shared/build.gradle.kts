@@ -33,6 +33,8 @@ kotlin {
             linkerOpts.add("-lsqlite3")
 
             export(projects.shared.util)
+            export(projects.shared.kspCompilerShared)
+            export(projects.shared.kspAnnotation)
             embedBitcode(org.jetbrains.kotlin.gradle.plugin.mpp.BitcodeEmbeddingMode.BITCODE)
 
             transitiveExport = true
@@ -49,6 +51,7 @@ kotlin {
         val commonMain by getting {
             dependencies {
                 api(projects.shared.util)
+                implementation(projects.shared.kspAnnotation)
                 implementation(libs.ktor.core)
                 implementation(libs.ktor.logging)
                 implementation(libs.ktor.serialization)
@@ -60,6 +63,7 @@ kotlin {
                 implementation(libs.squareup.sqldelight.runtime)
                 implementation(libs.squareup.sqldelight.extensions)
                 implementation(libs.multiplatform.paging.core)
+                kotlin.srcDir("${buildDir.absolutePath}/generated/ksp/")
             }
         }
         val commonTest by getting {

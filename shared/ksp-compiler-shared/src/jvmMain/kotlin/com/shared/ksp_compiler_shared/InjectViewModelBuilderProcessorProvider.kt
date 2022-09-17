@@ -6,6 +6,6 @@ import com.google.devtools.ksp.processing.SymbolProcessorProvider
 
 class InjectViewModelBuilderProcessorProvider : SymbolProcessorProvider {
     override fun create(environment: SymbolProcessorEnvironment): SymbolProcessor {
-        return BuilderProcessor(environment.codeGenerator, environment.logger)
+        return InjectViewModelBuilderProcessor(environment.codeGenerator, environment.logger)
     }
 }

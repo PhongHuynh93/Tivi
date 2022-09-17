@@ -1,6 +1,6 @@
 package com.shared.myapplication.viewmodel.home
 
-import com.shared.myapplication.KMPViewModel
+import com.shared.ksp_annotation.KMPViewModel
 import com.shared.myapplication.domain.usecase.show.GetPopularShowsParam
 import com.shared.myapplication.domain.usecase.show.GetPopularShowsUseCase
 import com.shared.myapplication.domain.usecase.show.GetTopRatedShowsParam
