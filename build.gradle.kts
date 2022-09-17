@@ -1,3 +1,10 @@
+import util.libs
+
+plugins {
+    id("org.jlleitschuh.gradle.ktlint") version (libs.versions.ktlint)
+    id("org.jetbrains.kotlinx.kover") version (libs.versions.kover)
+}
+
 buildscript {
     repositories {
         gradlePluginPortal()
@@ -58,4 +65,12 @@ subprojects {
             }
         }
     }
+}
+
+configure<org.jlleitschuh.gradle.ktlint.KtlintExtension> {
+    verbose.set(true)
+    filter {
+        exclude { it.file.path.contains("com/thomaskioko/tvmaniac/datasource/cache/") }
+    }
+    disabledRules.set(setOf("experimental:annotation"))
 }

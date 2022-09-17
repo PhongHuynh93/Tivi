@@ -30,5 +30,4 @@ class SimilarShowsRepositoryImpl(
             )
         }.toTvShowList()
     }
-
 }

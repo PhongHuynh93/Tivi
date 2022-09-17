@@ -2,8 +2,6 @@ package com.shared.myapplication.data.feature.lastairepisodes
 
 import com.shared.myapplication.data.mapper.toLastAirEpisodeList
 import com.shared.myapplication.model.LastAirEpisode
-import com.thomaskioko.tvmaniac.datasource.cache.AirEpisodesByShowId
-import kotlinx.coroutines.flow.Flow
 import org.koin.core.annotation.Single
 
 interface LastAirEpisodeRepository {

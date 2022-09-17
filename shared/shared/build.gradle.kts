@@ -1,8 +1,8 @@
+import com.codingfeline.buildkonfig.compiler.FieldSpec.Type.STRING
 import org.jetbrains.kotlin.gradle.plugin.mpp.apple.XCFramework
+import util.libs
 import java.io.FileInputStream
 import java.util.Properties
-import com.codingfeline.buildkonfig.compiler.FieldSpec.Type.STRING
-import util.libs
 
 plugins {
     `kmm-domain-plugin`
@@ -139,4 +139,10 @@ dependencies {
     add("kspIosX64", libs.koin.kspCompiler)
     add("kspIosSimulatorArm64", libs.koin.kspCompiler)
     add("kspIosArm64", libs.koin.kspCompiler)
+
+    add("kspCommonMainMetadata", projects.shared.kspCompilerShared)
+    add("kspAndroid", projects.shared.kspCompilerShared)
+    add("kspIosX64", projects.shared.kspCompilerShared)
+    add("kspIosSimulatorArm64", projects.shared.kspCompilerShared)
+    add("kspIosArm64", projects.shared.kspCompilerShared)
 }

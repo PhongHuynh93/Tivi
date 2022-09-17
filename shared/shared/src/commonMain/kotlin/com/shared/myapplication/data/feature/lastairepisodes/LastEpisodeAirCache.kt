@@ -2,7 +2,6 @@ package com.shared.myapplication.data.feature.lastairepisodes
 
 import com.thomaskioko.tvmaniac.datasource.cache.AirEpisodesByShowId
 import com.thomaskioko.tvmaniac.datasource.cache.Last_episode
-import kotlinx.coroutines.flow.Flow
 
 interface LastEpisodeAirCache {
 

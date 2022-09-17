@@ -29,7 +29,8 @@ val detailUiState = ShowDetailViewState.Success(
             year = "2024",
             numberOfEpisodes = 1,
             numberOfSeasons = 1,
-        ), following = true
+        ),
+        following = true
     ),
     tvSeasonUiModels = getTvSeasons(),
     genreUIList = getGenres(),

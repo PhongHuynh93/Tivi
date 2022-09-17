@@ -26,5 +26,4 @@ class SimilarShowCacheImpl(
             .asFlow()
             .mapToList()
     }
-
 }

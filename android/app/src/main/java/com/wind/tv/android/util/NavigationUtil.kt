@@ -2,11 +2,7 @@ package com.wind.tv.android.util
 
 import android.content.Context
 import android.content.Intent
-import android.os.Bundle
 import androidx.activity.ComponentActivity
-import androidx.compose.compiler.plugins.kotlin.EmptyFunctionMetrics.inline
-import androidx.core.os.bundleOf
-import androidx.lifecycle.SavedStateHandle
 import com.shared.util.Parcelable
 
 const val DATA = "data"

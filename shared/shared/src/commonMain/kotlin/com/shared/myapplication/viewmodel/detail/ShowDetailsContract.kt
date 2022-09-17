@@ -24,7 +24,6 @@ sealed class ShowDetailAction : Action {
     class Error(val message: String = "") : ShowDetailAction()
 
     class SetTvShow(val tvShow: TvShow) : ShowDetailAction()
-
 }
 
 sealed class ShowDetailEffect : Effect {

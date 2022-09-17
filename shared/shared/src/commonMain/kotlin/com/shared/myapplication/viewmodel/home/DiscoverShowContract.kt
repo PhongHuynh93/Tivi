@@ -1,8 +1,8 @@
 package com.shared.myapplication.viewmodel.home
 
-import com.shared.util.Immutable
 import com.shared.myapplication.model.ShowCategory
 import com.shared.myapplication.model.TvShow
+import com.shared.util.Immutable
 import com.shared.util.viewmodel.Action
 import com.shared.util.viewmodel.Effect
 import com.shared.util.viewmodel.State
@@ -36,7 +36,6 @@ data class DiscoverShowResult(
         val category: ShowCategory,
         val tvShows: ImmutableList<TvShow>
     )
-
 }
 
 @Immutable

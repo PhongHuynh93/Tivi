@@ -438,7 +438,6 @@ private fun GenreText(
             }
 
             RowSpacer(4)
-
         }
     }
 }
@@ -524,7 +523,6 @@ private fun MoreBodyContent(
                 onShowClicked = onShowClicked
             )
         }
-
     }
 }
 

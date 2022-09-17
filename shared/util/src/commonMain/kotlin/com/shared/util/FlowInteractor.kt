@@ -34,9 +34,9 @@ abstract class FlowInteractor<Arg, ReturnType>(private val coroutineDispatcher: 
     ) {
         val flowUseCaseConfig = FlowUseCaseConfig.Builder<ReturnType>()
             .run {
-            config(this)
-            return@run build()
-        }
+                config(this)
+                return@run build()
+            }
 
         if (flowUseCaseConfig.disposePrevious) {
             job?.cancel()

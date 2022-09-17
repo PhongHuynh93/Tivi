@@ -1,5 +1,6 @@
 package com.shared.myapplication.viewmodel.detail
 
+import com.shared.myapplication.KMPViewModel
 import com.shared.myapplication.domain.usecase.detail.GetAirEpisodesParam
 import com.shared.myapplication.domain.usecase.detail.GetAirEpisodesUseCase
 import com.shared.myapplication.domain.usecase.detail.GetGenresParam
@@ -35,8 +36,11 @@ import kotlinx.coroutines.supervisorScope
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 
-class ShowDetailsViewModel : Store<ShowDetailViewState, ShowDetailAction, ShowDetailEffect>,
-    BaseViewModel(), KoinComponent {
+@KMPViewModel
+class ShowDetailsViewModel :
+    Store<ShowDetailViewState, ShowDetailAction, ShowDetailEffect>,
+    BaseViewModel(),
+    KoinComponent {
 
     private val getSimilarShows: GetSimilarShowsUseCase by inject()
     private val getSeasonsUseCase: GetSeasonsUseCase by inject()
@@ -149,5 +153,4 @@ class ShowDetailsViewModel : Store<ShowDetailViewState, ShowDetailAction, ShowDe
             }
         }
     }
-
 }

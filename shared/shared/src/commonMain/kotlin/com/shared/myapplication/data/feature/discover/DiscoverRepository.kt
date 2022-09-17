@@ -12,5 +12,4 @@ interface DiscoverRepository {
     fun observeShowsByCategoryID(
         categoryId: Int
     ): Flow<List<TvShow>>
-
 }
