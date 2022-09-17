@@ -13,8 +13,6 @@ fun HomeScreen() {
             context.startActivity<DetailActivity>(it)
         },
         moreClicked = {
-
         }
     )
 }
-

@@ -6,7 +6,6 @@ import com.shared.myapplication.model.TvShow
 import com.shared.util.UseCase
 import kotlinx.coroutines.CoroutineDispatcher
 import org.koin.core.annotation.Factory
-import org.koin.core.annotation.InjectedParam
 
 class GetPopularShowsParam()
 
@@ -19,5 +18,4 @@ class GetPopularShowsUseCase constructor(
     override suspend fun execute(parameters: GetPopularShowsParam): List<TvShow> {
         return repository.getShowsByCategoryID(ShowCategory.POPULAR.type)
     }
-
 }

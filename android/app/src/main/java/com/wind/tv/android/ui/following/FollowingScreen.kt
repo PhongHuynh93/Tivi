@@ -83,7 +83,6 @@ fun FollowingScreen(
     )
 }
 
-
 @Composable
 private fun WatchlistContent(
     viewState: WatchlistState,

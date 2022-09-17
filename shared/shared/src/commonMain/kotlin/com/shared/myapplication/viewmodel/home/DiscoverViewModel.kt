@@ -1,8 +1,6 @@
 package com.shared.myapplication.viewmodel.home
 
-import co.touchlab.kermit.Logger
-import com.shared.myapplication.domain.usecase.follow.ObserveFollowingParam
-import com.shared.myapplication.domain.usecase.follow.ObserveFollowingUseCase
+import com.shared.ksp_annotation.KMPViewModel
 import com.shared.myapplication.domain.usecase.show.GetPopularShowsParam
 import com.shared.myapplication.domain.usecase.show.GetPopularShowsUseCase
 import com.shared.myapplication.domain.usecase.show.GetTopRatedShowsParam
@@ -23,9 +21,6 @@ import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.flow.combine
-import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.supervisorScope
 import org.koin.core.component.KoinComponent
@@ -33,8 +28,10 @@ import org.koin.core.component.inject
 
 private const val FEATURED_LIST_SIZE = 5
 
-class DiscoverViewModel(
-) : BaseViewModel(), Store<DiscoverShowState, DiscoverShowAction, DiscoverShowEffect>,
+@KMPViewModel
+class DiscoverViewModel() :
+    BaseViewModel(),
+    Store<DiscoverShowState, DiscoverShowAction, DiscoverShowEffect>,
     KoinComponent {
 
     private val getPopularShows: GetPopularShowsUseCase by inject()

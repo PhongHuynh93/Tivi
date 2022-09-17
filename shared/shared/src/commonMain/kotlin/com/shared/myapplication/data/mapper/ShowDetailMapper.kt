@@ -3,7 +3,6 @@ package com.shared.myapplication.data.mapper
 import com.shared.myapplication.model.LastAirEpisode
 import com.shared.myapplication.model.TvGenre
 import com.shared.myapplication.model.TvShow
-import com.shared.util.network.Resource
 import com.thomaskioko.tvmaniac.datasource.cache.AirEpisodesByShowId
 import com.thomaskioko.tvmaniac.datasource.cache.Genre
 import com.thomaskioko.tvmaniac.datasource.cache.SelectSimilarShows
@@ -23,8 +22,8 @@ fun List<AirEpisodesByShowId>.toLastAirEpisodeList(): List<LastAirEpisode> = map
     LastAirEpisode(
         id = it.id,
         name = "S${it.season_number}.E${
-            it.episode_number.toString()
-                .padStart(2, '0')
+        it.episode_number.toString()
+            .padStart(2, '0')
         } • ${it.name}",
         overview = it.overview,
         airDate = it.air_date,

@@ -1,8 +1,8 @@
+import com.codingfeline.buildkonfig.compiler.FieldSpec.Type.STRING
 import org.jetbrains.kotlin.gradle.plugin.mpp.apple.XCFramework
+import util.libs
 import java.io.FileInputStream
 import java.util.Properties
-import com.codingfeline.buildkonfig.compiler.FieldSpec.Type.STRING
-import util.libs
 
 plugins {
     `kmm-domain-plugin`
@@ -33,6 +33,8 @@ kotlin {
             linkerOpts.add("-lsqlite3")
 
             export(projects.shared.util)
+            export(projects.shared.kspCompilerShared)
+            export(projects.shared.kspAnnotation)
             embedBitcode(org.jetbrains.kotlin.gradle.plugin.mpp.BitcodeEmbeddingMode.BITCODE)
 
             transitiveExport = true
@@ -49,6 +51,7 @@ kotlin {
         val commonMain by getting {
             dependencies {
                 api(projects.shared.util)
+                implementation(projects.shared.kspAnnotation)
                 implementation(libs.ktor.core)
                 implementation(libs.ktor.logging)
                 implementation(libs.ktor.serialization)
@@ -60,6 +63,7 @@ kotlin {
                 implementation(libs.squareup.sqldelight.runtime)
                 implementation(libs.squareup.sqldelight.extensions)
                 implementation(libs.multiplatform.paging.core)
+                kotlin.srcDir("${buildDir.absolutePath}/generated/ksp/")
             }
         }
         val commonTest by getting {
@@ -139,4 +143,10 @@ dependencies {
     add("kspIosX64", libs.koin.kspCompiler)
     add("kspIosSimulatorArm64", libs.koin.kspCompiler)
     add("kspIosArm64", libs.koin.kspCompiler)
+
+    add("kspCommonMainMetadata", projects.shared.kspCompilerShared)
+    add("kspAndroid", projects.shared.kspCompilerShared)
+    add("kspIosX64", projects.shared.kspCompilerShared)
+    add("kspIosSimulatorArm64", projects.shared.kspCompilerShared)
+    add("kspIosArm64", projects.shared.kspCompilerShared)
 }

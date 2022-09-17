@@ -2,9 +2,9 @@ package com.shared.util
 
 import android.os.Parcelable
 import com.shared.util.viewmodel.BaseViewModel
-import kotlinx.parcelize.Parcelize
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
+import kotlinx.parcelize.Parcelize
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.core.definition.Definition
 import org.koin.core.instance.InstanceFactory

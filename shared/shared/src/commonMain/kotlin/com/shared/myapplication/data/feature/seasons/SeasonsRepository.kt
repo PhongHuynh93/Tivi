@@ -15,7 +15,7 @@ interface SeasonsRepository {
 class SeasonsRepositoryImpl(
     private val apiService: TmdbService,
     private val seasonCache: SeasonsCache,
-    ) : SeasonsRepository {
+) : SeasonsRepository {
 
     override suspend fun getShowSeasons(tvShowId: String): List<TvSeason> {
         return apiService.getTvShowDetails(tvShowId)
@@ -24,5 +24,4 @@ class SeasonsRepositoryImpl(
             }
             .toTvSeasonList()
     }
-
 }

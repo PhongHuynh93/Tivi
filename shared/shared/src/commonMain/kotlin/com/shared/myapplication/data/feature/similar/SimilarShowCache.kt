@@ -8,5 +8,4 @@ interface SimilarShowCache {
     fun insert(showId: String, similarShowId: String)
 
     fun observeSimilarShows(showId: String): Flow<List<SelectSimilarShows>>
-
 }

@@ -9,7 +9,6 @@ import org.koin.core.annotation.Single
 interface GenreRepository {
 
     suspend fun getGenres(genreIds: List<String>): List<TvGenre>
-
 }
 
 @Single
@@ -28,5 +27,4 @@ class GenreRepositoryImpl(
             genreCache.insert(it)
         }.toTvGenreList(genreIds)
     }
-
 }

@@ -7,18 +7,16 @@ import com.shared.util.toResult
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
 import org.koin.core.annotation.Factory
-import org.koin.core.annotation.InjectedParam
 
 class ObserveFollowingParam()
 
 @Factory
 class ObserveFollowingUseCase constructor(
-      dispatcher: CoroutineDispatcher,
-      private val repository: TvShowsRepository,
+    dispatcher: CoroutineDispatcher,
+    private val repository: TvShowsRepository,
 ) : FlowUseCase<ObserveFollowingParam, List<TvFollowedShow>>(dispatcher) {
 
     override fun execute(parameters: ObserveFollowingParam): Flow<Result<List<TvFollowedShow>>> {
         return repository.observeFollowing().toResult()
     }
-
 }

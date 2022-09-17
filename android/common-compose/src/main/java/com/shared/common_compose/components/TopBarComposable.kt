@@ -34,7 +34,6 @@ import com.shared.common_compose.R
 import com.shared.common_compose.theme.TvManiacTheme
 import com.shared.common_compose.theme.elevatedSurface
 import com.shared.common_compose.util.iconButtonBackgroundScrim
- 
 
 @Composable
 fun TvManiacTopBar(

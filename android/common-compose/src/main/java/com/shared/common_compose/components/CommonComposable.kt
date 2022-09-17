@@ -48,7 +48,6 @@ import com.shared.common_compose.R
 import com.shared.common_compose.theme.colorError
 import com.shared.common_compose.theme.green
 
-
 @Composable
 fun ErrorView(
     message: String = "Oops! Something went wrong!"

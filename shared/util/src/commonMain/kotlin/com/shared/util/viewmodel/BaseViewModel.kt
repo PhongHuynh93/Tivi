@@ -13,5 +13,4 @@ expect abstract class BaseViewModel() {
     protected val clientScope: CoroutineScope
 
     protected fun detach()
-
 }

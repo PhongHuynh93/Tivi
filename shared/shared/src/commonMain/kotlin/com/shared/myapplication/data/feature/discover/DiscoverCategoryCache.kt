@@ -1,7 +1,6 @@
 package com.shared.myapplication.data.feature.discover
 
 import com.thomaskioko.tvmaniac.datasource.cache.SelectShows
-import com.thomaskioko.tvmaniac.datasource.cache.Show
 import com.thomaskioko.tvmaniac.datasource.cache.Show_category
 import kotlinx.coroutines.flow.Flow
 

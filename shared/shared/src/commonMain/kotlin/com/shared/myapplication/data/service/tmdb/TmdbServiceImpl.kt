@@ -22,13 +22,11 @@ class TmdbServiceImpl(
             parameter("sort_by", "popularity.desc")
         }.body()
 
-
     override suspend fun getPopularShows(page: Int): TvShowsResponse =
         httpClient.get("3/tv/popular") {
             parameter("page", page)
             parameter("sort_by", "popularity.desc")
         }.body()
-
 
     override suspend fun getSimilarShows(showId: String): TvShowsResponse =
         httpClient.get("3/tv/$showId/recommendations")
@@ -38,11 +36,9 @@ class TmdbServiceImpl(
         httpClient.get("3/tv/$showId/recommendations")
             .body()
 
-
     override suspend fun getTvShowDetails(showId: String): ShowDetailResponse =
         httpClient.get("3/tv/$showId")
             .body()
-
 
     override suspend fun getSeasonDetails(tvShowId: String, seasonNumber: Long): SeasonResponse =
         httpClient.get("3/tv/$tvShowId/season/$seasonNumber")

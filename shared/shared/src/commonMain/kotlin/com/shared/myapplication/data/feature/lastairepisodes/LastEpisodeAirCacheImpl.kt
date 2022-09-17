@@ -1,12 +1,8 @@
 package com.shared.myapplication.data.feature.lastairepisodes
 
-import com.squareup.sqldelight.runtime.coroutines.asFlow
-import com.squareup.sqldelight.runtime.coroutines.mapToList
 import com.thomaskioko.tvmaniac.datasource.cache.AirEpisodesByShowId
 import com.thomaskioko.tvmaniac.datasource.cache.Last_episode
 import com.thomaskioko.tvmaniac.datasource.cache.TvManiacDatabase
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.asFlow
 import org.koin.core.annotation.Single
 
 @Single

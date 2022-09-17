@@ -66,3 +66,11 @@ subprojects {
         }
     }
 }
+
+configure<org.jlleitschuh.gradle.ktlint.KtlintExtension> {
+    verbose.set(true)
+    filter {
+        exclude { it.file.path.contains("com/thomaskioko/tvmaniac/datasource/cache/") }
+    }
+    disabledRules.set(setOf("experimental:annotation"))
+}

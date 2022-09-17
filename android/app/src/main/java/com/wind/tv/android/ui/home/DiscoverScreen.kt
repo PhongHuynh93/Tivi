@@ -60,10 +60,10 @@ import com.shared.myapplication.viewmodel.home.DiscoverShowState
 import com.shared.myapplication.viewmodel.home.DiscoverViewModel
 import com.wind.tv.android.R
 import dev.chrisbanes.snapper.rememberSnapperFlingBehavior
-import kotlin.math.absoluteValue
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.coroutines.flow.collectLatest
 import org.koin.androidx.compose.getViewModel
+import kotlin.math.absoluteValue
 
 /**
  * This is the minimum amount of calculated contrast for a color to be used on top of the
@@ -169,8 +169,6 @@ private fun DiscoverShows(
                 }
             }
         }
-
-
     }
 }
 

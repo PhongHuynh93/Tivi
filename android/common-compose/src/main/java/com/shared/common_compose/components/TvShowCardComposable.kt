@@ -15,7 +15,6 @@ import androidx.compose.ui.unit.dp
 import com.shared.common_compose.R
 import com.shared.common_compose.theme.PreviewAppTheme
 
-
 @Composable
 fun TvShowCard(
     modifier: Modifier = Modifier,
@@ -39,7 +38,6 @@ fun TvShowCard(
                 .clip(MaterialTheme.shapes.medium),
         )
     }
-
 }
 
 @Preview
