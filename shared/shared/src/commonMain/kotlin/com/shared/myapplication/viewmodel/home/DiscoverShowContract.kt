@@ -5,26 +5,19 @@ import com.shared.myapplication.model.TvShow
 import com.shared.util.Immutable
 import com.shared.util.viewmodel.Action
 import com.shared.util.viewmodel.Effect
-import com.shared.util.viewmodel.State
 import kotlinx.collections.immutable.ImmutableList
 
-@Immutable
-sealed class DiscoverShowState : State() {
-    object InProgress : DiscoverShowState()
-    data class Success(val data: DiscoverShowResult) : DiscoverShowState()
+sealed interface DiscoverShowAction : Action {
+    object LoadTvShows : DiscoverShowAction
+    data class Error(val message: String = "") : DiscoverShowAction
 }
 
-sealed class DiscoverShowAction : Action {
-    object LoadTvShows : DiscoverShowAction()
-    data class Error(val message: String = "") : DiscoverShowAction()
-}
-
-sealed class DiscoverShowEffect : Effect {
-    data class Error(val message: String = "") : DiscoverShowEffect()
+sealed interface DiscoverShowEffect : Effect {
+    data class Error(val message: String = "") : DiscoverShowEffect
 }
 
 @Immutable
-data class DiscoverShowResult(
+data class DiscoverShow(
     val featuredShows: DiscoverShowsData,
     val trendingShows: DiscoverShowsData,
     val topRatedShows: DiscoverShowsData,

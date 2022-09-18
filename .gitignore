@@ -80,3 +80,5 @@ DerivedData/
 !default.perspectivev3
 
 *.xcuserstate
+/Untitled
+/android/app/release/output-metadata.json

@@ -21,9 +21,11 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.material.ScaffoldState
 import androidx.compose.material.SnackbarHost
+import androidx.compose.material.Text
 import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.State
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -54,9 +56,9 @@ import com.shared.common_compose.util.rememberDominantColorState
 import com.shared.common_compose.util.verticalGradientScrim
 import com.shared.myapplication.model.ShowCategory
 import com.shared.myapplication.model.TvShow
+import com.shared.myapplication.viewmodel.DiscoverShowState
 import com.shared.myapplication.viewmodel.home.DiscoverShowEffect
-import com.shared.myapplication.viewmodel.home.DiscoverShowResult
-import com.shared.myapplication.viewmodel.home.DiscoverShowState
+import com.shared.myapplication.viewmodel.home.DiscoverShow
 import com.shared.myapplication.viewmodel.home.DiscoverViewModel
 import com.wind.tv.android.R
 import dev.chrisbanes.snapper.rememberSnapperFlingBehavior
@@ -81,8 +83,6 @@ fun DiscoverScreen(
 
     val scaffoldState = rememberScaffoldState()
 
-    val discoverViewState = viewModel.state.collectAsState()
-
     LaunchedEffect(Unit) {
         viewModel.effect.collectLatest {
             when (it) {
@@ -93,7 +93,7 @@ fun DiscoverScreen(
 
     DiscoverShows(
         scaffoldState = scaffoldState,
-        discoverViewState = discoverViewState.value,
+        state = viewModel.state.collectAsState(),
         openShowDetails = openShowDetails,
         moreClicked = moreClicked
     )
@@ -102,7 +102,7 @@ fun DiscoverScreen(
 @Composable
 private fun DiscoverShows(
     scaffoldState: ScaffoldState,
-    discoverViewState: DiscoverShowState,
+    state: State<DiscoverShowState>,
     openShowDetails: (show: TvShow) -> Unit,
     moreClicked: (showType: Int) -> Unit
 ) {
@@ -125,7 +125,7 @@ private fun DiscoverShows(
         },
     ) { paddingValues ->
         Logger.d("calculate pad top ${paddingValues.calculateTopPadding()} bot ${paddingValues.calculateBottomPadding()}")
-        when (discoverViewState) {
+        when (val discoverViewState = state.value) {
             DiscoverShowState.InProgress -> FullScreenLoading()
             is DiscoverShowState.Success -> {
                 LazyColumn() {
@@ -168,13 +168,16 @@ private fun DiscoverShows(
                     }
                 }
             }
+            is DiscoverShowState.Error -> {
+                Text(text = "")
+            }
         }
     }
 }
 
 @Composable
 fun FeaturedItems(
-    showData: DiscoverShowResult.DiscoverShowsData,
+    showData: DiscoverShow.DiscoverShowsData,
     onItemClicked: (TvShow) -> Unit,
 ) {
 

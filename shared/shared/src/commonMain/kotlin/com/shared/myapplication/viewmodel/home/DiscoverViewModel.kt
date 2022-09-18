@@ -9,6 +9,7 @@ import com.shared.myapplication.domain.usecase.show.GetTrendingShowsParam
 import com.shared.myapplication.domain.usecase.show.GetTrendingShowsUseCase
 import com.shared.myapplication.model.ShowCategory
 import com.shared.myapplication.model.TvShow
+import com.shared.myapplication.viewmodel.DiscoverShowState
 import com.shared.myapplication.viewmodel.home.DiscoverShowAction.Error
 import com.shared.util.getErrorMessage
 import com.shared.util.viewmodel.BaseViewModel
@@ -29,7 +30,7 @@ import org.koin.core.component.inject
 private const val FEATURED_LIST_SIZE = 5
 
 @KMPViewModel
-class DiscoverViewModel() :
+class DiscoverViewModel :
     BaseViewModel(),
     Store<DiscoverShowState, DiscoverShowAction, DiscoverShowEffect>,
     KoinComponent {
@@ -69,8 +70,8 @@ class DiscoverViewModel() :
                             val trending = trendingDeferred.await()
                             val topRated = topRatedDeferred.await()
                             _state.value = DiscoverShowState.Success(
-                                data = DiscoverShowResult(
-                                    featuredShows = DiscoverShowResult.DiscoverShowsData(
+                                data = DiscoverShow(
+                                    featuredShows = DiscoverShow.DiscoverShowsData(
                                         category = ShowCategory.TRENDING,
                                         tvShows = trending
                                             .sortedBy { it.votes }
@@ -95,7 +96,7 @@ class DiscoverViewModel() :
     }
 
     private fun List<TvShow>.toShowData(category: ShowCategory) = let {
-        DiscoverShowResult.DiscoverShowsData(
+        DiscoverShow.DiscoverShowsData(
             category = category,
             tvShows = toImmutableList()
         )

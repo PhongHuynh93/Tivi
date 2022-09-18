@@ -14,6 +14,7 @@ kotlin {
             dependencies {
                 implementation(projects.shared.kspAnnotation)
                 implementation(libs.koin.core)
+                implementation("com.google.devtools.ksp:symbol-processing:1.7.10-1.0.6")
                 implementation("com.google.devtools.ksp:symbol-processing-api:1.7.10-1.0.6")
                 implementation("com.squareup:kotlinpoet:1.12.0")
                 implementation("com.squareup:kotlinpoet-ksp:1.12.0")

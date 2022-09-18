@@ -24,17 +24,22 @@ class InjectViewModelBuilderProcessor(
     private val logger: KSPLogger
 ) : SymbolProcessor {
 
+    private val sealedXProcessor = SealedXProcessor(codeGenerator, logger)
+
     override fun process(resolver: Resolver): List<KSAnnotated> {
         val viewModelModules = resolver.getSymbols(ViewModelModule::class)
             .map { it.toClassName() }
             .toList()
         if (viewModelModules.isNotEmpty()) {
-            val viewModels =  resolver.getSymbols(KMPViewModel::class)
+            val viewModels = resolver.getSymbols(KMPViewModel::class)
                 .map { it.toClassName() }
                 .toList()
             // gen one file
             genFile(viewModelModules.first(), viewModels).writeTo(codeGenerator, Dependencies(true))
         }
+
+        sealedXProcessor.process(resolver)
+
         return emptyList()
     }
 
@@ -50,7 +55,11 @@ class InjectViewModelBuilderProcessor(
                     .beginControlFlow("return %M", MemberName("org.koin.dsl", "module"))
                     .apply {
                         vms.forEach {
-                            addStatement("%M { %T() }", MemberName("com.shared.util", "viewModelDefinition"), it)
+                            addStatement(
+                                "%M { %T() }",
+                                MemberName("com.shared.util", "viewModelDefinition"),
+                                it
+                            )
                         }
                     }
                     .endControlFlow()
@@ -64,4 +73,3 @@ class InjectViewModelBuilderProcessor(
 fun Resolver.getSymbols(cls: KClass<*>) =
     this.getSymbolsWithAnnotation(cls.qualifiedName.orEmpty())
         .filterIsInstance<KSClassDeclaration>()
-        .filter(KSNode::validate)
