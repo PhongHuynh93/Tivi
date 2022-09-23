@@ -16,14 +16,17 @@ android {
         )
     }
 
-    applicationVariants.all {
-        val variantName = name
-        sourceSets {
-            getByName("main") {
-                java.srcDir(File("build/generated/ksp/$variantName/kotlin"))
-            }
+    buildTypes {
+        getByName("release") {
+            isMinifyEnabled = true
+            isShrinkResources = true
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
         }
     }
+
 }
 
 dependencies {
@@ -40,8 +43,6 @@ dependencies {
     implementation(libs.accompanist.pager.indicator)
 
     implementation(libs.koin.compose)
-    implementation(libs.koin.annotations)
-    ksp(libs.koin.kspCompiler)
 
     implementation(libs.snapper)
 }
