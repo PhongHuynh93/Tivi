@@ -11,6 +11,11 @@ buildscript {
         google()
         mavenCentral()
     }
+
+    dependencies {
+        classpath(libs.google.services)
+        classpath(libs.firebase.crashlytics.gradle)
+    }
 }
 
 allprojects {

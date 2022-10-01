@@ -3,6 +3,8 @@ import util.libs
 plugins {
     `android-app-plugin`
     id("com.google.devtools.ksp") version (libs.versions.ksp)
+    id("com.google.gms.google-services")
+    id("com.google.firebase.crashlytics")
 }
 
 android {
@@ -45,4 +47,8 @@ dependencies {
     implementation(libs.koin.compose)
 
     implementation(libs.snapper)
+
+    implementation(platform(libs.firebase))
+    implementation("com.google.firebase:firebase-crashlytics-ktx")
+    implementation("com.google.firebase:firebase-analytics-ktx")
 }

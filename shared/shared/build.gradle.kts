@@ -77,6 +77,7 @@ kotlin {
                 implementation(libs.androidx.compose.runtime)
                 implementation(libs.ktor.android)
                 implementation(libs.squareup.sqldelight.driver.android)
+                implementation(libs.squareup.sqldelight.driver.android)
             }
         }
         val androidTest by getting
@@ -91,6 +92,7 @@ kotlin {
             dependencies {
                 implementation(libs.ktor.ios)
                 implementation(libs.squareup.sqldelight.driver.native)
+                implementation(libs.kermit.crashlytics)
             }
         }
         val iosX64Test by getting

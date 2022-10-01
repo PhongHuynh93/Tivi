@@ -10,10 +10,14 @@ kotlin {
     jvm()
 
     sourceSets {
+        val commonMain by getting {
+            dependencies {
+                    implementation(projects.shared.kspAnnotation)
+                    implementation(libs.koin.core)
+            }
+        }
         val jvmMain by getting {
             dependencies {
-                implementation(projects.shared.kspAnnotation)
-                implementation(libs.koin.core)
                 implementation("com.google.devtools.ksp:symbol-processing:1.7.10-1.0.6")
                 implementation("com.google.devtools.ksp:symbol-processing-api:1.7.10-1.0.6")
                 implementation("com.squareup:kotlinpoet:1.12.0")

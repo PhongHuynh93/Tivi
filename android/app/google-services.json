@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "874553633633",
+    "project_id": "tivi-kmp",
+    "storage_bucket": "tivi-kmp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:874553633633:android:e5a2db18308bed05edf320",
+        "android_client_info": {
+          "package_name": "com.wind.tv.android"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "874553633633-h840598972l86u2e6voo7jkhdf6191sc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBYAsLuI8Q31h7dmq_6sAm1fcrR7RiXjRE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "874553633633-h840598972l86u2e6voo7jkhdf6191sc.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
