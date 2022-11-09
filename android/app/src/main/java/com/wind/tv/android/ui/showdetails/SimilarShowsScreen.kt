@@ -29,7 +29,7 @@ import kotlinx.collections.immutable.ImmutableList
 @Composable
 fun SimilarShowsShowsContent(
     similarShows: ImmutableList<TvShow>,
-    onShowClicked: (String) -> Unit = {}
+    onShowClicked: (TvShow) -> Unit = {}
 ) {
     val lazyListState = rememberLazyListState()
 
@@ -57,7 +57,7 @@ fun SimilarShowsShowsContent(
                     TvShowCard(
                         posterImageUrl = tvShow.posterImageUrl,
                         title = tvShow.title,
-                        onClick = { onShowClicked(tvShow.id) },
+                        onClick = { onShowClicked(tvShow) },
                         imageWidth = 84.dp,
                         modifier = Modifier.padding(end = 8.dp)
                     )

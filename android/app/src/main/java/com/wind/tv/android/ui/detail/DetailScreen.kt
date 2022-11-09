@@ -96,7 +96,7 @@ private val HeaderHeight = 550.dp
 @Composable
 fun DetailScreen(
     navigateUp: () -> Unit,
-    onShowClicked: (String) -> Unit,
+    onShowClicked: (TvShow) -> Unit,
     onSeasonClicked: (String, String) -> Unit = { _, _ -> },
     onEpisodeClicked: (Long, Long) -> Unit = { _, _ -> }
 ) {
@@ -218,7 +218,7 @@ private fun TvShowDetailsScrollingContent(
     onSeasonClicked: (String, String) -> Unit = { _, _ -> },
     onEpisodeClicked: (Long, Long) -> Unit = { _, _ -> },
     onBookmarkEpClicked: (String) -> Unit = { },
-    onShowClicked: (String) -> Unit = {}
+    onShowClicked: (TvShow) -> Unit = {}
 ) {
 
     LazyColumn(
@@ -483,7 +483,7 @@ private fun MoreBodyContent(
     onSeasonClicked: (String, String) -> Unit,
     onBookmarkEpClicked: (String) -> Unit,
     onEpisodeClicked: (Long, Long) -> Unit,
-    onShowClicked: (String) -> Unit
+    onShowClicked: (TvShow) -> Unit
 ) {
     LoadingItem(
         isLoading = detailUiState.tvSeasonUiModels.isEmpty()

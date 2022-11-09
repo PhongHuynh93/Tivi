@@ -22,7 +22,9 @@ import com.shared.common_compose.components.ConnectionStatus
 import com.shared.common_compose.theme.TvManiacTheme
 import com.shared.util.network.ConnectionState
 import com.shared.util.network.ObserveConnectionState
+import com.wind.tv.android.ui.detail.DetailActivity
 import com.wind.tv.android.ui.home.HomeScreen
+import com.wind.tv.android.util.startActivity
 import com.wind.tv.android.util.toState
 import kotlinx.coroutines.delay
 import org.koin.androidx.compose.get
@@ -37,7 +39,13 @@ class MainActivity : ComponentActivity() {
             ProvideWindowInsets(consumeWindowInsets = false) {
                 TvManiacTheme() {
                     SetupTheme()
-                    HomeScreen()
+                    HomeScreen(
+                        openShowDetails = {
+                            startActivity<DetailActivity>(it)
+                        },
+                        moreClicked = {
+                        }
+                    )
                 }
                 ConnectivityStatus(get())
             }

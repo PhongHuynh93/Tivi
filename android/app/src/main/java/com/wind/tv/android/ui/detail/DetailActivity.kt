@@ -7,6 +7,7 @@ import androidx.core.view.WindowCompat
 import co.touchlab.kermit.Logger
 import com.google.accompanist.insets.ProvideWindowInsets
 import com.shared.common_compose.theme.TvManiacTheme
+import com.wind.tv.android.util.startActivity
 
 class DetailActivity : ComponentActivity() {
 
@@ -21,8 +22,8 @@ class DetailActivity : ComponentActivity() {
                         navigateUp = {
                             finish()
                         },
-                        onShowClicked = { showId ->
-                            Logger.d(showId)
+                        onShowClicked = { tvShow ->
+                            startActivity<DetailActivity>(tvShow)
                         },
                         onSeasonClicked = { showId, seasonName ->
                             Logger.d("$showId $seasonName")
