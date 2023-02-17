@@ -33,7 +33,7 @@ android {
 
 dependencies {
     implementation(projects.shared.shared)
-    implementation(projects.android.commonCompose)
+    implementation(projects.jvm.commonCompose)
 
     implementation(libs.androidx.compose.activity)
     implementation(libs.androidx.compose.ui.util)

@@ -10,8 +10,8 @@ pluginManagement {
 }
 
 rootProject.name = "Tivi"
-include(":android:app")
-include(":android:common-compose")
+include(":jvm:shared")
+include(":jvm:common-compose")
 include(":shared:shared")
 include(":shared:util")
 include(":shared:ksp-compiler-shared")
