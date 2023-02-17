@@ -1,4 +1,4 @@
-package com.shared.myapplication.viewmodel.util
+package com.shared.util
 
 import kotlinx.coroutines.flow.SharingStarted
 

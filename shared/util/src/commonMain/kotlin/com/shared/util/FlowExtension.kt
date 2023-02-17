@@ -1,4 +1,4 @@
-package com.shared.myapplication.viewmodel.util
+package com.shared.util
 
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.async
@@ -8,6 +8,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.shareIn
 import kotlinx.coroutines.flow.stateIn
 
@@ -90,4 +91,8 @@ suspend fun <K, A, B> Map<K, A>.mapAsync(f: suspend (Map.Entry<K, A>) -> B): Lis
 
 suspend fun <K, A, B> Map<K, A>.flatMapAsync(f: suspend (Map.Entry<K, A>) -> Iterable<B>): List<B> = coroutineScope {
     mapAsync(f).flatten()
+}
+
+fun <T> Flow<T>.toResult() = this.map {
+    Result.success(it)
 }
