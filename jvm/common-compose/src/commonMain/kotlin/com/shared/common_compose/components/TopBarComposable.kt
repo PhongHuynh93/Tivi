@@ -1,0 +1,204 @@
+package com.shared.common_compose.components
+
+import androidx.compose.animation.Crossfade
+import androidx.compose.animation.animateColorAsState
+import androidx.compose.animation.core.animateDpAsState
+import androidx.compose.animation.core.spring
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.RowScope
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material.Icon
+import androidx.compose.material.IconButton
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Text
+import androidx.compose.material.TopAppBar
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.unit.dp
+import com.shared.common_compose.theme.elevatedSurface
+import com.shared.common_compose.util.iconButtonBackgroundScrim
+import org.jetbrains.compose.resources.painterResource
+import com.shared.common_compose.MR
+import dev.icerock.moko.resources.compose.stringResource
+
+@Composable
+fun TvManiacTopBar(
+    title: @Composable RowScope.() -> Unit,
+    actions: @Composable RowScope.() -> Unit = {},
+    navigationIcon: @Composable (() -> Unit) = { },
+    backgroundColor: Color = MaterialTheme.colors.primary
+) {
+    TopAppBar(
+        title = { Row { title() } },
+        navigationIcon = navigationIcon,
+        actions = actions,
+        backgroundColor = backgroundColor
+    )
+}
+
+@Composable
+fun AppBarScaffold(
+    title: @Composable RowScope.() -> Unit,
+    actions: @Composable RowScope.() -> Unit = {},
+    navigationIcon: @Composable (() -> Unit) = { AppBarHomeIcon() },
+    content: @Composable () -> Unit,
+    backgroundColor: Color = MaterialTheme.colors.elevatedSurface(3.dp)
+) {
+
+    Column(
+        Modifier.background(backgroundColor.copy(alpha = 0.95f))
+    ) {
+        TvManiacScaffold(
+            appBar = {
+                TopAppBar(
+                    title = { Row { title() } },
+                    navigationIcon = navigationIcon,
+                    actions = actions,
+                    backgroundColor = MaterialTheme.colors.primary
+                )
+            },
+            content = { content() }
+        )
+    }
+}
+
+@Composable
+fun BackAppBar(
+    title: String,
+    onBackClick: () -> Unit
+) {
+
+    TopAppBar(
+        title = { H6(text = title) },
+        navigationIcon = {
+            Image(
+                painter = painterResource("ic_baseline_arrow_back_24.xml"),
+                contentDescription = null,
+                modifier = Modifier
+                    .clickable(onClick = onBackClick)
+                    .padding(16.dp)
+            )
+        },
+        backgroundColor = MaterialTheme.colors.surface.copy(alpha = 0.95f),
+        elevation = 3.dp
+    )
+}
+
+@Composable
+fun AppBarHomeIcon(onNavIconPressed: () -> Unit = { }) {
+    Image(
+        painter = painterResource("ic_tv_logo.xml"),
+        contentDescription = null,
+        modifier = Modifier
+            .clickable(onClick = onNavIconPressed)
+    )
+}
+
+@Composable
+fun CollapsableAppBar(
+    title: String?,
+    showAppBarBackground: Boolean,
+    onNavIconPressed: () -> Unit,
+    modifier: Modifier = Modifier,
+) {
+
+    val backgroundColor by animateColorAsState(
+        targetValue = when {
+            showAppBarBackground -> MaterialTheme.colors.surface
+            else -> Color.Transparent
+        },
+        animationSpec = spring(),
+    )
+
+    val elevation by animateDpAsState(
+        targetValue = when {
+            showAppBarBackground -> 4.dp
+            else -> 0.dp
+        },
+        animationSpec = spring(),
+    )
+
+    TopAppBar(
+        title = {
+            Crossfade(showAppBarBackground && title != null) { show ->
+                if (show) Text(text = title!!)
+            }
+        },
+//        contentPadding = rememberInsetsPaddingValues(
+//            LocalWindowInsets.current.systemBars,
+//            applyBottom = false
+//        ),
+        navigationIcon = {
+            IconButton(
+                onClick = onNavIconPressed,
+                modifier = Modifier.iconButtonBackgroundScrim(enabled = !showAppBarBackground),
+            ) {
+                Icon(
+                    imageVector = Icons.Default.ArrowBack,
+                    contentDescription = stringResource(MR.strings.cd_navigate_back),
+                )
+            }
+        },
+        elevation = elevation,
+        backgroundColor = backgroundColor,
+        modifier = modifier
+    )
+}
+//
+//@Preview(
+//    name = "BackAppBar",
+//    uiMode = Configuration.UI_MODE_NIGHT_NO,
+//)
+//@Preview(
+//    name = "BackAppBar• Dark",
+//    uiMode = Configuration.UI_MODE_NIGHT_YES,
+//)
+//@Composable
+//private fun BackAppBarPreview() {
+//    TvManiacTheme {
+//        BackAppBar(title = "Tv Maniac", onBackClick = {})
+//    }
+//}
+//
+//@Preview(
+//    name = "AppBar",
+//    uiMode = Configuration.UI_MODE_NIGHT_NO,
+//)
+//@Preview(
+//    name = "AppBar• Dark",
+//    uiMode = Configuration.UI_MODE_NIGHT_YES,
+//)
+//@Composable
+//private fun AppBarDarkPreview() {
+//    TvManiacTheme {
+//        TvManiacTopBar(
+//            title = { Text("Tv Maniac") },
+//            navigationIcon = { AppBarHomeIcon() }
+//        )
+//    }
+//}
+//
+//@Preview(
+//    name = "AppBar Settings",
+//    uiMode = Configuration.UI_MODE_NIGHT_NO,
+//)
+//@Preview(
+//    name = "AppBar Settings• Dark",
+//    uiMode = Configuration.UI_MODE_NIGHT_YES,
+//)
+//
+//@Preview("AppBar Scaffold")
+//@Composable
+//private fun AppBarScaffoldPreview() {
+//    TvManiacTheme {
+//        AppBarScaffold(title = { Text("Tv Maniac") }, content = {})
+//    }
+//}

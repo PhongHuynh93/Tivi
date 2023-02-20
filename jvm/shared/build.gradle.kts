@@ -1,54 +1,85 @@
+@file:OptIn(ExperimentalComposeLibrary::class)
+
 import util.libs
+import org.jetbrains.compose.ExperimentalComposeLibrary
 
 plugins {
-    `android-app-plugin`
-    id("com.google.devtools.ksp") version (libs.versions.ksp)
-    id("com.google.gms.google-services")
-    id("com.google.firebase.crashlytics")
+    kotlin("multiplatform")
+    id("com.android.library")
+    id("org.jetbrains.compose")
 }
 
-android {
-    kotlinOptions {
-        freeCompilerArgs = listOf(
-            *freeCompilerArgs.toTypedArray(),
-            "-opt-in=kotlinx.coroutines.ExperimentalCoroutinesApi",
-            "-opt-in=androidx.compose.animation.ExperimentalAnimationApi",
-            "-opt-in=com.google.accompanist.pager.ExperimentalPagerApi",
-            "-opt-in=dev.chrisbanes.snapper.ExperimentalSnapperApi"
-        )
+kotlin {
+    android()
+
+    jvm("desktop") {
+        compilations.all {
+            kotlinOptions {
+                jvmTarget = "11"
+            }
+        }
     }
 
-    buildTypes {
-        getByName("release") {
-            isMinifyEnabled = true
-            isShrinkResources = true
-            proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
-            )
+    sourceSets {
+//        all {
+//            languageSettings.optIn("org.jetbrains.compose.ExperimentalComposeLibrary")
+//        }
+        val commonMain by getting {
+            dependencies {
+                api(projects.shared.shared)
+                api(projects.jvm.commonCompose)
+
+                implementation(libs.koin.compose)
+                implementation(libs.snapper)
+
+                implementation(compose.desktop.currentOs)
+                implementation(compose.runtime)
+                implementation(compose.foundation)
+                implementation(compose.material3)
+                implementation(compose.materialIconsExtended)
+                implementation(compose.preview)
+
+                implementation("com.arkivanov.decompose:decompose:1.0.0")
+                implementation("com.arkivanov.decompose:extensions-compose-jetbrains:1.0.0")
+            }
         }
     }
 
 }
 
-dependencies {
-    implementation(projects.shared.shared)
-    implementation(projects.jvm.commonCompose)
+android {
+    sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
 
-    implementation(libs.androidx.compose.activity)
-    implementation(libs.androidx.compose.ui.util)
-    implementation(libs.androidx.compose.material.icons)
+    compileSdk = libs.versions.android.compile.get().toInt()
 
-    implementation(libs.accompanist.insets)
-    implementation(libs.accompanist.systemuicontroller)
-    implementation(libs.accompanist.pager.core)
-    implementation(libs.accompanist.pager.indicator)
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_11
+        targetCompatibility = JavaVersion.VERSION_11
+    }
 
-    implementation(libs.koin.compose)
+    buildFeatures {
+        compose = true
+    }
 
-    implementation(libs.snapper)
+    composeOptions {
+        kotlinCompilerExtensionVersion = libs.versions.compose.compiler.get()
+    }
 
-    implementation(platform(libs.firebase))
-    implementation("com.google.firebase:firebase-crashlytics-ktx")
-    implementation("com.google.firebase:firebase-analytics-ktx")
+    defaultConfig {
+        minSdk = libs.versions.android.min.get().toInt()
+        targetSdk = libs.versions.android.target.get().toInt()
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles("consumer-rules.pro")
+    }
+
+//    kotlinOptions {
+//        freeCompilerArgs = listOf(
+//            *freeCompilerArgs.toTypedArray(),
+//            "-opt-in=kotlinx.coroutines.ExperimentalCoroutinesApi",
+//            "-opt-in=androidx.compose.animation.ExperimentalAnimationApi",
+//            "-opt-in=com.google.accompanist.pager.ExperimentalPagerApi",
+//            "-opt-in=dev.chrisbanes.snapper.ExperimentalSnapperApi"
+//        )
+//    }
+
 }

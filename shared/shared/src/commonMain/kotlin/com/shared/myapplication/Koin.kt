@@ -27,10 +27,10 @@ import org.koin.dsl.module
 
 private const val TMDB_API_KEY = "https://api.themoviedb.org"
 
-fun initKoin(appModule: Module): KoinApplication {
+fun initKoin(vararg modules: Module): KoinApplication {
     val koinApplication = startKoin {
         modules(
-            appModule,
+            *modules,
             platformModule,
             coreModule,
             module {

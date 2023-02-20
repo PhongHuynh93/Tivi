@@ -15,6 +15,8 @@ buildscript {
     dependencies {
         classpath(libs.google.services)
         classpath(libs.firebase.crashlytics.gradle)
+        classpath("org.jetbrains.compose:compose-gradle-plugin:1.3.0")
+        classpath("dev.icerock.moko:resources-generator:0.20.1")
     }
 }
 
@@ -22,6 +24,7 @@ allprojects {
     repositories {
         google()
         mavenCentral()
+        maven("https://maven.pkg.jetbrains.space/public/p/compose/dev")
     }
 }
 
